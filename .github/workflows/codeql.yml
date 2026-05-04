@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: '0 6 * * 1'
 
+# Avoid concurrent CodeQL runs racing for the same SARIF upload.
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   security-events: write
@@ -17,16 +22,24 @@ jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
         language: [javascript-typescript]
     steps:
       - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v3
+
+      # No autobuild: CodeQL parses TypeScript/JavaScript sources directly.
+      # Building this monorepo (pnpm workspace, tsup with 50+ entries, DTS
+      # emission) can OOM / time out, and gives CodeQL nothing it can't get
+      # from the source files alone.
+      - uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+          build-mode: none
           queries: security-and-quality
-      - uses: github/codeql-action/analyze@v3
+
+      - uses: github/codeql-action/analyze@v4
         with:
           category: '/language:${{ matrix.language }}'
