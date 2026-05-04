@@ -43,7 +43,7 @@
     "clean": "pnpm -r exec rm -rf dist .turbo .astro storybook-static node_modules/.cache"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.27.10",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
@@ -63,7 +63,7 @@
     "lint-staged": "^15.2.10",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.9",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.0"
   },
