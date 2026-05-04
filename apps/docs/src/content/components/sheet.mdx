@@ -1,0 +1,36 @@
+---
+title: Sheet
+description: Side-anchored panel (top/right/bottom/left).
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SheetDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SheetDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Sheet } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Sheet } from 'nyxis-ui/sheet';
+
+<Sheet>
+  <SheetTrigger asChild>
+    <Button>Open</Button>
+  </SheetTrigger>
+  <SheetContent>...</SheetContent>
+</Sheet>;
+```

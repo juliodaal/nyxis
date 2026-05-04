@@ -1,0 +1,33 @@
+---
+title: SplitText
+description: Animate entry of characters, words, or lines.
+category: text-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SplitTextDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SplitTextDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SplitText } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { SplitText } from 'nyxis-ui/split-text';
+
+<SplitText as="h1" splitBy="words" stagger={0.05}>
+  Document intelligence, automated.
+</SplitText>;
+```

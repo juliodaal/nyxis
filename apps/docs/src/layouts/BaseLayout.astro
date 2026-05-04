@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import { getThemeScript } from 'nyxis-ui/theme';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'A modern React component library for AI-powered products.' } =
+  Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nyxis.vercel.app').toString();
+const themeScript = getThemeScript();
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    {/* FOUC-prevention: must be the first executed script in <head>. */}
+    <script is:inline set:html={themeScript} />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#A855F7" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#7C3AED" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

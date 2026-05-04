@@ -1,0 +1,43 @@
+---
+title: EmailTriageCard
+description: Email category, preview, and draft response.
+category: domain
+status: stable
+saas:
+  - InboxZero
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { EmailTriageCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <EmailTriageCardDemo client:load />
+</Preview>
+
+## Used in
+
+- **InboxZero**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { EmailTriageCard } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { EmailTriageCard } from 'nyxis-ui/email-triage-card';
+
+<EmailTriageCard
+  from="lukas@acme.de"
+  subject="Pricing for the enterprise plan"
+  category="sales"
+  preview="..."
+  draft="Hi Lukas, thanks for reaching out..."
+/>;
+```

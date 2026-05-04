@@ -1,0 +1,43 @@
+---
+title: LeadCard
+description: Lead summary with score ring and quick actions.
+category: domain
+status: stable
+saas:
+  - LeadSift
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { LeadCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <LeadCardDemo client:load />
+</Preview>
+
+## Used in
+
+- **LeadSift**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { LeadCard } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { LeadCard } from 'nyxis-ui/lead-card';
+
+<LeadCard
+  company="Acme GmbH"
+  contact="Lukas Müller · CFO"
+  segment="Manufacturing"
+  score={0.82}
+  tags={['Enterprise', 'EU']}
+/>;
+```

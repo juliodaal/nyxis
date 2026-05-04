@@ -1,0 +1,293 @@
+{
+  "name": "nyxis-ui",
+  "version": "0.0.0",
+  "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
+  "license": "MIT",
+  "author": "Julio César Daal <juliocesar.daal@gmail.com>",
+  "homepage": "https://nyxis.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliodaal/nyxis.git",
+    "directory": "packages/ui"
+  },
+  "bugs": {
+    "url": "https://github.com/juliodaal/nyxis/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "tailwindcss",
+    "radix",
+    "gsap",
+    "animations",
+    "design-system",
+    "ai",
+    "saas"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "./dist/styles.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./theme": {
+      "types": "./dist/components/theme/index.d.ts",
+      "import": "./dist/components/theme/index.js"
+    },
+    "./utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "import": "./dist/lib/utils.js"
+    },
+    "./button": {
+      "types": "./dist/components/ui/button/index.d.ts",
+      "import": "./dist/components/ui/button/index.js"
+    },
+    "./input": {
+      "types": "./dist/components/ui/input/index.d.ts",
+      "import": "./dist/components/ui/input/index.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/ui/textarea/index.d.ts",
+      "import": "./dist/components/ui/textarea/index.js"
+    },
+    "./label": {
+      "types": "./dist/components/ui/label/index.d.ts",
+      "import": "./dist/components/ui/label/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/ui/card/index.d.ts",
+      "import": "./dist/components/ui/card/index.js"
+    },
+    "./badge": {
+      "types": "./dist/components/ui/badge/index.d.ts",
+      "import": "./dist/components/ui/badge/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/components/ui/avatar/index.d.ts",
+      "import": "./dist/components/ui/avatar/index.js"
+    },
+    "./separator": {
+      "types": "./dist/components/ui/separator/index.d.ts",
+      "import": "./dist/components/ui/separator/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/ui/skeleton/index.d.ts",
+      "import": "./dist/components/ui/skeleton/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/components/ui/dialog/index.d.ts",
+      "import": "./dist/components/ui/dialog/index.js"
+    },
+    "./sheet": {
+      "types": "./dist/components/ui/sheet/index.d.ts",
+      "import": "./dist/components/ui/sheet/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/ui/drawer/index.d.ts",
+      "import": "./dist/components/ui/drawer/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/ui/popover/index.d.ts",
+      "import": "./dist/components/ui/popover/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/ui/tooltip/index.d.ts",
+      "import": "./dist/components/ui/tooltip/index.js"
+    },
+    "./select": {
+      "types": "./dist/components/ui/select/index.d.ts",
+      "import": "./dist/components/ui/select/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/ui/checkbox/index.d.ts",
+      "import": "./dist/components/ui/checkbox/index.js"
+    },
+    "./switch": {
+      "types": "./dist/components/ui/switch/index.d.ts",
+      "import": "./dist/components/ui/switch/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/ui/radio-group/index.d.ts",
+      "import": "./dist/components/ui/radio-group/index.js"
+    },
+    "./form": {
+      "types": "./dist/components/ui/form/index.d.ts",
+      "import": "./dist/components/ui/form/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/ui/tabs/index.d.ts",
+      "import": "./dist/components/ui/tabs/index.js"
+    },
+    "./accordion": {
+      "types": "./dist/components/ui/accordion/index.d.ts",
+      "import": "./dist/components/ui/accordion/index.js"
+    },
+    "./command": {
+      "types": "./dist/components/ui/command/index.d.ts",
+      "import": "./dist/components/ui/command/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/components/ui/combobox/index.d.ts",
+      "import": "./dist/components/ui/combobox/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/ui/toast/index.d.ts",
+      "import": "./dist/components/ui/toast/index.js"
+    },
+    "./text": {
+      "types": "./dist/components/text/index.d.ts",
+      "import": "./dist/components/text/index.js"
+    },
+    "./split-text": {
+      "types": "./dist/components/text/split-text/index.d.ts",
+      "import": "./dist/components/text/split-text/index.js"
+    },
+    "./type-writer": {
+      "types": "./dist/components/text/type-writer/index.d.ts",
+      "import": "./dist/components/text/type-writer/index.js"
+    },
+    "./scramble-text": {
+      "types": "./dist/components/text/scramble-text/index.d.ts",
+      "import": "./dist/components/text/scramble-text/index.js"
+    },
+    "./decrypt-text": {
+      "types": "./dist/components/text/decrypt-text/index.d.ts",
+      "import": "./dist/components/text/decrypt-text/index.js"
+    },
+    "./gradient-text": {
+      "types": "./dist/components/text/gradient-text/index.d.ts",
+      "import": "./dist/components/text/gradient-text/index.js"
+    },
+    "./shiny-text": {
+      "types": "./dist/components/text/shiny-text/index.d.ts",
+      "import": "./dist/components/text/shiny-text/index.js"
+    },
+    "./count-up": {
+      "types": "./dist/components/text/count-up/index.d.ts",
+      "import": "./dist/components/text/count-up/index.js"
+    },
+    "./reveal-text": {
+      "types": "./dist/components/text/reveal-text/index.d.ts",
+      "import": "./dist/components/text/reveal-text/index.js"
+    },
+    "./marquee-text": {
+      "types": "./dist/components/text/marquee-text/index.d.ts",
+      "import": "./dist/components/text/marquee-text/index.js"
+    },
+    "./rotating-text": {
+      "types": "./dist/components/text/rotating-text/index.d.ts",
+      "import": "./dist/components/text/rotating-text/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "scripts": {
+    "dev": "tsup --watch --no-dts",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" tsup",
+    "build:css": "node scripts/copy-styles.mjs",
+    "build:directives": "node scripts/preserve-directives.mjs",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "publint": "publint",
+    "attw": "attw --pack ."
+  },
+  "peerDependencies": {
+    "framer-motion": "^11.0.0 || ^12.0.0",
+    "gsap": "^3.12.0",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "gsap": {
+      "optional": true
+    },
+    "framer-motion": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-accordion": "^1.2.2",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-checkbox": "^1.1.3",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-popover": "^1.1.4",
+    "@radix-ui/react-radio-group": "^1.2.2",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-separator": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-switch": "^1.1.2",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "@tanstack/react-table": "^8.20.6",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "cmdk": "^1.0.4",
+    "lucide-react": "catalog:",
+    "react-hook-form": "^7.54.2",
+    "sonner": "^1.7.1",
+    "tailwind-merge": "catalog:",
+    "vaul": "^1.1.2",
+    "zod": "catalog:"
+  },
+  "optionalDependencies": {
+    "gsap": "^3.12.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.1",
+    "cross-env": "^7.0.3",
+    "@storybook/addon-a11y": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-themes": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@storybook/test-runner": "^0.21.0",
+    "@tailwindcss/cli": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "jsdom": "catalog:",
+    "publint": "^0.3.2",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "^8.4.7",
+    "tailwindcss": "catalog:",
+    "tsup": "^8.3.5",
+    "typescript": "catalog:",
+    "gsap": "^3.12.5",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}

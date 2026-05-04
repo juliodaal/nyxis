@@ -1,0 +1,45 @@
+---
+title: CitationCard
+description: Source snippet with title, page, and link.
+category: domain
+status: stable
+saas:
+  - AskCompany
+  - MeetingMind
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { CitationCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <CitationCardDemo client:load />
+</Preview>
+
+## Used in
+
+- **AskCompany**
+- **MeetingMind**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { CitationCard } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { CitationCard } from 'nyxis-ui/citation-card';
+
+<CitationCard
+  rank={1}
+  source="Employee handbook"
+  locator="§4.2"
+  href="#"
+  snippet="The fiscal year ends on March 31."
+/>;
+```

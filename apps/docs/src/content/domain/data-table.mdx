@@ -1,0 +1,39 @@
+---
+title: DataTable
+description: TanStack table with sort, filter, pagination, selection.
+category: domain
+status: stable
+saas:
+  - DocuMind
+  - LeadSift
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DataTableDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DataTableDemo client:load />
+</Preview>
+
+## Used in
+
+- **DocuMind**
+- **LeadSift**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { DataTable } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { DataTable } from 'nyxis-ui/data-table';
+
+<DataTable columns={columns} data={data} pageSize={10} />;
+```

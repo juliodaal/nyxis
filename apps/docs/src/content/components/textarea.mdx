@@ -1,0 +1,31 @@
+---
+title: Textarea
+description: Multi-line input with optional autosize.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TextareaDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TextareaDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Textarea } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Textarea } from 'nyxis-ui/textarea';
+
+<Textarea placeholder="Tell us what changed..." />;
+```

@@ -1,0 +1,41 @@
+---
+title: FileDropzone
+description: Drag-and-drop multi-file uploader with previews.
+category: domain
+status: stable
+saas:
+  - DocuMind
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { FileDropzoneDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <FileDropzoneDemo client:load />
+</Preview>
+
+## Used in
+
+- **DocuMind**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { FileDropzone } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { FileDropzone } from 'nyxis-ui/file-dropzone';
+
+<FileDropzone
+  accept="application/pdf,image/*"
+  maxSize={25 * 1024 * 1024}
+  onFilesChange={(files) => upload(files)}
+/>;
+```

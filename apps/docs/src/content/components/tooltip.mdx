@@ -1,0 +1,38 @@
+---
+title: Tooltip
+description: Contextual hint with delay control.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TooltipDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TooltipDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Tooltip } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Tooltip } from 'nyxis-ui/tooltip';
+
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button>Hover</Button>
+    </TooltipTrigger>
+    <TooltipContent>92% confidence</TooltipContent>
+  </Tooltip>
+</TooltipProvider>;
+```

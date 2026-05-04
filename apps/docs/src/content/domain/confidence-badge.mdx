@@ -1,0 +1,39 @@
+---
+title: ConfidenceBadge
+description: Color-coded extraction confidence indicator.
+category: domain
+status: stable
+saas:
+  - DocuMind
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ConfidenceBadgeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ConfidenceBadgeDemo client:load />
+</Preview>
+
+## Used in
+
+- **DocuMind**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ConfidenceBadge } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ConfidenceBadge } from 'nyxis-ui/confidence-badge';
+
+<ConfidenceBadge score={0.97} />
+<ConfidenceBadge score={0.74} />
+<ConfidenceBadge score={0.42} />
+```

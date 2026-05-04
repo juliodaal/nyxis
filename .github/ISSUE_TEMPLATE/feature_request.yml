@@ -1,0 +1,36 @@
+name: Feature Request
+description: Propose a new component, animation, or improvement
+title: '[Feature]: '
+labels: ['enhancement', 'triage']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this solve? What is the user pain?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: API sketch, behavior, or visual reference.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Text Animation
+        - Component (base UI)
+        - Animation / Effect
+        - Domain Pattern
+        - Tooling / Infra
+        - Documentation
+    validations:
+      required: true

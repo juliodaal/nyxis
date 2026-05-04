@@ -1,0 +1,32 @@
+---
+title: Switch
+description: Toggle switch.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SwitchDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SwitchDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Switch } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Switch } from 'nyxis-ui/switch';
+
+<Switch id="airplane" />
+<Label htmlFor="airplane">Airplane mode</Label>
+```

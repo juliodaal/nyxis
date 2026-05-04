@@ -1,0 +1,8 @@
+# Default owner for everything
+*       @juliodaal
+
+# Security-critical files
+SECURITY.md         @juliodaal
+.github/workflows/  @juliodaal
+vercel.json         @juliodaal
+.gitleaks.toml      @juliodaal

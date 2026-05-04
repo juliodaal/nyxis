@@ -1,0 +1,38 @@
+---
+title: Tabs
+description: Switch between equivalent views.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TabsDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TabsDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Tabs } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Tabs } from 'nyxis-ui/tabs';
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">...</TabsContent>
+  <TabsContent value="code">...</TabsContent>
+</Tabs>;
+```

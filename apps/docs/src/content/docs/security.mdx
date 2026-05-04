@@ -1,0 +1,50 @@
+---
+title: Security
+description: Hardening practices and vulnerability disclosure.
+category: getting-started
+status: stable
+---
+
+Nyxis is a public, open-source project. The code, the deployed docs site,
+and the Storybook are all open to the world, and every release is signed
+with [npm provenance](https://docs.npmjs.com/generating-provenance-statements).
+This page documents what we do to keep the supply chain trustworthy.
+
+## Hardening baseline
+
+Every release of Nyxis must satisfy the following:
+
+- **Strict Content-Security-Policy** on the deployed docs site, with no
+  `unsafe-eval` and no third-party scripts beyond Vercel telemetry.
+- **HSTS preload**, `X-Frame-Options: DENY`, `Referrer-Policy:
+strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff`,
+  and a restrictive `Permissions-Policy`.
+- **CodeQL** static analysis on every push and pull request.
+- **Dependabot** opens grouped weekly PRs for dev and production
+  dependencies.
+- `pnpm audit --audit-level=high` blocks CI.
+- **Gitleaks** scans every commit and every PR for accidentally
+  committed secrets.
+- **Branch protection** on `main` requires green CI and a review.
+- **npm provenance** uses GitHub Actions OIDC to sign every release; you
+  can verify a tarball with:
+
+  ```bash
+  npm audit signatures
+  ```
+
+## MDX rendering
+
+Nyxis docs render MDX through Astro's official MDX integration with a
+strict component allowlist. We do not call `dangerouslySetInnerHTML` on
+user-controlled content, do not evaluate strings as code, and rely on
+Shiki for syntax highlighting (AST-based, never raw HTML injection).
+
+## Reporting a vulnerability
+
+Please **do not open a public issue** for security problems. Email
+`security@juliodaal.dev` (or `juliocesar.daal@gmail.com` while the dedicated
+address is being set up) with a subject of `[SECURITY] Nyxis – <summary>`
+and a clear reproduction. We acknowledge within 72 hours and aim to fix
+high-severity issues within 30 days. See [SECURITY.md](https://github.com/juliodaal/nyxis/blob/main/SECURITY.md)
+for full details.

@@ -1,0 +1,32 @@
+---
+title: Input
+description: Single-line text input with prefix/suffix slots.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { InputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <InputDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Input } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Input } from 'nyxis-ui/input';
+
+<Label htmlFor="email">Email</Label>
+<Input id="email" type="email" placeholder="hello@nyxis.dev" />
+```

@@ -1,0 +1,16 @@
+# Force LF line endings to avoid noisy diffs across platforms
+* text=auto eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# Generated / lock files (collapsed in PRs)
+pnpm-lock.yaml linguist-generated=true
+*.snap linguist-generated=true

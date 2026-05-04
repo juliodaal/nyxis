@@ -1,0 +1,36 @@
+---
+title: Accordion
+description: Collapsible disclosure rows.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AccordionDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AccordionDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Accordion } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Accordion } from 'nyxis-ui/accordion';
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="a">
+    <AccordionTrigger>Question</AccordionTrigger>
+    <AccordionContent>Answer.</AccordionContent>
+  </AccordionItem>
+</Accordion>;
+```

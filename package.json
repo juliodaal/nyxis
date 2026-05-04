@@ -1,0 +1,86 @@
+{
+  "name": "nyxis",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo root for Nyxis — a modern React component library for AI-powered products.",
+  "license": "MIT",
+  "author": "Julio César Daal <juliocesar.daal@gmail.com>",
+  "homepage": "https://github.com/juliodaal/nyxis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliodaal/nyxis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juliodaal/nyxis/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.11.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r --filter=./packages/* build && pnpm -r --filter=./apps/* build",
+    "dev": "pnpm -r --parallel dev",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,astro,mdx,md,json,css,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,astro,mdx,md,json,css,yml,yaml}\"",
+    "test": "pnpm -r --parallel test",
+    "test:e2e": "pnpm --filter ./apps/docs test:e2e",
+    "storybook": "pnpm --filter nyxis-ui storybook",
+    "build-storybook": "pnpm --filter nyxis-ui build-storybook",
+    "changeset": "changeset",
+    "version": "changeset version && pnpm install --lockfile-only",
+    "release": "pnpm build && changeset publish",
+    "prepare": "husky",
+    "audit:deps": "pnpm audit --audit-level=high",
+    "clean": "pnpm -r exec rm -rf dist .turbo .astro storybook-static node_modules/.cache"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.10",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/types": "^19.5.0",
+    "@eslint/js": "^9.16.0",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,astro}": [
+      "prettier --write"
+    ],
+    "*.{json,md,mdx,yml,yaml,css}": [
+      "prettier --write"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

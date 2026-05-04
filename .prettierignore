@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+.astro
+.next
+storybook-static
+coverage
+pnpm-lock.yaml
+*.min.*
+public/fonts

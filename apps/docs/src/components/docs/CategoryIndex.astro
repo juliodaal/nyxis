@@ -1,0 +1,56 @@
+---
+import { entriesByCategory, pathFor, type Category } from '../../lib/registry';
+
+interface Props {
+  category: Category;
+  title: string;
+  description: string;
+}
+
+const { category, title, description } = Astro.props;
+const entries = entriesByCategory(category);
+---
+
+<header class="prose-docs mb-10 flex flex-col gap-2">
+  <span class="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
+    {entries.length}
+    {entries.length === 1 ? 'component' : 'components'}
+  </span>
+  <h1>{title}</h1>
+  <p class="!text-muted-foreground !mb-0 text-base">{description}</p>
+</header>
+
+<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    entries.map((entry) => (
+      <a
+        href={pathFor(entry)}
+        class="border-border bg-card hover:border-primary/50 hover:bg-accent/30 group flex flex-col gap-2 rounded-lg border p-5 transition-colors"
+      >
+        <div class="flex items-start justify-between gap-2">
+          <h3 class="text-foreground group-hover:text-primary text-base font-semibold">
+            {entry.name}
+          </h3>
+          {entry.status !== 'stable' && (
+            <span
+              data-status={entry.status}
+              class="data-[status=planned]:bg-muted data-[status=planned]:text-muted-foreground data-[status=in-progress]:bg-warning/20 data-[status=in-progress]:text-warning data-[status=beta]:bg-primary/15 data-[status=beta]:text-primary rounded px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider"
+            >
+              {entry.status}
+            </span>
+          )}
+        </div>
+        <p class="text-muted-foreground text-sm">{entry.description}</p>
+        {entry.saasContext && entry.saasContext.length > 0 && (
+          <div class="mt-1 flex flex-wrap gap-1">
+            {entry.saasContext.map((s: string) => (
+              <span class="border-border bg-background text-muted-foreground rounded-full border px-2 py-0.5 text-[10px]">
+                {s}
+              </span>
+            ))}
+          </div>
+        )}
+      </a>
+    ))
+  }
+</div>

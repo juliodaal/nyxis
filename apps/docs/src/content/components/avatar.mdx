@@ -1,0 +1,34 @@
+---
+title: Avatar
+description: Circular avatar with fallback initials and status dot.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AvatarDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AvatarDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Avatar } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Avatar } from 'nyxis-ui/avatar';
+
+<Avatar>
+  <AvatarImage src="/julio.png" alt="@juliodaal" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>;
+```

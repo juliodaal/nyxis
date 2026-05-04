@@ -1,0 +1,33 @@
+---
+title: MeshGradientBackground
+description: Animated SVG mesh gradient.
+category: animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MeshGradientBackgroundDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview fullBleed minHeight="lg">
+  <MeshGradientBackgroundDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MeshGradientBackground } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { MeshGradientBackground } from 'nyxis-ui/mesh-gradient-background';
+
+<MeshGradientBackground>
+  <Hero />
+</MeshGradientBackground>;
+```

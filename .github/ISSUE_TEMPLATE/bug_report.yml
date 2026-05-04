@@ -1,0 +1,58 @@
+name: Bug Report
+description: Something is not working as expected
+title: '[Bug]: '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Please fill in the
+        details below so we can reproduce and fix the issue quickly.
+
+        **Security vulnerabilities should NOT be filed here.** Please follow
+        [SECURITY.md](https://github.com/juliodaal/nyxis/blob/main/SECURITY.md).
+  - type: input
+    id: version
+    attributes:
+      label: Nyxis version
+      placeholder: '0.1.0'
+    validations:
+      required: true
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Consumer framework
+      options:
+        - Next.js (App Router)
+        - Next.js (Pages Router)
+        - Vite + React
+        - Remix
+        - Astro + React
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What did you expect to happen, and what actually happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: A minimal reproduction (CodeSandbox, StackBlitz, or repo link).
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, Node version, etc.
+      placeholder: |
+        - Browser: Chrome 130
+        - OS: Windows 11
+        - Node: 22.10.0
+    validations:
+      required: true

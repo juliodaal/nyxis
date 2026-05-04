@@ -1,0 +1,42 @@
+---
+title: AuditLogItem
+description: Timeline entry with actor, action, and diff.
+category: domain
+status: stable
+saas:
+  - DocuMind
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AuditLogItemDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AuditLogItemDemo client:load />
+</Preview>
+
+## Used in
+
+- **DocuMind**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AuditLogItem } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { AuditLogItem } from 'nyxis-ui/audit-log-item';
+
+<AuditLogItem
+  timestamp="2026-05-03 14:21"
+  actor="Maria Schmidt"
+  action="approved extraction for"
+  target="INV-04812"
+/>;
+```

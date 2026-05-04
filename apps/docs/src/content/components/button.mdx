@@ -1,0 +1,34 @@
+---
+title: Button
+description: Polymorphic button with six variants and four sizes.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ButtonDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ButtonDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Button } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Button } from 'nyxis-ui/button';
+
+<Button>Click me</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="destructive">Delete</Button>
+```

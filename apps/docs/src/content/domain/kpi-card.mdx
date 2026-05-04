@@ -1,0 +1,43 @@
+---
+title: KPICard
+description: Number, delta, and sparkline at a glance.
+category: domain
+status: stable
+saas:
+  - PulseReport
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { KPICardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <KPICardDemo client:load />
+</Preview>
+
+## Used in
+
+- **PulseReport**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { KPICard } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { KPICard } from 'nyxis-ui/kpi-card';
+
+<KPICard
+  label="MRR"
+  value="€48,210"
+  period="last 30d"
+  delta={0.124}
+  sparkline={[0.2, 0.35, 0.5, 0.7, 0.85]}
+/>;
+```

@@ -1,0 +1,262 @@
+/*
+ * Nyxis design tokens.
+ *
+ * This file is shipped as `nyxis-ui/styles.css` and is intended to be
+ * imported from a CSS file that already has `@import 'tailwindcss';` at
+ * the top. Tailwind v4 reads our `@theme` block to generate utilities
+ * like `bg-background`, `text-foreground`, `border-border`, etc.
+ *
+ * - All colors are expressed in OKLCH for perceptual uniformity.
+ * - Tokens are registered with `@theme` so they become Tailwind utility
+ *   classes (e.g. `bg-background`, `text-foreground`, `border-border`).
+ * - Themes other than `light` override the tokens via `[data-theme="..."]`
+ *   selectors so consumers can flip themes by toggling a single attribute.
+ * - The `system` theme is resolved at runtime to either `light` or `dark`
+ *   based on `prefers-color-scheme`; it doesn't have its own ruleset.
+ */
+
+@source "../components/**/*.{ts,tsx}";
+
+@theme {
+  /* ── Colors (light defaults) ────────────────────────────────────────── */
+  --color-background: oklch(0.99 0.003 275);
+  --color-foreground: oklch(0.15 0.02 275);
+
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.15 0.02 275);
+
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.15 0.02 275);
+
+  --color-primary: oklch(0.62 0.22 300);
+  --color-primary-foreground: oklch(0.99 0 0);
+
+  --color-secondary: oklch(0.96 0.01 275);
+  --color-secondary-foreground: oklch(0.18 0.02 275);
+
+  --color-muted: oklch(0.96 0.01 275);
+  --color-muted-foreground: oklch(0.5 0.02 275);
+
+  --color-accent: oklch(0.95 0.02 295);
+  --color-accent-foreground: oklch(0.18 0.05 295);
+
+  --color-destructive: oklch(0.62 0.24 27);
+  --color-destructive-foreground: oklch(0.99 0 0);
+
+  --color-success: oklch(0.65 0.18 155);
+  --color-success-foreground: oklch(0.99 0 0);
+
+  --color-warning: oklch(0.78 0.16 80);
+  --color-warning-foreground: oklch(0.18 0.04 80);
+
+  --color-border: oklch(0.92 0.01 275);
+  --color-input: oklch(0.92 0.01 275);
+  --color-ring: oklch(0.62 0.22 300);
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+  --font-sans:
+    'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, sans-serif;
+  --font-mono:
+    'Geist Mono Variable', 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /* ── Radii ──────────────────────────────────────────────────────────── */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+
+  /* ── Easings ────────────────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap: cubic-bezier(0.85, 0, 0.15, 1);
+
+  /* ── Shadows (light) ────────────────────────────────────────────────── */
+  --shadow-soft: 0 1px 2px 0 oklch(0 0 0 / 0.04), 0 4px 12px -2px oklch(0 0 0 / 0.06);
+  --shadow-elevated: 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 24px -4px oklch(0 0 0 / 0.08);
+  --shadow-glow: 0 0 32px -4px oklch(0.62 0.22 300 / 0.45);
+
+  /* ── Animation durations ───────────────────────────────────────────── */
+  --duration-fast: 120ms;
+  --duration-normal: 220ms;
+  --duration-slow: 360ms;
+}
+
+/* ─────────────────────────────────────────────────────────────────────── */
+/* Theme overrides                                                        */
+/* ─────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  /* Dark — neutral, with a faint cool tint */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-background: oklch(0.14 0.012 275);
+    --color-foreground: oklch(0.96 0.005 275);
+
+    --color-card: oklch(0.17 0.014 275);
+    --color-card-foreground: oklch(0.96 0.005 275);
+
+    --color-popover: oklch(0.17 0.014 275);
+    --color-popover-foreground: oklch(0.96 0.005 275);
+
+    --color-primary: oklch(0.7 0.22 300);
+    --color-primary-foreground: oklch(0.13 0.04 300);
+
+    --color-secondary: oklch(0.23 0.015 275);
+    --color-secondary-foreground: oklch(0.96 0.005 275);
+
+    --color-muted: oklch(0.23 0.015 275);
+    --color-muted-foreground: oklch(0.65 0.015 275);
+
+    --color-accent: oklch(0.27 0.04 295);
+    --color-accent-foreground: oklch(0.96 0.01 295);
+
+    --color-destructive: oklch(0.62 0.24 27);
+    --color-destructive-foreground: oklch(0.99 0 0);
+
+    --color-success: oklch(0.62 0.18 155);
+    --color-success-foreground: oklch(0.13 0.04 155);
+
+    --color-warning: oklch(0.78 0.16 80);
+    --color-warning-foreground: oklch(0.18 0.04 80);
+
+    --color-border: oklch(0.27 0.015 275);
+    --color-input: oklch(0.27 0.015 275);
+    --color-ring: oklch(0.7 0.22 300);
+
+    --shadow-soft: 0 1px 2px 0 oklch(0 0 0 / 0.4), 0 4px 12px -2px oklch(0 0 0 / 0.5);
+    --shadow-elevated: 0 4px 8px -2px oklch(0 0 0 / 0.5), 0 12px 24px -4px oklch(0 0 0 / 0.6);
+    --shadow-glow: 0 0 36px -4px oklch(0.7 0.22 300 / 0.55);
+  }
+
+  /* Dim — softer dark, lower contrast for long reading sessions */
+  :root[data-theme='dim'] {
+    color-scheme: dark;
+
+    --color-background: oklch(0.2 0.014 270);
+    --color-foreground: oklch(0.9 0.008 270);
+
+    --color-card: oklch(0.23 0.016 270);
+    --color-card-foreground: oklch(0.9 0.008 270);
+
+    --color-popover: oklch(0.23 0.016 270);
+    --color-popover-foreground: oklch(0.9 0.008 270);
+
+    --color-primary: oklch(0.68 0.18 300);
+    --color-primary-foreground: oklch(0.16 0.04 300);
+
+    --color-secondary: oklch(0.27 0.018 270);
+    --color-secondary-foreground: oklch(0.9 0.008 270);
+
+    --color-muted: oklch(0.27 0.018 270);
+    --color-muted-foreground: oklch(0.62 0.012 270);
+
+    --color-accent: oklch(0.3 0.04 295);
+    --color-accent-foreground: oklch(0.9 0.01 295);
+
+    --color-destructive: oklch(0.6 0.2 27);
+    --color-destructive-foreground: oklch(0.99 0 0);
+
+    --color-border: oklch(0.3 0.018 270);
+    --color-input: oklch(0.3 0.018 270);
+    --color-ring: oklch(0.68 0.18 300);
+  }
+
+  /* High contrast — WCAG AAA, pure black/white with strong focus rings */
+  :root[data-theme='high-contrast'] {
+    color-scheme: dark;
+
+    --color-background: oklch(0 0 0);
+    --color-foreground: oklch(1 0 0);
+
+    --color-card: oklch(0.05 0 0);
+    --color-card-foreground: oklch(1 0 0);
+
+    --color-popover: oklch(0.05 0 0);
+    --color-popover-foreground: oklch(1 0 0);
+
+    --color-primary: oklch(0.78 0.24 300);
+    --color-primary-foreground: oklch(0 0 0);
+
+    --color-secondary: oklch(0.15 0 0);
+    --color-secondary-foreground: oklch(1 0 0);
+
+    --color-muted: oklch(0.15 0 0);
+    --color-muted-foreground: oklch(0.85 0 0);
+
+    --color-accent: oklch(0.2 0.04 300);
+    --color-accent-foreground: oklch(1 0 0);
+
+    --color-destructive: oklch(0.7 0.26 27);
+    --color-destructive-foreground: oklch(0 0 0);
+
+    --color-success: oklch(0.74 0.22 155);
+    --color-success-foreground: oklch(0 0 0);
+
+    --color-warning: oklch(0.88 0.18 80);
+    --color-warning-foreground: oklch(0 0 0);
+
+    --color-border: oklch(0.5 0 0);
+    --color-input: oklch(0.5 0 0);
+    --color-ring: oklch(0.78 0.24 300);
+  }
+
+  /* Apply tokens to the document */
+  html {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  /* Smooth theme transitions when supported, instant otherwise. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--duration-normal);
+    animation-timing-function: var(--ease-out-expo);
+  }
+
+  /* Respect reduced motion: cancel theme cross-fade and any default
+     animation on view-transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Focus-visible ring uses the theme ring token for consistency. */
+  :where(:focus-visible) {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* Selection uses the primary color. */
+  ::selection {
+    background-color: oklch(from var(--color-primary) l c h / 0.3);
+    color: var(--color-foreground);
+  }
+}

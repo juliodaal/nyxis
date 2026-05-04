@@ -1,0 +1,51 @@
+@import 'tailwindcss';
+@import 'nyxis-ui/styles.css';
+
+@import '@fontsource-variable/geist/index.css';
+@import '@fontsource-variable/geist-mono/index.css';
+
+/*
+ * Docs-site-specific overrides. The library tokens come from
+ * nyxis-ui/styles.css; here we only add things the docs site needs.
+ */
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────── */
+  /* Shiki dual-theme: switch palette based on data-theme.                */
+  /*                                                                       */
+  /* When you pass `themes: { light, dark }` to Astro's MDX integration,   */
+  /* Shiki emits inline styles with `--shiki-dark` and `--shiki-dark-bg`   */
+  /* CSS custom properties on every token. These rules activate them when  */
+  /* the document is in any of our dark variants so MDX code blocks match  */
+  /* the rest of the UI.                                                   */
+  /* ──────────────────────────────────────────────────────────────────── */
+
+  :root[data-theme='dark'] .astro-code,
+  :root[data-theme='dim'] .astro-code,
+  :root[data-theme='high-contrast'] .astro-code {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+  }
+  :root[data-theme='dark'] .astro-code span,
+  :root[data-theme='dim'] .astro-code span,
+  :root[data-theme='high-contrast'] .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  /* Soften all code blocks so they sit on theme surfaces, not a hard
+     white. Borders + radius come from the parent figure or the prose. */
+  pre.astro-code,
+  pre code.astro-code {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    border: 1px solid var(--color-border);
+  }
+}

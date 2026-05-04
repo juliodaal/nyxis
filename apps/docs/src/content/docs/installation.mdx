@@ -1,0 +1,96 @@
+---
+title: Installation
+description: Install Nyxis in any modern React project.
+category: getting-started
+status: stable
+---
+
+## Requirements
+
+Nyxis assumes you are on a modern React stack with **Tailwind CSS v4** and
+**React 18 or 19**. Animations require **GSAP 3.12+**.
+
+```bash
+pnpm add nyxis-ui react react-dom tailwindcss
+# Optional, only if you use animation components:
+pnpm add gsap
+```
+
+> **Why the peer requirement on Tailwind?** Nyxis ships its design tokens as
+> a Tailwind v4 source file (`@theme { ... }`). Your Tailwind compiler reads
+> it and generates utilities like `bg-background`, `text-foreground`, and
+> `border-border` so you can use them anywhere in your app.
+
+## 1. Configure Tailwind
+
+In your global CSS (e.g. `app/globals.css` for Next.js, `src/index.css` for
+Vite), pull in Tailwind and the Nyxis tokens:
+
+```css
+@import 'tailwindcss';
+@import 'nyxis-ui/styles.css';
+```
+
+That's it — no `tailwind.config.js`, no `tailwindcss.preset`. Tailwind v4
+discovers everything from CSS.
+
+## 2. Set the initial theme (FOUC prevention)
+
+To avoid a flash of the wrong theme on first paint, run a tiny inline script
+**before** anything else in `<head>`:
+
+```tsx title="app/layout.tsx (Next.js)"
+import { getThemeScript } from 'nyxis-ui/theme';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: getThemeScript() }} suppressHydrationWarning />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+The script reads `localStorage.nyxis-theme`, falls back to the user's OS
+preference, and writes the resolved theme to `<html data-theme="...">`
+synchronously.
+
+## 3. Use a component
+
+```tsx
+import { Button } from 'nyxis-ui';
+
+export function Hero() {
+  return <Button size="lg">Get started</Button>;
+}
+```
+
+For stricter tree-shaking you can also import from a subpath:
+
+```tsx
+import { Button } from 'nyxis-ui/button';
+```
+
+## 4. Add a theme toggle (optional)
+
+```tsx
+import { ThemeToggle } from 'nyxis-ui/theme';
+
+<header>
+  <ThemeToggle />
+</header>;
+```
+
+`ThemeToggle` works without a surrounding `<ThemeProvider>` — it reads and
+writes the `data-theme` attribute directly and stays in sync with other
+toggles via `localStorage` events.
+
+## Next steps
+
+- Read the [theming guide](./theming) to learn about all five themes and
+  how to customise the token palette.
+- Read the [security baseline](./security) before you ship.
+- Browse the [components](/components/button) to see what's available.

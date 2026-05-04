@@ -1,0 +1,39 @@
+---
+title: ChatInput
+description: Auto-resizing chat input with attachment slot.
+category: domain
+status: stable
+saas:
+  - AskCompany
+  - SupportDeflect
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ChatInputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ChatInputDemo client:load />
+</Preview>
+
+## Used in
+
+- **AskCompany**
+- **SupportDeflect**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ChatInput } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ChatInput } from 'nyxis-ui/chat-input';
+
+<ChatInput placeholder="Ask AskCompany anything..." onSubmit={(value) => sendMessage(value)} />;
+```

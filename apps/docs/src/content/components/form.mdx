@@ -1,0 +1,52 @@
+---
+title: Form
+description: react-hook-form + zod wrapper with FormField, FormItem, FormMessage.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { FormDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <FormDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Form } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Form } from 'nyxis-ui/form';
+
+const form = useForm({ resolver: zodResolver(schema) });
+
+return (
+  <Form {...form}>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Button type="submit">Submit</Button>
+    </form>
+  </Form>
+);
+```

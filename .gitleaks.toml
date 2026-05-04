@@ -1,0 +1,12 @@
+title = "Nyxis Gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''(.*)?\.lock$''',
+  '''pnpm-lock\.yaml$''',
+  '''(.*)?\.snap$''',
+]

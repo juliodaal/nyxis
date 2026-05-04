@@ -1,0 +1,33 @@
+---
+title: AuroraBackground
+description: Soft animated aurora backdrop.
+category: animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AuroraBackgroundDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview fullBleed minHeight="lg">
+  <AuroraBackgroundDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AuroraBackground } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { AuroraBackground } from 'nyxis-ui/aurora-background';
+
+<AuroraBackground>
+  <Hero />
+</AuroraBackground>;
+```

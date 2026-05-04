@@ -1,0 +1,32 @@
+---
+title: Toast
+description: Transient notification (Sonner).
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ToastDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ToastDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Toast } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Toast } from 'nyxis-ui/toast';
+
+<Toaster />
+<Button onClick={() => toast('Saved')}>Notify</Button>
+```

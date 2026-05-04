@@ -1,0 +1,33 @@
+---
+title: Badge
+description: Small status indicator.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { BadgeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <BadgeDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Badge } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Badge } from 'nyxis-ui/badge';
+
+<Badge>Default</Badge>
+<Badge variant="success" dot>Live</Badge>
+<Badge variant="destructive">Failed</Badge>
+```

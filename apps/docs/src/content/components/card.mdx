@@ -1,0 +1,40 @@
+---
+title: Card
+description: Surface with header, content, and footer slots.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { CardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <CardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Card } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Card } from 'nyxis-ui/card';
+
+<Card>
+  <CardHeader>
+    <CardTitle>Confidence: 92%</CardTitle>
+    <CardDescription>Reviewed by Maria.</CardDescription>
+  </CardHeader>
+  <CardContent>...</CardContent>
+  <CardFooter>
+    <Button>Approve</Button>
+  </CardFooter>
+</Card>;
+```

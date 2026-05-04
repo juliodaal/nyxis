@@ -1,0 +1,22 @@
+/*
+ * Storybook-specific entry CSS. Pulls in Tailwind v4 plus the library tokens.
+ * Storybook compiles this through Vite + @tailwindcss/vite, so the consumer
+ * setup is mirrored exactly: stories see the same utilities consumers will.
+ */
+
+@import 'tailwindcss';
+@import '../src/styles/globals.css';
+@import '@fontsource-variable/geist/index.css';
+@import '@fontsource-variable/geist-mono/index.css';
+
+html,
+body,
+#storybook-root {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+.sb-show-main {
+  background: var(--color-background) !important;
+}

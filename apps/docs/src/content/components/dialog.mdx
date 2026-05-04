@@ -1,0 +1,41 @@
+---
+title: Dialog
+description: Accessible modal dialog built on Radix.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DialogDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DialogDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Dialog } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Dialog } from 'nyxis-ui/dialog';
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Confirm</DialogTitle>
+      <DialogDescription>Are you sure?</DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>;
+```

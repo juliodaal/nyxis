@@ -1,0 +1,69 @@
+---
+import { ThemeToggle } from 'nyxis-ui';
+import CommandPalette from './CommandPalette.tsx';
+import { CATEGORIES, REGISTRY, pathFor } from '../../lib/registry';
+
+const items = REGISTRY.map((entry) => ({
+  slug: entry.slug,
+  name: entry.name,
+  category: entry.category,
+  description: entry.description,
+  href: pathFor(entry),
+}));
+
+const navLinks = CATEGORIES.filter((c) => c.id !== 'getting-started');
+---
+
+<header
+  class="h-(--docs-header-height) border-border bg-background/85 sticky top-0 z-40 flex items-center justify-between border-b px-4 backdrop-blur-md sm:px-6"
+>
+  <div class="flex items-center gap-6">
+    <a href="/" class="flex items-center gap-2" aria-label="Nyxis home">
+      <div class="bg-primary text-primary-foreground grid size-7 place-items-center rounded-md">
+        <span class="text-xs font-bold">N</span>
+      </div>
+      <span class="text-base font-semibold">Nyxis</span>
+      <span
+        class="border-border text-muted-foreground hidden rounded-full border px-2 py-0.5 text-[10px] font-medium sm:inline"
+      >
+        v0.0.0
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex">
+      <a
+        href="/docs/introduction"
+        class="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-1.5 text-sm transition-colors"
+      >
+        Docs
+      </a>
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-1.5 text-sm transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <CommandPalette client:idle items={items} />
+    <a
+      href="https://github.com/juliodaal/nyxis"
+      class="border-border text-muted-foreground hover:bg-muted hover:text-foreground hidden h-10 items-center justify-center rounded-md border px-3 text-sm font-medium transition-colors sm:inline-flex"
+    >
+      GitHub
+    </a>
+    <ThemeToggle client:idle variant="compact" hideLabel />
+  </div>
+</header>
+
+<style>
+  :root {
+    --docs-header-height: 4rem;
+  }
+</style>

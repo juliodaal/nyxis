@@ -1,0 +1,42 @@
+---
+title: ChatMessage
+description: User / assistant / system bubble with streaming cursor.
+category: domain
+status: stable
+saas:
+  - AskCompany
+  - SupportDeflect
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ChatMessageDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ChatMessageDemo client:load />
+</Preview>
+
+## Used in
+
+- **AskCompany**
+- **SupportDeflect**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ChatMessage } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ChatMessage } from 'nyxis-ui/chat-message';
+
+<ChatMessage role="user">Hello</ChatMessage>
+<ChatMessage role="assistant" streaming>
+  Compiling answer
+</ChatMessage>
+```

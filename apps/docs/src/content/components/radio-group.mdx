@@ -1,0 +1,34 @@
+---
+title: RadioGroup
+description: Grouped exclusive choice.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { RadioGroupDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <RadioGroupDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { RadioGroup } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { RadioGroup } from 'nyxis-ui/radio-group';
+
+<RadioGroup defaultValue="email">
+  <RadioGroupItem value="email" id="email" />
+  <RadioGroupItem value="sms" id="sms" />
+</RadioGroup>;
+```

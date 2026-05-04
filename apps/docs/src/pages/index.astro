@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopBar from '../components/docs/TopBar.astro';
+import Hero from '../components/marketing/Hero.tsx';
+import StatsRow from '../components/marketing/StatsRow.tsx';
+import ServicesShowcase from '../components/marketing/ServicesShowcase.astro';
+import InstallSnippet from '../components/marketing/InstallSnippet.astro';
+import Footer from '../components/marketing/Footer.astro';
+---
+
+<BaseLayout title="Nyxis — A modern React component library for AI products">
+  <TopBar />
+  <Hero client:load />
+  <StatsRow client:visible />
+  <ServicesShowcase />
+  <InstallSnippet />
+  <Footer />
+</BaseLayout>

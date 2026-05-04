@@ -1,0 +1,37 @@
+---
+title: ActionItem
+description: Checkbox row with assignee, due date, and status.
+category: domain
+status: stable
+saas:
+  - MeetingMind
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ActionItemDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ActionItemDemo client:load />
+</Preview>
+
+## Used in
+
+- **MeetingMind**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ActionItem } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ActionItem } from 'nyxis-ui/action-item';
+
+<ActionItem text="Send Q3 reconciliation deck" assignee="MS" due="Tue · 3pm" status="pending" />;
+```

@@ -1,0 +1,33 @@
+---
+title: SpotlightCursor
+description: Radial gradient that follows the cursor.
+category: animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SpotlightCursorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview fullBleed minHeight="lg">
+  <SpotlightCursorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SpotlightCursor } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { SpotlightCursor } from 'nyxis-ui/spotlight-cursor';
+
+<SpotlightCursor>
+  <section>...your content...</section>
+</SpotlightCursor>;
+```

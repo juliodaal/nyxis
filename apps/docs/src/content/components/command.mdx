@@ -1,0 +1,44 @@
+---
+title: Command
+description: Cmd+K-style command palette (cmdk).
+category: components
+status: stable
+saas:
+  - AskCompany
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { CommandDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <CommandDemo client:load />
+</Preview>
+
+## Used in
+
+- **AskCompany**
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Command } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Command } from 'nyxis-ui/command';
+
+<Command>
+  <CommandInput placeholder="Search..." />
+  <CommandList>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>New extraction</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>;
+```

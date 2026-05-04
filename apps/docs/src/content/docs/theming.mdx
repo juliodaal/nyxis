@@ -1,0 +1,131 @@
+---
+title: Theming
+description: Five-mode theming, design tokens, and FOUC prevention.
+category: getting-started
+status: stable
+---
+
+Nyxis ships a complete theming system: **five themes**, **OKLCH design
+tokens**, **smooth cross-fade transitions** via the View Transitions API,
+and a tiny **FOUC-free initialisation script**.
+
+## Available themes
+
+| Theme           | Use case                                                            |
+| --------------- | ------------------------------------------------------------------- |
+| `light`         | Default. High contrast on white surfaces.                           |
+| `dark`          | Modern dark mode with a faint cool tint.                            |
+| `dim`           | Softer dark for long reading sessions.                              |
+| `high-contrast` | WCAG AAA. Pure black/white with strong focus rings.                 |
+| `system`        | Follow the OS preference; resolves to `light` or `dark` at runtime. |
+
+The active theme is set via the `data-theme` attribute on `<html>`:
+
+```html
+<html data-theme="dark">
+  ...
+</html>
+```
+
+`system` is **never** the value of `data-theme` directly — the FOUC script
+resolves it before the first paint and writes the actual mode (`light` or
+`dark`) to the attribute.
+
+## Design tokens
+
+All colors are defined in OKLCH for perceptually uniform luminance. Tokens
+are registered with Tailwind v4's `@theme` block, so they are available as
+utilities throughout your project:
+
+```tsx
+<div className="bg-background text-foreground border-border rounded-md border p-4">
+  <h2 className="text-primary">Hello</h2>
+  <p className="text-muted-foreground">subtle text</p>
+</div>
+```
+
+Token reference:
+
+- **Surfaces**: `background`, `foreground`, `card`, `card-foreground`,
+  `popover`, `popover-foreground`, `muted`, `muted-foreground`.
+- **Brand**: `primary`, `primary-foreground`, `secondary`,
+  `secondary-foreground`, `accent`, `accent-foreground`.
+- **Semantic**: `destructive`, `destructive-foreground`, `success`,
+  `success-foreground`, `warning`, `warning-foreground`.
+- **Form**: `border`, `input`, `ring`.
+- **Typography**: `--font-sans`, `--font-mono`.
+- **Radii**: `--radius-xs`, `--radius-sm`, `--radius-md`, `--radius-lg`,
+  `--radius-xl`, `--radius-2xl`.
+- **Easings**: `--ease-out-expo`, `--ease-in-out-expo`, `--ease-spring`,
+  `--ease-snap`.
+- **Shadows**: `--shadow-soft`, `--shadow-elevated`, `--shadow-glow`.
+
+## Customising tokens
+
+Override any token in your own CSS, after the Nyxis import:
+
+```css
+@import 'tailwindcss';
+@import 'nyxis-ui/styles.css';
+
+@theme {
+  /* Use your brand color */
+  --color-primary: oklch(0.65 0.2 250);
+  --color-primary-foreground: oklch(0.99 0 0);
+}
+
+:root[data-theme='dark'] {
+  --color-primary: oklch(0.72 0.2 250);
+}
+```
+
+## Reading and updating the theme
+
+`useTheme` returns the current theme, the resolved theme (after `system` is
+expanded), and a setter that uses the View Transitions API for a smooth
+cross-fade:
+
+```tsx
+import { useTheme } from 'nyxis-ui/theme';
+
+function ToggleDark() {
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  return (
+    <button onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
+      {theme === 'system' ? `system (${resolvedTheme})` : theme}
+    </button>
+  );
+}
+```
+
+`useTheme` works **with or without** a `<ThemeProvider>`. If you want a
+single, shared React tree managing the theme (e.g. for SSR consistency),
+wrap your app in the provider:
+
+```tsx
+import { ThemeProvider } from 'nyxis-ui/theme';
+
+<ThemeProvider defaultTheme="system">
+  <App />
+</ThemeProvider>;
+```
+
+If you don't, every call to `useTheme` falls back to a DOM/localStorage
+external store and stays in sync via the `storage` event and a custom event.
+This means **multiple Astro islands**, multi-window apps, and even multiple
+Nyxis instances on the same page all coordinate correctly.
+
+## Reduced motion
+
+The library globally disables long animations and theme cross-fades when
+the user has set `prefers-reduced-motion: reduce`. You don't need to do
+anything to opt in — but if you author your own animation, follow the same
+pattern:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .my-effect {
+    animation: none;
+  }
+}
+```

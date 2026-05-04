@@ -1,0 +1,36 @@
+---
+title: Combobox
+description: Searchable select using cmdk.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ComboboxDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ComboboxDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Combobox } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Combobox } from 'nyxis-ui/combobox';
+
+<Combobox
+  options={[
+    { value: 'datev', label: 'DATEV' },
+    { value: 'netsuite', label: 'NetSuite' },
+  ]}
+/>;
+```

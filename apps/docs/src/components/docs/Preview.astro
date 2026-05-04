@@ -1,0 +1,64 @@
+---
+/**
+ * Wrapper for live component previews shown on documentation pages.
+ *
+ * Usage in MDX:
+ *
+ * ```mdx
+ * import Preview from '../../components/docs/Preview.astro';
+ *
+ * <Preview>
+ *   <Button client:load>Click me</Button>
+ * </Preview>
+ * ```
+ *
+ * Renders a card with a soft, theme-aware background, padding tuned for
+ * a comfortable showcase, and a subtle dotted backdrop so animations and
+ * transparent components (like SpotlightCursor) read clearly. The card
+ * is a non-prose container so MDX prose styles don't bleed into it.
+ */
+
+interface Props {
+  /** Force-fill (no padding). Useful when the component owns its own
+   *  layout (backgrounds, full-bleed effects). */
+  fullBleed?: boolean;
+  /** Vertical alignment of the content. Default 'center'. */
+  align?: 'start' | 'center' | 'end';
+  /** Minimum height of the preview area. Default 'auto'. */
+  minHeight?: 'auto' | 'sm' | 'md' | 'lg';
+}
+
+const { fullBleed = false, align = 'center', minHeight = 'md' } = Astro.props;
+
+const minHeightClasses = {
+  auto: '',
+  sm: 'min-h-[12rem]',
+  md: 'min-h-[18rem]',
+  lg: 'min-h-[26rem]',
+};
+
+const alignClasses = {
+  start: 'items-start',
+  center: 'items-center',
+  end: 'items-end',
+};
+---
+
+<figure
+  class:list={[
+    'not-prose border-border group relative my-6 overflow-hidden rounded-xl border',
+    'bg-[radial-gradient(circle_at_1px_1px,_var(--color-muted)_1px,_transparent_0)] [background-size:24px_24px]',
+    'bg-card/40',
+  ]}
+>
+  <div
+    class:list={[
+      'flex justify-center',
+      alignClasses[align],
+      fullBleed ? '' : 'p-8 sm:p-12',
+      minHeightClasses[minHeight],
+    ]}
+  >
+    <slot />
+  </div>
+</figure>

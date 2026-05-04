@@ -1,0 +1,32 @@
+---
+title: Separator
+description: Horizontal or vertical divider.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SeparatorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SeparatorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Separator } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Separator } from 'nyxis-ui/separator';
+
+<Separator />
+<Separator orientation="vertical" />
+```

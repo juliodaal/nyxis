@@ -1,0 +1,32 @@
+---
+title: DropdownMenu
+description: Multi-item menu with submenus and shortcuts.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DropdownMenuDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DropdownMenuDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { DropdownMenu } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { DropdownMenu } from 'nyxis-ui/dropdown-menu';
+
+// The ThemeToggle composes DropdownMenu internally — see the preview.
+<ThemeToggle />;
+```

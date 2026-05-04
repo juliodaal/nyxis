@@ -1,0 +1,36 @@
+---
+title: Drawer
+description: Mobile-first bottom sheet with drag-to-dismiss.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DrawerDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DrawerDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Drawer } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Drawer } from 'nyxis-ui/drawer';
+
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button>Open</Button>
+  </DrawerTrigger>
+  <DrawerContent>...</DrawerContent>
+</Drawer>;
+```

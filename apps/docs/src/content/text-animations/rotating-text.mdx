@@ -1,0 +1,31 @@
+---
+title: RotatingText
+description: Cycle through words with slide, fade or scramble transitions.
+category: text-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { RotatingTextDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <RotatingTextDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { RotatingText } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { RotatingText } from 'nyxis-ui/rotating-text';
+
+<RotatingText words={['Sales', 'Operations', 'Finance', 'Support']} />;
+```

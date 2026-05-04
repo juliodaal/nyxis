@@ -1,0 +1,36 @@
+---
+title: Popover
+description: Floating element anchored to a trigger.
+category: components
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { PopoverDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <PopoverDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { Popover } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { Popover } from 'nyxis-ui/popover';
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button>Open</Button>
+  </PopoverTrigger>
+  <PopoverContent>Filters go here.</PopoverContent>
+</Popover>;
+```
