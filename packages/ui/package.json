@@ -261,7 +261,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "@storybook/addon-a11y": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
