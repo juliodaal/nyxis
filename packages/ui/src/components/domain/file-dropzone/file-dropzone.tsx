@@ -26,7 +26,7 @@ export interface FileDropzoneProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 
 /**
  * Drag-and-drop file uploader with thumbnails and validation. Used in
- * **DocuMind** for ingesting invoices, contracts, and POs.
+ * **Document AI** for ingesting invoices, contracts, and POs.
  */
 export const FileDropzone = forwardRef<HTMLDivElement, FileDropzoneProps>(function FileDropzone(
   {

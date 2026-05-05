@@ -1,0 +1,31 @@
+---
+title: ProviderHealthBadge
+description: Operational / degraded / down pill with optional latency.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ProviderHealthBadgeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ProviderHealthBadgeDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ProviderHealthBadge } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ProviderHealthBadge } from 'nyxis-ui/provider-health-badge';
+
+<ProviderHealthBadge status="operational" latencyMs={210} />;
+```

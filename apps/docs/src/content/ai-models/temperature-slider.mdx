@@ -1,0 +1,31 @@
+---
+title: TemperatureSlider
+description: Sampling temperature slider with deterministic ↔ creative endpoints.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TemperatureSliderDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TemperatureSliderDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TemperatureSlider } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { TemperatureSlider } from 'nyxis-ui/temperature-slider';
+
+<TemperatureSlider value={temperature} onValueChange={setTemperature} max={1} />;
+```

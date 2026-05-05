@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Slide: Story = {
   args: {
-    words: ['DocuMind', 'AskCompany', 'LeadSift', 'MeetingMind'],
+    words: ['Document AI', 'AI Assistant', 'Lead Intelligence', 'Meeting Intelligence'],
     animation: 'slide',
     interval: 2200,
     className: 'text-5xl font-bold text-primary',

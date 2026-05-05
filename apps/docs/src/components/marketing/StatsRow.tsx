@@ -3,10 +3,10 @@
 import { CountUp } from 'nyxis-ui';
 
 const stats: { label: string; value: number; format?: 'number' | 'percent' | 'compact' }[] = [
-  { label: 'Components', value: 54 },
+  { label: 'Components', value: 65 },
+  { label: 'AI providers', value: 5 },
   { label: 'Themes', value: 5 },
   { label: 'Test coverage', value: 0.92, format: 'percent' },
-  { label: 'Bundle saved', value: 0.42, format: 'percent' },
 ];
 
 export default function StatsRow() {

@@ -52,3 +52,9 @@ export * from './components/animations/index.js';
 
 // Domain patterns
 export * from './components/domain/index.js';
+
+// AI · Models & Providers UI (Phase D)
+export * from './components/ai/index.js';
+
+// AI · Chat 2.0 (Phase E)
+export * from './components/chat/index.js';

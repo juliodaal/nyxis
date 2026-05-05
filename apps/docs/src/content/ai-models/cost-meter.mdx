@@ -1,0 +1,32 @@
+---
+title: CostMeter
+description: Live USD cost meter that subscribes to the AI event bus.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { CostMeterDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <CostMeterDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { CostMeter } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { CostMeter } from 'nyxis-ui/cost-meter';
+
+// Subscribes to nyxisAIEvents 'usage' events automatically.
+<CostMeter detailed />;
+```

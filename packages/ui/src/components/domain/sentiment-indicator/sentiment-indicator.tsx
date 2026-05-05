@@ -10,7 +10,7 @@ export interface SentimentIndicatorProps extends HTMLAttributes<HTMLDivElement> 
 
 /**
  * Compact sentiment bar with positive/neutral/negative regions. Used in
- * **SupportDeflect** (per-ticket sentiment) and **MeetingMind** (call-level
+ * **Support Copilot** (per-ticket sentiment) and **Meeting Intelligence** (call-level
  * mood).
  */
 export const SentimentIndicator = forwardRef<HTMLDivElement, SentimentIndicatorProps>(

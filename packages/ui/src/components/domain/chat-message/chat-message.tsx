@@ -18,7 +18,7 @@ export interface ChatMessageProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 }
 
 /**
- * Chat message bubble used by **AskCompany** and **SupportDeflect**.
+ * Chat message bubble used by **AI Assistant** and **Support Copilot**.
  * Distinguishes user, assistant, and system messages by tone and avatar.
  */
 export const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(function ChatMessage(

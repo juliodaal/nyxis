@@ -17,7 +17,7 @@ export interface CitationCardProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Source citation card with snippet, locator, and external link.
- * Used in **AskCompany** (RAG citations) and **MeetingMind**
+ * Used in chat assistants (RAG citations) and **Meeting Intelligence**
  * (transcript references).
  */
 export const CitationCard = forwardRef<HTMLDivElement, CitationCardProps>(function CitationCard(

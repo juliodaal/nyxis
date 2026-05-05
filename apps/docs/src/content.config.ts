@@ -4,12 +4,17 @@ import { glob } from 'astro/loaders';
 const baseFrontmatter = z.object({
   title: z.string(),
   description: z.string(),
-  category: z.enum(['getting-started', 'text-animations', 'components', 'animations', 'domain']),
+  category: z.enum([
+    'getting-started',
+    'text-animations',
+    'components',
+    'animations',
+    'domain',
+    'ai-models',
+  ]),
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
   slug: z.string().optional(),
-  /** SaaS products that use this component (for domain patterns). */
-  saas: z.array(z.string()).optional(),
   /** External docs (Radix, GSAP, etc.). */
   references: z
     .array(
@@ -48,10 +53,16 @@ const domain = defineCollection({
   schema: baseFrontmatter,
 });
 
+const aiModels = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/ai-models' }),
+  schema: baseFrontmatter,
+});
+
 export const collections = {
   docs,
   components,
   'text-animations': textAnimations,
   animations,
   domain,
+  'ai-models': aiModels,
 };

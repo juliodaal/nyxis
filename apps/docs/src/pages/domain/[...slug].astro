@@ -22,7 +22,7 @@ const registryEntry = findEntry('domain', entry.id);
       <div
         class="text-muted-foreground flex items-center gap-2 text-xs font-semibold uppercase tracking-widest"
       >
-        <span>Domain patterns</span>
+        <span>AI patterns</span>
         {
           registryEntry?.status && registryEntry.status !== 'stable' && (
             <span class="bg-muted rounded px-1.5 py-0.5 text-[10px] tracking-wider">
@@ -33,17 +33,6 @@ const registryEntry = findEntry('domain', entry.id);
       </div>
       <h1>{entry.data.title}</h1>
       <p class="!text-muted-foreground !mb-0 text-base">{entry.data.description}</p>
-      {
-        entry.data.saas && entry.data.saas.length > 0 && (
-          <div class="mt-2 flex flex-wrap gap-1.5">
-            {entry.data.saas.map((s: string) => (
-              <span class="border-border bg-card text-muted-foreground rounded-md border px-2 py-1 text-[10px] font-medium uppercase tracking-wider">
-                {s}
-              </span>
-            ))}
-          </div>
-        )
-      }
     </header>
     <Content />
   </article>

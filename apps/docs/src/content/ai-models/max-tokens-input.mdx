@@ -1,0 +1,31 @@
+---
+title: MaxTokensInput
+description: Numeric input that knows the model output cap and warns on overflow.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MaxTokensInputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MaxTokensInputDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MaxTokensInput } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { MaxTokensInput } from 'nyxis-ui/max-tokens-input';
+
+<MaxTokensInput value={maxTokens} onValueChange={setMaxTokens} modelId="claude-sonnet-4-5" />;
+```

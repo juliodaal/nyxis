@@ -34,7 +34,7 @@ export interface ChatInputProps {
 
 /**
  * Auto-resizing chat composer with Enter-to-send and Shift+Enter newline.
- * Used by **AskCompany** and **SupportDeflect**.
+ * Used by **AI Assistant** and **Support Copilot**.
  */
 export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatInput(
   {

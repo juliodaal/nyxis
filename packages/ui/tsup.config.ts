@@ -4,24 +4,14 @@ const ui = (name: string) => `src/components/ui/${name}/index.ts`;
 const text = (name: string) => `src/components/text/${name}/index.ts`;
 const anim = (name: string) => `src/components/animations/${name}/index.ts`;
 const domain = (name: string) => `src/components/domain/${name}/index.ts`;
+const aiUi = (name: string) => `src/components/ai/${name}/index.ts`;
+const chat = (name: string) => `src/components/chat/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
 // real build, clean is enabled so we never ship stale artefacts.
 const isWatch = process.argv.includes('--watch');
 
-/**
- * Build config for nyxis-ui.
- *
- * - ESM only (consumers are modern apps).
- * - No code splitting → each subpath export is a single file the bundler can
- *   tree-shake by name.
- * - "use client" / "use server" directives are re-attached after build by
- *   `scripts/preserve-directives.mjs` so Next.js App Router consumers see
- *   the client boundaries (esbuild strips directives during bundling).
- * - Type declarations emitted alongside JS.
- * - External: react, react-dom, and any peer dep — never bundled.
- */
 export default defineConfig({
   entry: {
     index: 'src/index.ts',
@@ -92,6 +82,33 @@ export default defineConfig({
     'components/domain/email-triage-card/index': domain('email-triage-card'),
     'components/domain/file-dropzone/index': domain('file-dropzone'),
     'components/domain/data-table/index': domain('data-table'),
+    // AI core (Phase C)
+    'ai/index': 'src/ai/index.ts',
+    'ai/server/index': 'src/ai/server/index.ts',
+    // AI Models & Providers UI (Phase D)
+    'components/ai/index': 'src/components/ai/index.ts',
+    'components/ai/api-key-input/index': aiUi('api-key-input'),
+    'components/ai/temperature-slider/index': aiUi('temperature-slider'),
+    'components/ai/top-p-slider/index': aiUi('top-p-slider'),
+    'components/ai/max-tokens-input/index': aiUi('max-tokens-input'),
+    'components/ai/system-prompt-editor/index': aiUi('system-prompt-editor'),
+    'components/ai/context-window-meter/index': aiUi('context-window-meter'),
+    'components/ai/cost-meter/index': aiUi('cost-meter'),
+    'components/ai/provider-health-badge/index': aiUi('provider-health-badge'),
+    'components/ai/ai-provider-selector/index': aiUi('ai-provider-selector'),
+    'components/ai/model-picker/index': aiUi('model-picker'),
+    'components/ai/ai-config-card/index': aiUi('ai-config-card'),
+    // Chat 2.0 (Phase E)
+    'components/chat/index': 'src/components/chat/index.ts',
+    'components/chat/typing-indicator/index': chat('typing-indicator'),
+    'components/chat/streaming-text/index': chat('streaming-text'),
+    'components/chat/streaming-markdown/index': chat('streaming-markdown'),
+    'components/chat/streaming-code/index': chat('streaming-code'),
+    'components/chat/message-actions/index': chat('message-actions'),
+    'components/chat/token-counter/index': chat('token-counter'),
+    'components/chat/chat-thread/index': chat('chat-thread'),
+    'components/chat/conversation-sidebar/index': chat('conversation-sidebar'),
+    'components/chat/conversation-fork/index': chat('conversation-fork'),
   },
   format: ['esm'],
   target: 'es2022',
@@ -102,10 +119,6 @@ export default defineConfig({
   clean: !isWatch,
   splitting: false,
   treeshake: true,
-  // Re-run after every successful build (initial + watch rebuilds).
-  // Tsup wipes dist/ on each build because of `clean: true`, so we re-copy
-  // the CSS and re-attach "use client" directives here. This keeps the
-  // dev server happy and means consumers always see a complete dist/.
   onSuccess: 'node scripts/copy-styles.mjs && node scripts/preserve-directives.mjs',
   minify: false,
   external: [
@@ -117,10 +130,18 @@ export default defineConfig({
     'react-hook-form',
     'zod',
     '@hookform/resolvers',
+    'ai',
+    '@ai-sdk/anthropic',
+    '@ai-sdk/openai',
+    '@ai-sdk/google',
+    '@ai-sdk/mistral',
+    'ollama-ai-provider',
     'sonner',
     'cmdk',
     'vaul',
     '@tanstack/react-table',
+    'react-markdown',
+    'remark-gfm',
   ],
   esbuildOptions(options) {
     options.legalComments = 'none';

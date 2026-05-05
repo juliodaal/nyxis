@@ -222,13 +222,13 @@ export function RevealTextDemo() {
 
 export function MarqueeTextDemo() {
   const items = [
-    'DocuMind',
-    'AskCompany',
-    'LeadSift',
-    'SupportDeflect',
-    'MeetingMind',
-    'PulseReport',
-    'InboxZero',
+    'Document AI',
+    'AI Assistant',
+    'Lead Intelligence',
+    'Support Copilot',
+    'Meeting Intelligence',
+    'Operations Dashboard',
+    'Email Triage',
   ];
   return (
     <MarqueeText speed={28}>
@@ -725,16 +725,21 @@ export function ParallaxContainerDemo() {
 export function StaggerRevealDemo() {
   return (
     <StaggerReveal trigger="mount" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      {['DocuMind', 'AskCompany', 'LeadSift', 'SupportDeflect', 'MeetingMind', 'PulseReport'].map(
-        (name) => (
-          <div
-            key={name}
-            className="border-border bg-card text-foreground shadow-soft rounded-lg border p-4 text-sm font-medium"
-          >
-            {name}
-          </div>
-        ),
-      )}
+      {[
+        'Document AI',
+        'AI Assistant',
+        'Lead Intelligence',
+        'Support Copilot',
+        'Meeting Intelligence',
+        'Operations Dashboard',
+      ].map((name) => (
+        <div
+          key={name}
+          className="border-border bg-card text-foreground shadow-soft rounded-lg border p-4 text-sm font-medium"
+        >
+          {name}
+        </div>
+      ))}
     </StaggerReveal>
   );
 }
@@ -744,7 +749,7 @@ export function TiltCardDemo() {
     <TiltCard className="size-72">
       <div className="border-border bg-card shadow-elevated grid h-full place-items-center rounded-2xl border p-6 text-center">
         <div>
-          <h3 className="text-foreground text-xl font-semibold">DocuMind</h3>
+          <h3 className="text-foreground text-xl font-semibold">Document AI</h3>
           <p className="text-muted-foreground mt-2 text-sm">
             Document intelligence for finance teams.
           </p>
@@ -873,7 +878,7 @@ export function ChatInputDemo() {
     <div className="w-full max-w-md">
       <ChatInput
         attachments
-        placeholder="Ask AskCompany anything..."
+        placeholder="Ask AI Assistant anything..."
         onSubmit={(value) => alert(`Sent: ${value}`)}
       />
     </div>
@@ -911,7 +916,7 @@ export function AuditLogItemDemo() {
       />
       <AuditLogItem
         timestamp="2026-05-03 14:18"
-        actor="DocuMind"
+        actor="Document AI"
         action="edited fields on"
         target="INV-04812"
         diff={[
@@ -921,7 +926,7 @@ export function AuditLogItemDemo() {
       />
       <AuditLogItem
         timestamp="2026-05-03 14:02"
-        actor="DocuMind"
+        actor="Document AI"
         action="extracted"
         target="INV-04812"
       />
@@ -1027,6 +1032,141 @@ export function ThemeToggleDemo() {
         <span className="text-muted-foreground text-xs">Choose how Nyxis looks.</span>
       </div>
       <ThemeToggle />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Models & Providers (Phase D)
+// ─────────────────────────────────────────────────────────────────────
+
+import { useState } from 'react';
+import {
+  AIConfigCard,
+  AIProviderSelector,
+  APIKeyInput,
+  ContextWindowMeter,
+  CostMeter,
+  MaxTokensInput,
+  ModelPicker,
+  ProviderHealthBadge,
+  SystemPromptEditor,
+  TemperatureSlider,
+  TopPSlider,
+} from 'nyxis-ui';
+import type { AIProviderId } from 'nyxis-ui/ai';
+
+export function AIProviderSelectorDemo() {
+  const [provider, setProvider] = useState<AIProviderId>('anthropic');
+  return (
+    <div className="w-full max-w-sm">
+      <AIProviderSelector value={provider} onValueChange={setProvider} />
+    </div>
+  );
+}
+
+export function ModelPickerDemo() {
+  const [model, setModel] = useState('claude-sonnet-4-5');
+  return (
+    <div className="w-full max-w-md">
+      <ModelPicker value={model} onValueChange={(id) => setModel(id)} />
+    </div>
+  );
+}
+
+export function APIKeyInputDemo() {
+  const [key, setKey] = useState('');
+  return (
+    <div className="w-full max-w-sm">
+      <APIKeyInput
+        provider="anthropic"
+        value={key}
+        onValueChange={setKey}
+        validate={async (k) =>
+          k.startsWith('sk-ant-') ? 'valid' : k.length < 8 ? 'invalid' : 'rate-limited'
+        }
+      />
+    </div>
+  );
+}
+
+export function TemperatureSliderDemo() {
+  const [v, setV] = useState(0.7);
+  return (
+    <div className="w-full max-w-sm">
+      <TemperatureSlider value={v} onValueChange={setV} />
+    </div>
+  );
+}
+
+export function TopPSliderDemo() {
+  const [v, setV] = useState(1);
+  return (
+    <div className="w-full max-w-sm">
+      <TopPSlider value={v} onValueChange={setV} />
+    </div>
+  );
+}
+
+export function MaxTokensInputDemo() {
+  const [v, setV] = useState(2048);
+  return (
+    <div className="w-full max-w-sm">
+      <MaxTokensInput value={v} onValueChange={setV} modelId="claude-sonnet-4-5" />
+    </div>
+  );
+}
+
+export function SystemPromptEditorDemo() {
+  const [v, setV] = useState(
+    'You are a senior support engineer named {{agent_name}}.\n\nReply only with information from the {{knowledge_base}} corpus.',
+  );
+  return (
+    <div className="w-full max-w-md">
+      <SystemPromptEditor value={v} onValueChange={setV} />
+    </div>
+  );
+}
+
+export function ContextWindowMeterDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-6">
+      <ContextWindowMeter used={42_000} modelId="claude-sonnet-4-5" />
+      <ContextWindowMeter used={148_000} modelId="claude-sonnet-4-5" />
+      <ContextWindowMeter used={195_000} modelId="claude-sonnet-4-5" />
+    </div>
+  );
+}
+
+export function CostMeterDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <CostMeter initial={0.0124} />
+      <CostMeter initial={0.412} detailed />
+    </div>
+  );
+}
+
+export function ProviderHealthBadgeDemo() {
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <ProviderHealthBadge status="operational" latencyMs={210} />
+      <ProviderHealthBadge status="degraded" latencyMs={1240} />
+      <ProviderHealthBadge status="down" />
+      <ProviderHealthBadge status="unknown" />
+    </div>
+  );
+}
+
+export function AIConfigCardDemo() {
+  return (
+    <div className="w-full max-w-xl">
+      <AIConfigCard
+        defaultConfig={{
+          systemPrompt:
+            'You are a senior support engineer named {{agent_name}}. Reply only with information from the {{knowledge_base}} corpus.',
+        }}
+      />
     </div>
   );
 }

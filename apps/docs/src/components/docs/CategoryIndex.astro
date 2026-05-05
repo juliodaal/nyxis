@@ -41,15 +41,6 @@ const entries = entriesByCategory(category);
           )}
         </div>
         <p class="text-muted-foreground text-sm">{entry.description}</p>
-        {entry.saasContext && entry.saasContext.length > 0 && (
-          <div class="mt-1 flex flex-wrap gap-1">
-            {entry.saasContext.map((s: string) => (
-              <span class="border-border bg-background text-muted-foreground rounded-full border px-2 py-0.5 text-[10px]">
-                {s}
-              </span>
-            ))}
-          </div>
-        )}
       </a>
     ))
   }

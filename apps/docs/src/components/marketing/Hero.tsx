@@ -2,13 +2,17 @@
 
 import { Github } from 'lucide-react';
 import { AuroraBackground, RotatingText, SplitText } from 'nyxis-ui';
+// eslint-disable-next-line import/no-relative-packages
+import nyxisPkg from '../../../../../packages/ui/package.json';
+
+const version = nyxisPkg.version;
 
 export default function Hero() {
   return (
     <AuroraBackground className="relative">
       <section className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-6 py-28 text-center sm:py-36">
         <span className="border-border bg-card/60 text-muted-foreground rounded-full border px-3 py-1 text-xs font-medium backdrop-blur">
-          v0.1.0 · MIT licensed · Tailwind CSS v4
+          v{version} · MIT licensed · Tailwind CSS v4
         </span>
 
         <SplitText
@@ -25,12 +29,12 @@ export default function Hero() {
           Built for{' '}
           <RotatingText
             words={[
-              'document intelligence',
-              'meeting summaries',
-              'lead qualification',
-              'support deflection',
-              'automated reporting',
-              'email triage',
+              'chat assistants',
+              'AI agents',
+              'RAG pipelines',
+              'MCP integrations',
+              'multimodal apps',
+              'voice interfaces',
             ]}
             interval={2200}
             className="text-primary font-semibold"

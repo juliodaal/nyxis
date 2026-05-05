@@ -33,7 +33,7 @@ const CATEGORY_LABELS: Record<EmailCategory, string> = {
 };
 
 /**
- * One row in an InboxZero triage queue: sender, subject, auto-detected
+ * One row in an Email Triage triage queue: sender, subject, auto-detected
  * category, message preview, and an optional draft reply with accept /
  * reject actions.
  */

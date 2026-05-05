@@ -1,0 +1,36 @@
+---
+title: APIKeyInput
+description: Masked API key input with show/hide toggle and live validation status.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { APIKeyInputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <APIKeyInputDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { APIKeyInput } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { APIKeyInput } from 'nyxis-ui/api-key-input';
+
+<APIKeyInput
+  provider="anthropic"
+  value={apiKey}
+  onValueChange={setApiKey}
+  validate={async (key) => (key.startsWith('sk-ant-') ? 'valid' : 'invalid')}
+/>;
+```
