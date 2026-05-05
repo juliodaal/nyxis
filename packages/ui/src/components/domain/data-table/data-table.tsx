@@ -30,8 +30,8 @@ export interface DataTableProps<TData> {
 
 /**
  * Headless-flavored data table with sort, global filter, and pagination.
- * Built on **TanStack Table**. Used in **DocuMind** (extraction queue)
- * and **LeadSift** (lead pipeline).
+ * Built on **TanStack Table**. Used in document AI workflows (extraction queue)
+ * and **Lead Intelligence** (lead pipeline).
  */
 export function DataTable<TData>({
   columns,

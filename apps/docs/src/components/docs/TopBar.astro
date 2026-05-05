@@ -1,7 +1,10 @@
 ---
 import { ThemeToggle } from 'nyxis-ui';
+import nyxisPkg from 'nyxis-ui/package.json';
 import CommandPalette from './CommandPalette.tsx';
 import { CATEGORIES, REGISTRY, pathFor } from '../../lib/registry';
+
+const version = nyxisPkg.version;
 
 const items = REGISTRY.map((entry) => ({
   slug: entry.slug,
@@ -26,7 +29,7 @@ const navLinks = CATEGORIES.filter((c) => c.id !== 'getting-started');
       <span
         class="border-border text-muted-foreground hidden rounded-full border px-2 py-0.5 text-[10px] font-medium sm:inline"
       >
-        v0.0.0
+        v{version}
       </span>
     </a>
 

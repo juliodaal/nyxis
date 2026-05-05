@@ -1,0 +1,31 @@
+---
+title: SystemPromptEditor
+description: Auto-resizing system prompt editor with variable detection and token estimate.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SystemPromptEditorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SystemPromptEditorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SystemPromptEditor } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { SystemPromptEditor } from 'nyxis-ui/system-prompt-editor';
+
+<SystemPromptEditor value={systemPrompt} onValueChange={setSystemPrompt} />;
+```

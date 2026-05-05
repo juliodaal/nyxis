@@ -1,0 +1,39 @@
+---
+title: AIConfigCard
+description: Composed configuration card combining provider, model, sampling, and prompt.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AIConfigCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AIConfigCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AIConfigCard } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { AIConfigCard } from 'nyxis-ui/ai-config-card';
+
+<AIConfigCard
+  defaultConfig={{
+    provider: 'anthropic',
+    model: 'claude-sonnet-4-5',
+    temperature: 0.7,
+    maxTokens: 1024,
+  }}
+  onConfigChange={persist}
+/>;
+```

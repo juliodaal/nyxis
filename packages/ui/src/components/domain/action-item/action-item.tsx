@@ -33,7 +33,7 @@ const STATUS_LABELS: Record<ActionItemStatus, string> = {
 
 /**
  * Single action item — checkbox + text + assignee + due date. Used in
- * **MeetingMind** to render extracted action items.
+ * **Meeting Intelligence** to render extracted action items.
  */
 export const ActionItem = forwardRef<HTMLDivElement, ActionItemProps>(function ActionItem(
   { text, done = false, onToggle, assignee, due, status, className, ...props },

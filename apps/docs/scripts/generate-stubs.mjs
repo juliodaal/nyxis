@@ -31,9 +31,16 @@ const COLLECTION_DIR = {
   'text-animations': 'text-animations',
   animations: 'animations',
   domain: 'domain',
+  'ai-models': 'ai-models',
 };
 
-const AUTO_GENERATE = new Set(['components', 'text-animations', 'animations', 'domain']);
+const AUTO_GENERATE = new Set([
+  'components',
+  'text-animations',
+  'animations',
+  'domain',
+  'ai-models',
+]);
 
 const USAGE_SNIPPETS = {
   'split-text': `<SplitText as="h1" splitBy="words" stagger={0.05}>
@@ -237,7 +244,7 @@ return (
   Compiling answer
 </ChatMessage>`,
   'chat-input': `<ChatInput
-  placeholder="Ask AskCompany anything..."
+  placeholder="Ask the assistant anything..."
   onSubmit={(value) => sendMessage(value)}
 />`,
   'action-item': `<ActionItem
@@ -275,6 +282,50 @@ return (
   columns={columns}
   data={data}
   pageSize={10}
+/>`,
+
+  'ai-provider-selector': `<AIProviderSelector
+  value={provider}
+  onValueChange={setProvider}
+/>`,
+  'model-picker': `<ModelPicker
+  value={modelId}
+  onValueChange={(id) => setModelId(id)}
+  requireCapabilities={['vision']}
+/>`,
+  'api-key-input': `<APIKeyInput
+  provider="anthropic"
+  value={apiKey}
+  onValueChange={setApiKey}
+  validate={async (key) => (key.startsWith('sk-ant-') ? 'valid' : 'invalid')}
+/>`,
+  'temperature-slider': `<TemperatureSlider
+  value={temperature}
+  onValueChange={setTemperature}
+  max={1}
+/>`,
+  'top-p-slider': `<TopPSlider value={topP} onValueChange={setTopP} />`,
+  'max-tokens-input': `<MaxTokensInput
+  value={maxTokens}
+  onValueChange={setMaxTokens}
+  modelId="claude-sonnet-4-5"
+/>`,
+  'system-prompt-editor': `<SystemPromptEditor
+  value={systemPrompt}
+  onValueChange={setSystemPrompt}
+/>`,
+  'context-window-meter': `<ContextWindowMeter used={used} modelId="claude-sonnet-4-5" />`,
+  'cost-meter': `// Subscribes to nyxisAIEvents 'usage' events automatically.
+<CostMeter detailed />`,
+  'provider-health-badge': `<ProviderHealthBadge status="operational" latencyMs={210} />`,
+  'ai-config-card': `<AIConfigCard
+  defaultConfig={{
+    provider: 'anthropic',
+    model: 'claude-sonnet-4-5',
+    temperature: 0.7,
+    maxTokens: 1024,
+  }}
+  onConfigChange={persist}
 />`,
 };
 
@@ -324,18 +375,12 @@ function parseRegistry(source) {
       const m = raw.match(new RegExp(`${key}\\s*:\\s*['\"]([^'\"]*)['\"]`));
       return m ? m[1] : undefined;
     };
-    const arr = (key) => {
-      const m = raw.match(new RegExp(`${key}\\s*:\\s*\\[([^\\]]*)\\]`));
-      if (!m) return undefined;
-      return Array.from(m[1].matchAll(/['\"]([^'\"]+)['\"]/g)).map((m) => m[1]);
-    };
     return {
       slug: get('slug'),
       name: get('name'),
       category: get('category'),
       description: get('description'),
       status: get('status') ?? 'planned',
-      saasContext: arr('saasContext'),
     };
   });
 }
@@ -357,12 +402,9 @@ function buildMdx(entry) {
     `description: ${entry.description}`,
     `category: ${entry.category}`,
     `status: ${entry.status}`,
+    '---',
+    '',
   ];
-  if (entry.saasContext && entry.saasContext.length > 0) {
-    lines.push('saas:');
-    for (const s of entry.saasContext) lines.push(`  - ${s}`);
-  }
-  lines.push('---', '');
 
   lines.push(
     `import Preview from '../../components/docs/Preview.astro';`,
@@ -378,10 +420,6 @@ function buildMdx(entry) {
     `</Preview>`,
     '',
   );
-
-  if (entry.saasContext && entry.saasContext.length > 0) {
-    lines.push('## Used in', '', ...entry.saasContext.map((s) => `- **${s}**`), '');
-  }
 
   lines.push(
     '## Installation',

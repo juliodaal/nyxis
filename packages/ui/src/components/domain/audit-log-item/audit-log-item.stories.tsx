@@ -21,7 +21,7 @@ export const Timeline: Story = {
       />
       <AuditLogItem
         timestamp="2026-05-03 14:18"
-        actor="DocuMind"
+        actor="Document AI"
         action="edited fields on"
         target="INV-04812"
         diff={[
@@ -31,7 +31,7 @@ export const Timeline: Story = {
       />
       <AuditLogItem
         timestamp="2026-05-03 14:02"
-        actor="DocuMind"
+        actor="Document AI"
         action="extracted"
         target="INV-04812"
       />

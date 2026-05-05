@@ -1,0 +1,35 @@
+---
+title: ModelPicker
+description: Models grouped by provider with capability icons, context window, and pricing.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ModelPickerDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ModelPickerDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ModelPicker } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ModelPicker } from 'nyxis-ui/model-picker';
+
+<ModelPicker
+  value={modelId}
+  onValueChange={(id) => setModelId(id)}
+  requireCapabilities={['vision']}
+/>;
+```

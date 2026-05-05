@@ -17,7 +17,7 @@ export interface KPICardProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Number + delta + optional sparkline. The headline component for
- * **PulseReport** dashboards.
+ * **Operations Dashboard** dashboards.
  */
 export const KPICard = forwardRef<HTMLDivElement, KPICardProps>(function KPICard(
   { label, value, period, delta, sparkline, className, ...props },

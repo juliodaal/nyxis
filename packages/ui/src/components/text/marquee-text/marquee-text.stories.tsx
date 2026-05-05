@@ -11,13 +11,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const logos = [
-  'DocuMind',
-  'AskCompany',
-  'LeadSift',
-  'SupportDeflect',
-  'MeetingMind',
-  'PulseReport',
-  'InboxZero',
+  'Document AI',
+  'AI Assistant',
+  'Lead Intelligence',
+  'Support Copilot',
+  'Meeting Intelligence',
+  'Operations Dashboard',
+  'Email Triage',
 ];
 
 export const Default: Story = {

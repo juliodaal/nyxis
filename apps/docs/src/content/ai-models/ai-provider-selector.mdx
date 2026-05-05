@@ -1,0 +1,31 @@
+---
+title: AIProviderSelector
+description: Dropdown to pick an AI provider (Anthropic, OpenAI, Google, Mistral, Ollama).
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AIProviderSelectorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AIProviderSelectorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AIProviderSelector } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { AIProviderSelector } from 'nyxis-ui/ai-provider-selector';
+
+<AIProviderSelector value={provider} onValueChange={setProvider} />;
+```

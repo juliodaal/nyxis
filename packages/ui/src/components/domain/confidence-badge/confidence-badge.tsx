@@ -14,7 +14,7 @@ export interface ConfidenceBadgeProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Color-coded confidence indicator for AI extractions. Used in
- * **DocuMind** to flag low-confidence fields for human review.
+ * **Document AI** to flag low-confidence fields for human review.
  */
 export const ConfidenceBadge = forwardRef<HTMLSpanElement, ConfidenceBadgeProps>(
   function ConfidenceBadge(

@@ -11,7 +11,8 @@ export type Category =
   | 'text-animations'
   | 'components'
   | 'animations'
-  | 'domain';
+  | 'domain'
+  | 'ai-models';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -23,7 +24,6 @@ export interface RegistryEntry {
   status: Status;
   importPath?: string;
   dependencies?: readonly string[];
-  saasContext?: readonly string[];
 }
 
 export interface CategoryGroup {
@@ -59,9 +59,15 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     href: '/animations',
   },
   {
+    id: 'ai-models',
+    label: 'Models & providers',
+    description: 'Pickers, sliders, meters, and config cards for AI provider/model setup.',
+    href: '/ai-models',
+  },
+  {
     id: 'domain',
-    label: 'Domain patterns',
-    description: 'Components designed for AI-product workflows.',
+    label: 'AI patterns',
+    description: 'Components purpose-built for AI products: chat, agents, citations, monitoring.',
     href: '/domain',
   },
 ] as const;
@@ -114,7 +120,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     description: 'Typewriter effect with multi-string support.',
     status: 'stable',
     importPath: 'nyxis-ui',
-    saasContext: ['AskCompany', 'MeetingMind'],
   },
   {
     slug: 'scramble-text',
@@ -122,7 +127,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'text-animations',
     description: 'Scrambled cipher resolves into the final text.',
     status: 'stable',
-    saasContext: ['DocuMind'],
   },
   {
     slug: 'decrypt-text',
@@ -130,7 +134,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'text-animations',
     description: 'Matrix-style decryption animation.',
     status: 'stable',
-    saasContext: ['InboxZero'],
   },
   {
     slug: 'gradient-text',
@@ -152,7 +155,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'text-animations',
     description: 'Animate a number with locale-aware formatting.',
     status: 'stable',
-    saasContext: ['PulseReport'],
   },
   {
     slug: 'reveal-text',
@@ -332,7 +334,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'components',
     description: 'Cmd+K-style command palette (cmdk).',
     status: 'stable',
-    saasContext: ['AskCompany'],
   },
   {
     slug: 'form',
@@ -404,102 +405,170 @@ export const REGISTRY: readonly RegistryEntry[] = [
     dependencies: ['gsap'],
   },
 
-  // ── Domain patterns (Phase 7) ───────────────────────────────────────
+  // ── AI patterns ─────────────────────────────────────────────────────
   {
     slug: 'file-dropzone',
     name: 'FileDropzone',
     category: 'domain',
-    description: 'Drag-and-drop multi-file uploader with previews.',
+    description: 'Drag-and-drop uploader for documents, images, and audio fed to an AI pipeline.',
     status: 'stable',
-    saasContext: ['DocuMind'],
   },
   {
     slug: 'data-table',
     name: 'DataTable',
     category: 'domain',
-    description: 'TanStack table with sort, filter, pagination, selection.',
+    description:
+      'Sortable, filterable, paginated table for AI extractions, runs, and evaluation results.',
     status: 'stable',
-    saasContext: ['DocuMind', 'LeadSift'],
   },
   {
     slug: 'chat-message',
     name: 'ChatMessage',
     category: 'domain',
-    description: 'User / assistant / system bubble with streaming cursor.',
+    description: 'User / assistant / system bubble with streaming cursor for chat interfaces.',
     status: 'stable',
-    saasContext: ['AskCompany', 'SupportDeflect'],
   },
   {
     slug: 'chat-input',
     name: 'ChatInput',
     category: 'domain',
-    description: 'Auto-resizing chat input with attachment slot.',
+    description: 'Auto-resizing composer with attachments for chat and agent interfaces.',
     status: 'stable',
-    saasContext: ['AskCompany', 'SupportDeflect'],
   },
   {
     slug: 'citation-card',
     name: 'CitationCard',
     category: 'domain',
-    description: 'Source snippet with title, page, and link.',
+    description: 'Source snippet with title, locator, and link — for RAG citations.',
     status: 'stable',
-    saasContext: ['AskCompany', 'MeetingMind'],
   },
   {
     slug: 'confidence-badge',
     name: 'ConfidenceBadge',
     category: 'domain',
-    description: 'Color-coded extraction confidence indicator.',
+    description: 'Color-coded badge for any AI extraction or classification confidence score.',
     status: 'stable',
-    saasContext: ['DocuMind'],
   },
   {
     slug: 'kpi-card',
     name: 'KPICard',
     category: 'domain',
-    description: 'Number, delta, and sparkline at a glance.',
+    description: 'Number, delta, and sparkline at a glance — for AI dashboards and monitoring.',
     status: 'stable',
-    saasContext: ['PulseReport'],
   },
   {
     slug: 'lead-card',
     name: 'LeadCard',
     category: 'domain',
-    description: 'Lead summary with score ring and quick actions.',
+    description: 'Entity summary card with a circular score and quick actions.',
     status: 'stable',
-    saasContext: ['LeadSift'],
   },
   {
     slug: 'sentiment-indicator',
     name: 'SentimentIndicator',
     category: 'domain',
-    description: 'Positive / neutral / negative sentiment readout.',
+    description: 'Positive / neutral / negative readout for sentiment-analysis output.',
     status: 'stable',
-    saasContext: ['SupportDeflect', 'MeetingMind'],
   },
   {
     slug: 'audit-log-item',
     name: 'AuditLogItem',
     category: 'domain',
-    description: 'Timeline entry with actor, action, and diff.',
+    description: 'Timeline entry with actor, action, and diff — for AI audit trails.',
     status: 'stable',
-    saasContext: ['DocuMind'],
   },
   {
     slug: 'action-item',
     name: 'ActionItem',
     category: 'domain',
-    description: 'Checkbox row with assignee, due date, and status.',
+    description: 'Checkbox row with assignee, due date, and status — for agent task lists.',
     status: 'stable',
-    saasContext: ['MeetingMind'],
   },
   {
     slug: 'email-triage-card',
     name: 'EmailTriageCard',
     category: 'domain',
-    description: 'Email category, preview, and draft response.',
+    description: 'Auto-classified inbox row with preview and draft response.',
     status: 'stable',
-    saasContext: ['InboxZero'],
+  },
+
+  // ── AI · Models & Providers (Phase D) ───────────────────────────────
+  {
+    slug: 'ai-provider-selector',
+    name: 'AIProviderSelector',
+    category: 'ai-models',
+    description: 'Dropdown to pick an AI provider (Anthropic, OpenAI, Google, Mistral, Ollama).',
+    status: 'stable',
+  },
+  {
+    slug: 'model-picker',
+    name: 'ModelPicker',
+    category: 'ai-models',
+    description: 'Models grouped by provider with capability icons, context window, and pricing.',
+    status: 'stable',
+  },
+  {
+    slug: 'api-key-input',
+    name: 'APIKeyInput',
+    category: 'ai-models',
+    description: 'Masked API key input with show/hide toggle and live validation status.',
+    status: 'stable',
+  },
+  {
+    slug: 'temperature-slider',
+    name: 'TemperatureSlider',
+    category: 'ai-models',
+    description: 'Sampling temperature slider with deterministic ↔ creative endpoints.',
+    status: 'stable',
+  },
+  {
+    slug: 'top-p-slider',
+    name: 'TopPSlider',
+    category: 'ai-models',
+    description: 'Nucleus sampling slider for top-p configuration.',
+    status: 'stable',
+  },
+  {
+    slug: 'max-tokens-input',
+    name: 'MaxTokensInput',
+    category: 'ai-models',
+    description: 'Numeric input that knows the model output cap and warns on overflow.',
+    status: 'stable',
+  },
+  {
+    slug: 'system-prompt-editor',
+    name: 'SystemPromptEditor',
+    category: 'ai-models',
+    description: 'Auto-resizing system prompt editor with variable detection and token estimate.',
+    status: 'stable',
+  },
+  {
+    slug: 'context-window-meter',
+    name: 'ContextWindowMeter',
+    category: 'ai-models',
+    description: 'Bar chart of tokens consumed vs. context window.',
+    status: 'stable',
+  },
+  {
+    slug: 'cost-meter',
+    name: 'CostMeter',
+    category: 'ai-models',
+    description: 'Live USD cost meter that subscribes to the AI event bus.',
+    status: 'stable',
+  },
+  {
+    slug: 'provider-health-badge',
+    name: 'ProviderHealthBadge',
+    category: 'ai-models',
+    description: 'Operational / degraded / down pill with optional latency.',
+    status: 'stable',
+  },
+  {
+    slug: 'ai-config-card',
+    name: 'AIConfigCard',
+    category: 'ai-models',
+    description: 'Composed configuration card combining provider, model, sampling, and prompt.',
+    status: 'stable',
   },
 ] as const;
 

@@ -23,7 +23,7 @@ export interface AuditLogItemProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Single audit log entry with optional collapsible diff. Used in
- * **DocuMind** for compliance-grade extraction logs.
+ * **Document AI** for compliance-grade extraction logs.
  */
 export const AuditLogItem = forwardRef<HTMLDivElement, AuditLogItemProps>(function AuditLogItem(
   { timestamp, actor, action, target, diff, className, ...props },

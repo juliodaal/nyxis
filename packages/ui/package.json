@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -38,6 +38,14 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./ai": {
+      "types": "./dist/ai/index.d.ts",
+      "import": "./dist/ai/index.js"
+    },
+    "./ai/server": {
+      "types": "./dist/ai/server/index.d.ts",
+      "import": "./dist/ai/server/index.js"
+    },
     "./theme": {
       "types": "./dist/components/theme/index.d.ts",
       "import": "./dist/components/theme/index.js"
@@ -201,7 +209,7 @@
   },
   "scripts": {
     "dev": "tsup --watch --no-dts",
-    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" tsup",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=12288\" tsup",
     "build:css": "node scripts/copy-styles.mjs",
     "build:directives": "node scripts/preserve-directives.mjs",
     "lint": "eslint src --max-warnings=0",
@@ -215,17 +223,41 @@
     "attw": "attw --pack ."
   },
   "peerDependencies": {
+    "@ai-sdk/anthropic": "^1.0.0 || ^2.0.0",
+    "@ai-sdk/google": "^1.0.0 || ^2.0.0",
+    "@ai-sdk/mistral": "^1.0.0 || ^2.0.0",
+    "@ai-sdk/openai": "^1.0.0 || ^2.0.0",
+    "ai": "^4.0.0 || ^5.0.0",
     "framer-motion": "^11.0.0 || ^12.0.0",
     "gsap": "^3.12.0",
+    "ollama-ai-provider": "^1.0.0 || ^2.0.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "tailwindcss": "^4.0.0"
   },
   "peerDependenciesMeta": {
-    "gsap": {
+    "@ai-sdk/anthropic": {
+      "optional": true
+    },
+    "@ai-sdk/google": {
+      "optional": true
+    },
+    "@ai-sdk/mistral": {
+      "optional": true
+    },
+    "@ai-sdk/openai": {
+      "optional": true
+    },
+    "ai": {
       "optional": true
     },
     "framer-motion": {
+      "optional": true
+    },
+    "gsap": {
+      "optional": true
+    },
+    "ollama-ai-provider": {
       "optional": true
     }
   },
@@ -251,6 +283,8 @@
     "cmdk": "^1.0.4",
     "lucide-react": "catalog:",
     "react-hook-form": "^7.54.2",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "catalog:",
     "vaul": "^1.1.2",
@@ -260,8 +294,14 @@
     "gsap": "^3.12.0"
   },
   "devDependencies": {
+    "@ai-sdk/anthropic": "^1.1.0",
+    "@ai-sdk/google": "^1.1.0",
+    "@ai-sdk/mistral": "^1.1.0",
+    "@ai-sdk/openai": "^1.1.0",
     "@arethetypeswrong/cli": "^0.17.1",
+    "ai": "^4.1.0",
     "cross-env": "^7.0.3",
+    "ollama-ai-provider": "^1.2.0",
     "@storybook/addon-a11y": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",

@@ -1,0 +1,31 @@
+---
+title: ContextWindowMeter
+description: Bar chart of tokens consumed vs. context window.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ContextWindowMeterDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ContextWindowMeterDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ContextWindowMeter } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ContextWindowMeter } from 'nyxis-ui/context-window-meter';
+
+<ContextWindowMeter used={used} modelId="claude-sonnet-4-5" />;
+```

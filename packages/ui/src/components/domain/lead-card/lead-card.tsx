@@ -21,7 +21,7 @@ export interface LeadCardProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Lead summary card with score ring + tags + actions. Used in
- * **LeadSift**.
+ * **Lead Intelligence**.
  */
 export const LeadCard = forwardRef<HTMLDivElement, LeadCardProps>(function LeadCard(
   { company, contact, segment, score, tags, onEmail, primaryAction, className, ...props },

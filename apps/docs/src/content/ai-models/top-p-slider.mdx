@@ -1,0 +1,31 @@
+---
+title: TopPSlider
+description: Nucleus sampling slider for top-p configuration.
+category: ai-models
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TopPSliderDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TopPSliderDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TopPSlider } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { TopPSlider } from 'nyxis-ui/top-p-slider';
+
+<TopPSlider value={topP} onValueChange={setTopP} />;
+```
