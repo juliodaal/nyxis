@@ -1,0 +1,52 @@
+---
+title: ToolExecutionLog
+description: Stacked timeline of tool invocations with status, args, result, and duration.
+category: tools
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ToolExecutionLogDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ToolExecutionLogDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ToolExecutionLog, type ToolExecution } from 'nyxis-ui';
+
+<ToolExecutionLog executions={executions} limit={5} showResults />;
+```
+
+## Composition
+
+Each row composes `<ToolCall>` (the header) and optionally `<ToolResult>` (the inline output). When `limit` is set, the rest collapse with a `+N more` footer — useful for sidebars and side-rail inspectors.
+
+## Sourcing executions
+
+The shape is intentionally narrow:
+
+```ts
+interface ToolExecution {
+  id: string;
+  name: string;
+  args?: Record<string, unknown>;
+  result?: unknown;
+  error?: string;
+  status: 'pending' | 'running' | 'completed' | 'errored';
+  startedAt: Date | string;
+  durationMs?: number;
+}
+```
+
+You can derive these from `useChat().toolCalls` plus your own dispatch wall-clock, or from a server-side log if you persist tool calls.

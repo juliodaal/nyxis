@@ -1,0 +1,42 @@
+---
+title: StreamingMarkdown
+description: Markdown renderer tuned for streaming — GFM, themed code blocks, trailing cursor.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { StreamingMarkdownDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <StreamingMarkdownDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui react-markdown remark-gfm
+```
+
+## Usage
+
+```tsx
+import { StreamingMarkdown } from 'nyxis-ui';
+// or:
+// import { StreamingMarkdown } from 'nyxis-ui/streaming-markdown';
+
+<StreamingMarkdown text={partial} streaming={isStreaming} />;
+```
+
+## Anatomy
+
+- Built on top of `react-markdown` + `remark-gfm` — task lists, tables, strikethrough, autolinks.
+- Fenced code blocks render through `<StreamingCode>` (copy button, language badge).
+- Inline code, links, headings, blockquotes are styled with theme tokens — drops cleanly into any `<ChatMessage>` bubble.
+- React-markdown internally memoises by source string, so re-renders during streaming stay cheap.
+
+## Peer dependencies
+
+`react-markdown` and `remark-gfm` are **optional peer deps** — only loaded when `<StreamingMarkdown>` is on a page.

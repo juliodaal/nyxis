@@ -1,0 +1,34 @@
+---
+title: StreamingCode
+description: Code block with language badge, filename header, copy button, and live cursor.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { StreamingCodeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <StreamingCodeDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { StreamingCode } from 'nyxis-ui';
+
+<StreamingCode code={code} language="tsx" filename="chat.tsx" />;
+```
+
+## Notes
+
+- Syntax highlighting is intentionally **not bundled** to keep the package light. Pair with Shiki, Prism, or highlight.js by passing pre-rendered HTML.
+- Used automatically by `<StreamingMarkdown>` for fenced code blocks.

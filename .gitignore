@@ -60,6 +60,9 @@ yarn-error.log*
 tmp/
 temp/
 
+# Claude Code workspace cache (lockfiles, scheduled tasks)
+.claude/
+
 # Files kept private until ready to publish
 SECURITY.md
 CONTRIBUTING.md

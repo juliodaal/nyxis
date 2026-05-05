@@ -35,11 +35,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  ChainOfThought,
   ChatInput,
   ChatMessage,
+  ChatThread,
   Checkbox,
   CitationCard,
   Combobox,
+  ConversationFork,
+  ConversationSidebar,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -84,13 +88,16 @@ import {
   LeadCard,
   MagneticButton,
   MarqueeText,
+  MessageActions,
   MeshGradientBackground,
+  ParameterForm,
   ParallaxContainer,
   Popover,
   PopoverContent,
   PopoverTrigger,
   RadioGroup,
   RadioGroupItem,
+  ReasoningTrace,
   RevealText,
   RotatingText,
   ScrambleText,
@@ -114,6 +121,9 @@ import {
   SplitText,
   SpotlightCursor,
   StaggerReveal,
+  StreamingCode,
+  StreamingMarkdown,
+  StreamingText,
   Switch,
   Tabs,
   TabsContent,
@@ -121,13 +131,20 @@ import {
   TabsTrigger,
   Textarea,
   ThemeToggle,
+  ThinkingIndicator,
   TiltCard,
+  TokenCounter,
+  ToolCall,
+  ToolExecutionLog,
+  ToolRegistry,
+  ToolResult,
   Toaster,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
   TypeWriter,
+  TypingIndicator,
   toast,
 } from 'nyxis-ui';
 
@@ -1167,6 +1184,513 @@ export function AIConfigCardDemo() {
             'You are a senior support engineer named {{agent_name}}. Reply only with information from the {{knowledge_base}} corpus.',
         }}
       />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Chat 2.0 (Phase E)
+// ─────────────────────────────────────────────────────────────────────
+
+import { useEffect } from 'react';
+import { Code2, Globe, Image as ImageIcon, Search } from 'lucide-react';
+import type { AIMessage } from 'nyxis-ui/ai';
+import type {
+  ChainStep,
+  ConversationItem,
+  ForkNode,
+  ParameterField,
+  RegisteredTool,
+  ToolExecution,
+} from 'nyxis-ui';
+
+const STREAMING_SAMPLE =
+  'Streaming responses make assistants feel responsive even when generation is slow.';
+
+export function StreamingTextDemo() {
+  const [text, setText] = useState('');
+  const [streaming, setStreaming] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    const tick = setInterval(() => {
+      i += 2;
+      setText(STREAMING_SAMPLE.slice(0, i));
+      if (i >= STREAMING_SAMPLE.length) {
+        clearInterval(tick);
+        setStreaming(false);
+      }
+    }, 50);
+    return () => clearInterval(tick);
+  }, []);
+
+  return (
+    <div className="text-foreground w-full max-w-md text-base leading-relaxed">
+      <StreamingText text={text} streaming={streaming} />
+    </div>
+  );
+}
+
+const MARKDOWN_SAMPLE = `Two reasons we ship adapters as **peer dependencies**:
+
+1. **Bundle size** — apps targeting only Anthropic don't pay for OpenAI.
+2. **Version freedom** — pin the AI SDK version that matches your server.
+
+\`\`\`ts
+import { createChatHandler, createModel } from 'nyxis-ui/ai/server';
+
+export const POST = createChatHandler({
+  model: createModel('anthropic', 'claude-sonnet-4-5'),
+});
+\`\`\`
+
+> Adapter packages are loaded *lazily* — only providers you actually use end up in your bundle.
+`;
+
+export function StreamingMarkdownDemo() {
+  return (
+    <div className="bg-card border-border w-full max-w-2xl rounded-lg border p-6">
+      <StreamingMarkdown text={MARKDOWN_SAMPLE} streaming={false} />
+    </div>
+  );
+}
+
+const CODE_SAMPLE = `import { useChat } from 'nyxis-ui/ai';
+
+export function Chat() {
+  const { messages, send, isStreaming } = useChat({
+    api: '/api/chat',
+  });
+
+  return (
+    <ChatThread
+      messages={messages}
+      streaming={isStreaming}
+    />
+  );
+}`;
+
+export function StreamingCodeDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <StreamingCode code={CODE_SAMPLE} language="tsx" filename="chat.tsx" />
+    </div>
+  );
+}
+
+export function TypingIndicatorDemo() {
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <TypingIndicator />
+      <TypingIndicator label="Assistant is thinking" />
+      <TypingIndicator variant="bubble" label="Generating response" />
+    </div>
+  );
+}
+
+const THREAD_SEED: AIMessage[] = [
+  {
+    id: '1',
+    role: 'user',
+    content: 'Why does Nyxis ship adapters as peer dependencies?',
+    createdAt: '14:02',
+  },
+  {
+    id: '2',
+    role: 'assistant',
+    content:
+      "Two reasons:\n\n1. **Bundle size** — apps targeting only Anthropic don't pay for OpenAI.\n2. **Version freedom** — pin the AI SDK version that matches your server.\n\n```ts\npnpm add nyxis-ui ai @ai-sdk/anthropic\n```",
+    createdAt: '14:02',
+  },
+];
+
+const FOLLOWUP_TEXT =
+  'And on the server, `createChatHandler` lazy-loads the right adapter at request time — so the cold-start of an Edge function only pays for the provider it actually uses.';
+
+export function ChatThreadDemo() {
+  const [messages, setMessages] = useState<AIMessage[]>(THREAD_SEED);
+  const [streaming, setStreaming] = useState(false);
+
+  useEffect(() => {
+    const start = setTimeout(() => {
+      setStreaming(true);
+      setMessages((prev) => [
+        ...prev,
+        { id: '3', role: 'user', content: 'Anything else?', createdAt: '14:03' },
+        { id: '4', role: 'assistant', content: '', createdAt: '14:03' },
+      ]);
+      let i = 0;
+      const tick = setInterval(() => {
+        i += 4;
+        setMessages((prev) =>
+          prev.map((m) => (m.id === '4' ? { ...m, content: FOLLOWUP_TEXT.slice(0, i) } : m)),
+        );
+        if (i >= FOLLOWUP_TEXT.length) {
+          clearInterval(tick);
+          setStreaming(false);
+        }
+      }, 60);
+    }, 1000);
+    return () => clearTimeout(start);
+  }, []);
+
+  return (
+    <div className="border-border bg-background h-[480px] w-full max-w-2xl overflow-hidden rounded-lg border">
+      <ChatThread messages={messages} streaming={streaming} />
+    </div>
+  );
+}
+
+export function MessageActionsDemo() {
+  return (
+    <div className="border-border bg-card flex w-full max-w-md flex-col gap-4 rounded-lg border p-4">
+      <p className="text-foreground text-sm">
+        The fiscal year ends on March 31. Quarterly reports are due within ten business days.
+      </p>
+      <MessageActions
+        text="The fiscal year ends on March 31."
+        actions={['copy', 'regenerate', 'edit', 'fork', 'share']}
+      />
+    </div>
+  );
+}
+
+export function TokenCounterDemo() {
+  const sample =
+    'You are a senior support engineer. Reply only with information from the knowledge base. ' +
+    'When unsure, say so. Format code with fenced blocks. Keep tone neutral and precise. '.repeat(
+      8,
+    );
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <TokenCounter text="Hello world" modelId="claude-sonnet-4-5" />
+      <TokenCounter text={sample.slice(0, 600)} modelId="claude-sonnet-4-5" showBar />
+      <TokenCounter text={sample} modelId="claude-sonnet-4-5" showBar />
+    </div>
+  );
+}
+
+const CONVERSATIONS: ConversationItem[] = [
+  {
+    id: '1',
+    title: 'Streaming-first chat architecture',
+    updatedAt: '2m ago',
+    snippet: 'And on the server, createChatHandler lazy-loads the right adapter…',
+    pinned: true,
+  },
+  {
+    id: '2',
+    title: 'Provider catalog and pricing',
+    updatedAt: '1h ago',
+    snippet: 'The catalog has every model from Anthropic, OpenAI, Google…',
+    unread: 2,
+  },
+  {
+    id: '3',
+    title: 'Tool calls with type-safe schemas',
+    updatedAt: 'Yesterday',
+    snippet: 'Use Zod schemas for the parameters and validate at runtime.',
+  },
+  {
+    id: '4',
+    title: 'Theming and dark-mode tokens',
+    updatedAt: '3d ago',
+    snippet: 'Five themes ship by default: light, dark, midnight, paper, console.',
+  },
+];
+
+export function ConversationSidebarDemo() {
+  const [activeId, setActiveId] = useState('1');
+  return (
+    <div className="border-border bg-card h-[480px] w-full max-w-xs overflow-hidden rounded-lg border">
+      <ConversationSidebar
+        conversations={CONVERSATIONS}
+        activeId={activeId}
+        onSelect={setActiveId}
+        onNew={() => alert('New conversation')}
+      />
+    </div>
+  );
+}
+
+const FORK_TREE: ForkNode = {
+  id: 'root',
+  label: 'Why does Nyxis ship adapters as peer deps?',
+  role: 'user',
+  children: [
+    {
+      id: 'a1',
+      label: 'Bundle size + version freedom + lazy server load.',
+      role: 'assistant',
+      children: [
+        {
+          id: 'a1-u1',
+          label: 'Got it — show me the server-side example.',
+          role: 'user',
+          children: [
+            {
+              id: 'a1-u1-a1',
+              label: "Use createChatHandler with anthropic('claude-sonnet-4-5').",
+              role: 'assistant',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'a2',
+      label: 'Bundle size, version freedom, and OPTIONAL adapter loading.',
+      role: 'assistant',
+    },
+  ],
+};
+
+export function ConversationForkDemo() {
+  return (
+    <div className="w-full max-w-lg">
+      <ConversationFork
+        root={FORK_TREE}
+        activeLeafId="a1-u1-a1"
+        onSelect={(id) => alert(`Switch to branch ${id}`)}
+      />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Reasoning (Phase F)
+// ─────────────────────────────────────────────────────────────────────
+
+const REASONING_SAMPLE = `The user is asking why Nyxis exposes adapters as peer dependencies.
+
+Three angles to cover:
+1. Bundle size — apps targeting only one provider shouldn't pay for the others.
+2. Version freedom — provider SDKs evolve quickly; pinning lets consumers control upgrades.
+3. Lazy loading on the server — createChatHandler resolves the right adapter at request time.
+
+Best to lead with the bundle-size argument since it's the most visceral, then walk through the other two with a concrete code example.`;
+
+export function ReasoningTraceDemo() {
+  const [text, setText] = useState('');
+  const [streaming, setStreaming] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    const tick = setInterval(() => {
+      i += 5;
+      setText(REASONING_SAMPLE.slice(0, i));
+      if (i >= REASONING_SAMPLE.length) {
+        clearInterval(tick);
+        setStreaming(false);
+      }
+    }, 50);
+    return () => clearInterval(tick);
+  }, []);
+
+  return (
+    <div className="w-full max-w-xl">
+      <ReasoningTrace text={text} streaming={streaming} defaultOpen />
+    </div>
+  );
+}
+
+const COT_STEPS: ChainStep[] = [
+  {
+    id: '1',
+    text: 'Plan: identify the three architectural choices behind peer-dep adapters',
+    status: 'done',
+  },
+  {
+    id: '2',
+    text: 'Search the codebase for the createModel implementation',
+    detail: 'Found in packages/ui/src/ai/adapters/create-model.ts',
+    status: 'done',
+  },
+  {
+    id: '3',
+    text: 'Synthesise the answer as a numbered list with a code example',
+    status: 'active',
+  },
+  {
+    id: '4',
+    text: 'Validate the example compiles against the Vercel AI SDK',
+    status: 'pending',
+  },
+];
+
+export function ChainOfThoughtDemo() {
+  return (
+    <div className="w-full max-w-md">
+      <ChainOfThought steps={COT_STEPS} />
+    </div>
+  );
+}
+
+export function ThinkingIndicatorDemo() {
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <ThinkingIndicator variant="shimmer" />
+      <ThinkingIndicator variant="pulse" />
+      <ThinkingIndicator variant="orbit" />
+      <ThinkingIndicator variant="shimmer" icon="sparkles" label="Reasoning across documents…" />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Tools / Function Calling (Phase G)
+// ─────────────────────────────────────────────────────────────────────
+
+const TOOL_ARGS = {
+  query: 'streaming chat protocol',
+  filters: { lang: 'en', after: '2024-01-01' },
+  limit: 5,
+};
+
+export function ToolCallDemo() {
+  return (
+    <div className="flex w-full max-w-xl flex-col gap-2">
+      <ToolCall name="search_documents" args={TOOL_ARGS} status="completed" durationMs={420} />
+      <ToolCall name="fetch_url" args={{ url: 'https://nyxis.dev/docs' }} status="running" />
+      <ToolCall name="execute_code" status="errored" durationMs={5000} />
+      <ToolCall name="generate_image" status="pending" />
+    </div>
+  );
+}
+
+export function ToolResultDemo() {
+  return (
+    <div className="flex w-full max-w-xl flex-col gap-3">
+      <ToolResult
+        label="search_documents"
+        result={{
+          hits: [
+            { id: 'doc_1', title: 'Streaming chat architecture', score: 0.94 },
+            { id: 'doc_2', title: 'Provider catalog', score: 0.88 },
+          ],
+          total: 2,
+        }}
+      />
+      <ToolResult
+        label="execute_code"
+        error={'ReferenceError: x is not defined\n  at Object.<anonymous> (/sandbox/main.ts:12:7)'}
+      />
+    </div>
+  );
+}
+
+const PARAM_FIELDS: ParameterField[] = [
+  {
+    name: 'query',
+    type: 'string',
+    description: 'Free-text search.',
+    placeholder: 'streaming chat protocol',
+    required: true,
+  },
+  { name: 'limit', type: 'number', description: 'Max results.', defaultValue: 5 },
+  { name: 'language', type: 'enum', options: ['en', 'es', 'de', 'fr'], defaultValue: 'en' },
+  { name: 'tags', type: 'string[]', description: 'Filter by tag.' },
+  { name: 'fuzzy', type: 'boolean', description: 'Approximate matching.', defaultValue: true },
+];
+
+export function ParameterFormDemo() {
+  const [v, setV] = useState<Record<string, unknown>>({});
+  return (
+    <div className="border-border bg-card w-full max-w-md rounded-lg border p-5">
+      <ParameterForm
+        fields={PARAM_FIELDS}
+        value={v}
+        onValueChange={setV}
+        submitLabel="Run search_documents"
+        onSubmit={(value) => alert(JSON.stringify(value, null, 2))}
+      />
+    </div>
+  );
+}
+
+const REGISTRY_TOOLS: RegisteredTool[] = [
+  {
+    id: 'search',
+    name: 'search_documents',
+    description: 'Vector search over the indexed document corpus.',
+    icon: <Search className="size-3.5" />,
+    group: 'Retrieval',
+  },
+  {
+    id: 'fetch',
+    name: 'fetch_url',
+    description: 'Fetch a URL and return cleaned readable text.',
+    icon: <Globe className="size-3.5" />,
+    group: 'Retrieval',
+  },
+  {
+    id: 'execute',
+    name: 'execute_code',
+    description: 'Run JavaScript in a sandboxed environment.',
+    icon: <Code2 className="size-3.5" />,
+    group: 'Compute',
+  },
+  {
+    id: 'image',
+    name: 'generate_image',
+    description: 'Produce an image from a text prompt.',
+    icon: <ImageIcon className="size-3.5" />,
+    group: 'Compute',
+    enabled: false,
+  },
+];
+
+export function ToolRegistryDemo() {
+  return (
+    <div className="w-full max-w-md">
+      <ToolRegistry tools={REGISTRY_TOOLS} />
+    </div>
+  );
+}
+
+const NOW = new Date();
+const ago = (s: number) => new Date(NOW.getTime() - s * 1000);
+const EXECUTIONS: ToolExecution[] = [
+  {
+    id: '4',
+    name: 'search_documents',
+    args: { query: 'streaming protocol', limit: 5 },
+    status: 'running',
+    startedAt: ago(2),
+  },
+  {
+    id: '3',
+    name: 'fetch_url',
+    args: { url: 'https://nyxis.dev/docs' },
+    result: 'Nyxis is a React component library for AI products. 70+ components.',
+    status: 'completed',
+    startedAt: ago(18),
+    durationMs: 480,
+  },
+  {
+    id: '2',
+    name: 'execute_code',
+    args: { language: 'js', code: 'return 2 + 2;' },
+    error: 'Sandbox unreachable: timeout after 5000ms',
+    status: 'errored',
+    startedAt: ago(34),
+    durationMs: 5000,
+  },
+  {
+    id: '1',
+    name: 'list_models',
+    args: {},
+    result: { models: ['claude-sonnet-4-5', 'gpt-4o', 'gemini-1.5-pro'] },
+    status: 'completed',
+    startedAt: ago(52),
+    durationMs: 90,
+  },
+];
+
+export function ToolExecutionLogDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <ToolExecutionLog executions={EXECUTIONS} />
     </div>
   );
 }

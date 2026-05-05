@@ -11,6 +11,9 @@ const baseFrontmatter = z.object({
     'animations',
     'domain',
     'ai-models',
+    'chat',
+    'reasoning',
+    'tools',
   ]),
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
@@ -58,6 +61,21 @@ const aiModels = defineCollection({
   schema: baseFrontmatter,
 });
 
+const chat = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/chat' }),
+  schema: baseFrontmatter,
+});
+
+const reasoning = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/reasoning' }),
+  schema: baseFrontmatter,
+});
+
+const tools = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tools' }),
+  schema: baseFrontmatter,
+});
+
 export const collections = {
   docs,
   components,
@@ -65,4 +83,7 @@ export const collections = {
   animations,
   domain,
   'ai-models': aiModels,
+  chat,
+  reasoning,
+  tools,
 };
