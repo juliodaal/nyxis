@@ -1,0 +1,41 @@
+---
+title: ConversationSidebar
+description: Left-rail conversation list with search, pinned items, and unread counts.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ConversationSidebarDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ConversationSidebarDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ConversationSidebar, type ConversationItem } from 'nyxis-ui';
+
+<ConversationSidebar
+  conversations={items}
+  activeId={current}
+  onSelect={setCurrent}
+  onNew={createConversation}
+/>;
+```
+
+## Anatomy
+
+- Search input filters the list by title and snippet (case-insensitive).
+- `pinned` items float to the top.
+- `unread` counts render as a small numeric badge on the right.
+- "New conversation" button is hooked up via `onNew`.

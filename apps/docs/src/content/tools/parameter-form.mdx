@@ -1,0 +1,51 @@
+---
+title: ParameterForm
+description: Schema-driven form for tool parameters — string, number, enum, boolean, list, and JSON.
+category: tools
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ParameterFormDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ParameterFormDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ParameterForm, type ParameterField } from 'nyxis-ui';
+
+const fields: ParameterField[] = [
+  { name: 'query', type: 'string', required: true },
+  { name: 'limit', type: 'number', defaultValue: 5 },
+  { name: 'tags', type: 'string[]', placeholder: 'add a tag' },
+  { name: 'fuzzy', type: 'boolean', defaultValue: true },
+];
+
+<ParameterForm fields={fields} onSubmit={(value) => execute(value)} submitLabel="Run" />;
+```
+
+## Field types
+
+| Type       | Renders as                                                                |
+| ---------- | ------------------------------------------------------------------------- |
+| `string`   | Text input                                                                |
+| `number`   | Numeric input with `inputMode="decimal"`                                  |
+| `boolean`  | Toggle switch                                                             |
+| `enum`     | Native select with `options`                                              |
+| `string[]` | Chip input (free-form) or chip-select (with `options`)                    |
+| `json`     | Multiline textarea, parsed live (falls back to raw string on parse error) |
+
+## When to use this
+
+The most common pattern: the model proposes a tool call → you surface the args via `<ParameterForm>` so the user can adjust them → then dispatch. This gives users an "approve before run" loop without writing per-tool forms by hand.

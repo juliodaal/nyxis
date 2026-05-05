@@ -58,3 +58,9 @@ export * from './components/ai/index.js';
 
 // AI · Chat 2.0 (Phase E)
 export * from './components/chat/index.js';
+
+// AI · Reasoning (Phase F)
+export * from './components/reasoning/index.js';
+
+// AI · Tools / Function Calling (Phase G)
+export * from './components/tools/index.js';

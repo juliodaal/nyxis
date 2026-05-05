@@ -1,0 +1,43 @@
+---
+title: MessageActions
+description: Hover-revealed copy / regenerate / edit / delete / fork / share row.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MessageActionsDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MessageActionsDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MessageActions } from 'nyxis-ui';
+
+<MessageActions
+  text={message.content}
+  actions={['copy', 'regenerate', 'fork']}
+  onRegenerate={() => regenerate(message.id)}
+  onFork={() => forkAt(message.id)}
+/>;
+```
+
+## Actions
+
+`copy` · `regenerate` · `edit` · `delete` · `fork` · `share` — pass any subset via the `actions` prop. `copy` is wired to `navigator.clipboard` automatically.
+
+## Variants
+
+- `ghost` — flat icon row, designed to live inside `<ChatMessage>`'s footer.
+- `panel` — solid floating card, useful as a popover-attached affordance.

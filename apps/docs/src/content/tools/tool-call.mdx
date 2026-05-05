@@ -1,0 +1,49 @@
+---
+title: ToolCall
+description: Card representing a single tool invocation by the model with status, args, and timing.
+category: tools
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ToolCallDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ToolCallDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ToolCall } from 'nyxis-ui';
+// or:
+// import { ToolCall } from 'nyxis-ui/tool-call';
+
+<ToolCall
+  name="search_documents"
+  args={{ query: 'streaming protocol', limit: 5 }}
+  status="running"
+  durationMs={420}
+/>;
+```
+
+## Status
+
+| Status      | Indicator                     | Use when                                        |
+| ----------- | ----------------------------- | ----------------------------------------------- |
+| `pending`   | wrench icon, neutral          | Tool call has been proposed but not dispatched. |
+| `running`   | spinning loader, primary tone | Tool is executing.                              |
+| `completed` | checkmark, success tone       | Tool returned successfully.                     |
+| `errored`   | warning, destructive tone     | Tool threw / timed out.                         |
+
+## Composition
+
+Pair with `<ToolResult>` to surface the output, or wrap the pair inside a `<ChatMessage role="tool">` for a chat-thread inspector.

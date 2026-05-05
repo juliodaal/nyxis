@@ -6,6 +6,8 @@ const anim = (name: string) => `src/components/animations/${name}/index.ts`;
 const domain = (name: string) => `src/components/domain/${name}/index.ts`;
 const aiUi = (name: string) => `src/components/ai/${name}/index.ts`;
 const chat = (name: string) => `src/components/chat/${name}/index.ts`;
+const reasoning = (name: string) => `src/components/reasoning/${name}/index.ts`;
+const tools = (name: string) => `src/components/tools/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -109,6 +111,18 @@ export default defineConfig({
     'components/chat/chat-thread/index': chat('chat-thread'),
     'components/chat/conversation-sidebar/index': chat('conversation-sidebar'),
     'components/chat/conversation-fork/index': chat('conversation-fork'),
+    // Reasoning (Phase F)
+    'components/reasoning/index': 'src/components/reasoning/index.ts',
+    'components/reasoning/reasoning-trace/index': reasoning('reasoning-trace'),
+    'components/reasoning/chain-of-thought/index': reasoning('chain-of-thought'),
+    'components/reasoning/thinking-indicator/index': reasoning('thinking-indicator'),
+    // Tools / Function Calling (Phase G)
+    'components/tools/index': 'src/components/tools/index.ts',
+    'components/tools/tool-call/index': tools('tool-call'),
+    'components/tools/tool-result/index': tools('tool-result'),
+    'components/tools/parameter-form/index': tools('parameter-form'),
+    'components/tools/tool-registry/index': tools('tool-registry'),
+    'components/tools/tool-execution-log/index': tools('tool-execution-log'),
   },
   format: ['esm'],
   target: 'es2022',

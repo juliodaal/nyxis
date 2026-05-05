@@ -1,0 +1,47 @@
+---
+title: ToolRegistry
+description: Searchable, groupable catalog of available tools with per-tool toggles.
+category: tools
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ToolRegistryDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ToolRegistryDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ToolRegistry, type RegisteredTool } from 'nyxis-ui';
+
+const tools: RegisteredTool[] = [
+  {
+    id: 'search',
+    name: 'search_documents',
+    description: 'Vector search over the corpus.',
+    group: 'Retrieval',
+  },
+  // ...
+];
+
+<ToolRegistry tools={tools} onChange={(active) => persist(active)} />;
+```
+
+## Anatomy
+
+- **Search** — case-insensitive over name + description.
+- **Groups** — set `group` on a tool; rows are clustered with sticky headers.
+- **Toggles** — controlled via `value` (or `defaultValue`); call `onChange` with the new active set.
+
+Pair with `useToolExecutor` from `nyxis-ui/ai` to wire client-side implementations for the tools the user enables.

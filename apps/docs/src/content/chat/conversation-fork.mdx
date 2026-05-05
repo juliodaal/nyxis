@@ -1,0 +1,39 @@
+---
+title: ConversationFork
+description: Tree visualisation of branched conversations — regenerations and edits.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ConversationForkDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ConversationForkDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ConversationFork, type ForkNode } from 'nyxis-ui';
+
+<ConversationFork
+  root={tree}
+  activeLeafId={currentBranchLeafId}
+  onSelect={(id) => switchBranch(id)}
+/>;
+```
+
+## Anatomy
+
+- Each node is a single message; children are forks created by regenerating or editing a turn.
+- Active branch is highlighted from root to the leaf marked by `activeLeafId`.
+- Click a node to switch the current view to that branch.

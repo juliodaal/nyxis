@@ -1,0 +1,48 @@
+---
+title: ChatThread
+description: Scrollable conversation surface with auto-scroll-to-bottom and a "scroll to latest" floating button.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ChatThreadDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ChatThreadDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ChatThread } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ChatThread } from 'nyxis-ui/chat-thread';
+
+<ChatThread messages={messages} streaming={isStreaming} />;
+```
+
+## Anatomy
+
+- Auto-scrolls to the latest message while the user is at the bottom.
+- Stops following when the user scrolls up; surfaces a "scroll to latest" floating button.
+- Renders assistant turns through `<StreamingMarkdown>` by default — pass `markdown={false}` for plain text.
+
+## Props
+
+| Prop                | Type                   | Default |                                                       |
+| ------------------- | ---------------------- | ------- | ----------------------------------------------------- |
+| `messages`          | `readonly AIMessage[]` | —       | Conversation to render.                               |
+| `streaming`         | `boolean`              | `false` | True if the latest assistant turn is still streaming. |
+| `markdown`          | `boolean`              | `true`  | Render assistant content via `<StreamingMarkdown>`.   |
+| `header` / `footer` | `ReactNode`            | —       | Slots before/after the message list.                  |
+| `emptyState`        | `ReactNode`            | —       | Rendered when `messages.length === 0`.                |
+| `autoScroll`        | `boolean`              | `true`  | Disable to opt out of stick-to-bottom.                |

@@ -12,7 +12,10 @@ export type Category =
   | 'components'
   | 'animations'
   | 'domain'
-  | 'ai-models';
+  | 'ai-models'
+  | 'chat'
+  | 'reasoning'
+  | 'tools';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -65,9 +68,29 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     href: '/ai-models',
   },
   {
+    id: 'chat',
+    label: 'Chat',
+    description: 'Streaming-first chat surface, message primitives, and conversation tools.',
+    href: '/chat',
+  },
+  {
+    id: 'reasoning',
+    label: 'Reasoning',
+    description:
+      'Surface for the model’s internal state — extended thinking, plans, "is working" indicators.',
+    href: '/reasoning',
+  },
+  {
+    id: 'tools',
+    label: 'Tools',
+    description:
+      'Visual primitives for function calling — calls, results, parameter forms, registries, logs.',
+    href: '/tools',
+  },
+  {
     id: 'domain',
     label: 'AI patterns',
-    description: 'Components purpose-built for AI products: chat, agents, citations, monitoring.',
+    description: 'Components purpose-built for AI products: agents, citations, monitoring.',
     href: '/domain',
   },
 ] as const;
@@ -568,6 +591,138 @@ export const REGISTRY: readonly RegistryEntry[] = [
     name: 'AIConfigCard',
     category: 'ai-models',
     description: 'Composed configuration card combining provider, model, sampling, and prompt.',
+    status: 'stable',
+  },
+
+  // ── AI · Chat 2.0 (Phase E) ─────────────────────────────────────────
+  {
+    slug: 'chat-thread',
+    name: 'ChatThread',
+    category: 'chat',
+    description:
+      'Scrollable conversation surface with auto-scroll-to-bottom and a "scroll to latest" floating button.',
+    status: 'stable',
+  },
+  {
+    slug: 'streaming-text',
+    name: 'StreamingText',
+    category: 'chat',
+    description: 'Plain-text incremental renderer with a blinking cursor while tokens arrive.',
+    status: 'stable',
+  },
+  {
+    slug: 'streaming-markdown',
+    name: 'StreamingMarkdown',
+    category: 'chat',
+    description:
+      'Markdown renderer tuned for streaming — GFM, themed code blocks, trailing cursor.',
+    status: 'stable',
+    dependencies: ['react-markdown', 'remark-gfm'],
+  },
+  {
+    slug: 'streaming-code',
+    name: 'StreamingCode',
+    category: 'chat',
+    description: 'Code block with language badge, filename header, copy button, and live cursor.',
+    status: 'stable',
+  },
+  {
+    slug: 'typing-indicator',
+    name: 'TypingIndicator',
+    category: 'chat',
+    description: 'Three-dot bouncer for "AI is typing" — subtle and bubble variants.',
+    status: 'stable',
+  },
+  {
+    slug: 'message-actions',
+    name: 'MessageActions',
+    category: 'chat',
+    description: 'Hover-revealed copy / regenerate / edit / delete / fork / share row.',
+    status: 'stable',
+  },
+  {
+    slug: 'token-counter',
+    name: 'TokenCounter',
+    category: 'chat',
+    description: 'Live token estimate with optional context-window bar; tone shifts at 70% / 90%.',
+    status: 'stable',
+  },
+  {
+    slug: 'conversation-sidebar',
+    name: 'ConversationSidebar',
+    category: 'chat',
+    description: 'Left-rail conversation list with search, pinned items, and unread counts.',
+    status: 'stable',
+  },
+  {
+    slug: 'conversation-fork',
+    name: 'ConversationFork',
+    category: 'chat',
+    description: 'Tree visualisation of branched conversations — regenerations and edits.',
+    status: 'stable',
+  },
+
+  // ── AI · Reasoning (Phase F) ────────────────────────────────────────
+  {
+    slug: 'reasoning-trace',
+    name: 'ReasoningTrace',
+    category: 'reasoning',
+    description:
+      'Collapsible disclosure for the model’s extended-thinking output, with live streaming.',
+    status: 'stable',
+  },
+  {
+    slug: 'chain-of-thought',
+    name: 'ChainOfThought',
+    category: 'reasoning',
+    description: 'Vertical stepper for explicit, structured reasoning steps.',
+    status: 'stable',
+  },
+  {
+    slug: 'thinking-indicator',
+    name: 'ThinkingIndicator',
+    category: 'reasoning',
+    description: 'Lightweight "model is working" affordance — distinct from the typing indicator.',
+    status: 'stable',
+  },
+
+  // ── AI · Tools / Function Calling (Phase G) ─────────────────────────
+  {
+    slug: 'tool-call',
+    name: 'ToolCall',
+    category: 'tools',
+    description:
+      'Card representing a single tool invocation by the model with status, args, and timing.',
+    status: 'stable',
+  },
+  {
+    slug: 'tool-result',
+    name: 'ToolResult',
+    category: 'tools',
+    description:
+      'Auto-formatted output viewer — JSON / text / markdown / image — with copy and truncate.',
+    status: 'stable',
+  },
+  {
+    slug: 'parameter-form',
+    name: 'ParameterForm',
+    category: 'tools',
+    description:
+      'Schema-driven form for tool parameters — string, number, enum, boolean, list, and JSON.',
+    status: 'stable',
+  },
+  {
+    slug: 'tool-registry',
+    name: 'ToolRegistry',
+    category: 'tools',
+    description: 'Searchable, groupable catalog of available tools with per-tool toggles.',
+    status: 'stable',
+  },
+  {
+    slug: 'tool-execution-log',
+    name: 'ToolExecutionLog',
+    category: 'tools',
+    description: 'Stacked timeline of tool invocations with status, args, result, and duration.',
     status: 'stable',
   },
 ] as const;

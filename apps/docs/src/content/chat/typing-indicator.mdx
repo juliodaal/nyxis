@@ -1,0 +1,36 @@
+---
+title: TypingIndicator
+description: Three-dot bouncer for "AI is typing" — subtle and bubble variants.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TypingIndicatorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TypingIndicatorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TypingIndicator } from 'nyxis-ui';
+
+{
+  isStreaming && <TypingIndicator label="Assistant is thinking" />;
+}
+```
+
+## Variants
+
+- `subtle` — three dots inline with the surrounding text.
+- `bubble` — a card-like pill, suited for empty assistant turns.

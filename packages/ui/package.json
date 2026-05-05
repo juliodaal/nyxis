@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -193,6 +193,86 @@
     "./rotating-text": {
       "types": "./dist/components/text/rotating-text/index.d.ts",
       "import": "./dist/components/text/rotating-text/index.js"
+    },
+    "./chat": {
+      "types": "./dist/components/chat/index.d.ts",
+      "import": "./dist/components/chat/index.js"
+    },
+    "./chat-thread": {
+      "types": "./dist/components/chat/chat-thread/index.d.ts",
+      "import": "./dist/components/chat/chat-thread/index.js"
+    },
+    "./streaming-text": {
+      "types": "./dist/components/chat/streaming-text/index.d.ts",
+      "import": "./dist/components/chat/streaming-text/index.js"
+    },
+    "./streaming-markdown": {
+      "types": "./dist/components/chat/streaming-markdown/index.d.ts",
+      "import": "./dist/components/chat/streaming-markdown/index.js"
+    },
+    "./streaming-code": {
+      "types": "./dist/components/chat/streaming-code/index.d.ts",
+      "import": "./dist/components/chat/streaming-code/index.js"
+    },
+    "./typing-indicator": {
+      "types": "./dist/components/chat/typing-indicator/index.d.ts",
+      "import": "./dist/components/chat/typing-indicator/index.js"
+    },
+    "./message-actions": {
+      "types": "./dist/components/chat/message-actions/index.d.ts",
+      "import": "./dist/components/chat/message-actions/index.js"
+    },
+    "./token-counter": {
+      "types": "./dist/components/chat/token-counter/index.d.ts",
+      "import": "./dist/components/chat/token-counter/index.js"
+    },
+    "./conversation-sidebar": {
+      "types": "./dist/components/chat/conversation-sidebar/index.d.ts",
+      "import": "./dist/components/chat/conversation-sidebar/index.js"
+    },
+    "./conversation-fork": {
+      "types": "./dist/components/chat/conversation-fork/index.d.ts",
+      "import": "./dist/components/chat/conversation-fork/index.js"
+    },
+    "./reasoning": {
+      "types": "./dist/components/reasoning/index.d.ts",
+      "import": "./dist/components/reasoning/index.js"
+    },
+    "./reasoning-trace": {
+      "types": "./dist/components/reasoning/reasoning-trace/index.d.ts",
+      "import": "./dist/components/reasoning/reasoning-trace/index.js"
+    },
+    "./chain-of-thought": {
+      "types": "./dist/components/reasoning/chain-of-thought/index.d.ts",
+      "import": "./dist/components/reasoning/chain-of-thought/index.js"
+    },
+    "./thinking-indicator": {
+      "types": "./dist/components/reasoning/thinking-indicator/index.d.ts",
+      "import": "./dist/components/reasoning/thinking-indicator/index.js"
+    },
+    "./tools": {
+      "types": "./dist/components/tools/index.d.ts",
+      "import": "./dist/components/tools/index.js"
+    },
+    "./tool-call": {
+      "types": "./dist/components/tools/tool-call/index.d.ts",
+      "import": "./dist/components/tools/tool-call/index.js"
+    },
+    "./tool-result": {
+      "types": "./dist/components/tools/tool-result/index.d.ts",
+      "import": "./dist/components/tools/tool-result/index.js"
+    },
+    "./parameter-form": {
+      "types": "./dist/components/tools/parameter-form/index.d.ts",
+      "import": "./dist/components/tools/parameter-form/index.js"
+    },
+    "./tool-registry": {
+      "types": "./dist/components/tools/tool-registry/index.d.ts",
+      "import": "./dist/components/tools/tool-registry/index.js"
+    },
+    "./tool-execution-log": {
+      "types": "./dist/components/tools/tool-execution-log/index.d.ts",
+      "import": "./dist/components/tools/tool-execution-log/index.js"
     },
     "./package.json": "./package.json"
   },

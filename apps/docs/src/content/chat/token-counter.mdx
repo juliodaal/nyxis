@@ -1,0 +1,35 @@
+---
+title: TokenCounter
+description: Live token estimate with optional context-window bar; tone shifts at 70% / 90%.
+category: chat
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TokenCounterDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TokenCounterDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TokenCounter } from 'nyxis-ui';
+
+<TokenCounter text={composer.value} modelId="claude-sonnet-4-5" showBar />;
+```
+
+## Behaviour
+
+- Calls `useTokenCount(text, modelId)` from `nyxis-ui/ai` to compute a fast estimate.
+- Reads the model's context window from the catalog and shifts colour at 70% (warn) and 90% (crit).
+- Pair with `<ChatInput trailingSlot={...}>` to surface a live counter in the composer.

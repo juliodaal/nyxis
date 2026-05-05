@@ -1,0 +1,47 @@
+---
+title: ToolResult
+description: Auto-formatted output viewer — JSON / text / markdown / image — with copy and truncate.
+category: tools
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ToolResultDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ToolResultDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ToolResult } from 'nyxis-ui';
+
+<ToolResult result={tool.result} label={tool.name} />;
+<ToolResult error="Sandbox unreachable" label="execute_code" />;
+```
+
+## Auto-detection
+
+Pass `format="auto"` (the default) and the component picks the right renderer:
+
+| Value shape                  | Renders as          |
+| ---------------------------- | ------------------- |
+| Object / array               | Pretty-printed JSON |
+| `data:image/...` URL         | `<img>`             |
+| `https://...png/jpg/...` URL | `<img>`             |
+| Anything else                | Plain text          |
+
+Pass `format="markdown"` to force markdown rendering, or `format="json"` to skip detection.
+
+## Errors
+
+When `error` is set, the card switches to the destructive variant — the value is rendered in mono-space, no copy button, distinct border.

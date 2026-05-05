@@ -1,0 +1,46 @@
+---
+title: ThinkingIndicator
+description: Lightweight "model is working" affordance — distinct from the typing indicator.
+category: reasoning
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ThinkingIndicatorDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ThinkingIndicatorDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ThinkingIndicator } from 'nyxis-ui';
+
+{
+  isThinking && <ThinkingIndicator label="Reasoning across documents…" />;
+}
+```
+
+## When to use this vs. `<TypingIndicator>`
+
+- `<ThinkingIndicator>` — model is **working** (extended thinking, tool dispatch, retrieval) and has _not yet_ emitted any output.
+- `<TypingIndicator>` — model is **streaming output** but the next token hasn't landed yet.
+
+These are distinct cognitive states — using the same indicator for both makes the UI feel jittery.
+
+## Variants
+
+| Variant             | Look                                       |
+| ------------------- | ------------------------------------------ |
+| `shimmer` (default) | Text shimmers like a skeleton placeholder. |
+| `pulse`             | Icon pulses softly.                        |
+| `orbit`             | Spinner ring orbits around the icon.       |

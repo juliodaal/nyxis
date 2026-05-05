@@ -1,5 +1,65 @@
 # nyxis-ui
 
+## 0.7.0
+
+### Phase F + Phase G — Reasoning & Tool Calling
+
+Two complete component sets land in one release: surfaces for the model's
+_internal state_ (Phase F) and for the _tools it invokes_ (Phase G). Plus the
+final scaffolding for Phase E in the docs site (chat category, 9 demos, 9 MDX
+stubs, dynamic route).
+
+### What's new — Phase F (Reasoning)
+
+- **`<ReasoningTrace>`** — collapsible disclosure card for extended-thinking
+  output. Streams in real time and shows duration when complete. Pair with any
+  reasoning-capable model (Anthropic extended thinking, OpenAI o1, etc.).
+- **`<ChainOfThought>`** — vertical stepper for explicit, structured reasoning
+  steps (`pending` / `active` / `done` / `errored`). Ideal when the model
+  exposes its plan as discrete operations.
+- **`<ThinkingIndicator>`** — distinct from `<TypingIndicator>`, this signals
+  the model is _working_ (extended thinking, tool dispatch) before any tokens
+  emit. Three variants: `shimmer`, `pulse`, `orbit`.
+
+### What's new — Phase G (Tools / Function Calling)
+
+- **`<ToolCall>`** — card for a single tool invocation. Status drives the icon
+  and colour (`pending` / `running` / `completed` / `errored`); args block
+  expands inline with a JSON view.
+- **`<ToolResult>`** — output viewer that auto-detects JSON, plain text,
+  markdown, and image URLs. Copy-to-clipboard, optional truncation, distinct
+  destructive variant for errors.
+- **`<ParameterForm>`** — schema-driven form for tool parameters. Native
+  rendering for `string` / `number` / `boolean` / `enum` / `string[]` / `json`.
+  Use to let users tweak args before dispatching a proposed tool call.
+- **`<ToolRegistry>`** — searchable, groupable catalog of tools the assistant
+  can use, with per-tool toggle switches. Pair with `useToolExecutor`.
+- **`<ToolExecutionLog>`** — timeline of past tool calls. Composes
+  `<ToolCall>` + `<ToolResult>` per row with timestamps; `limit` collapses long
+  histories with a `+N more` footer.
+
+### Subpath exports
+
+Every Phase E / F / G component now ships with a dedicated subpath for strict
+tree-shaking:
+
+```ts
+import { ChatThread } from 'nyxis-ui/chat-thread';
+import { ReasoningTrace } from 'nyxis-ui/reasoning-trace';
+import { ToolCall } from 'nyxis-ui/tool-call';
+```
+
+Umbrellas (`nyxis-ui/chat`, `nyxis-ui/reasoning`, `nyxis-ui/tools`) export the
+whole set per phase.
+
+### Docs site
+
+- New **Chat** category surfaces all nine Phase E components with live previews
+  and MDX docs at `/chat/<slug>`.
+- Phase F lands as **Reasoning** (3 entries) and Phase G as **Tools** (5
+  entries) — all wired into the sidebar via `CATEGORIES` and the search index
+  automatically.
+
 ## 0.5.0
 
 ### Phase E — Chat 2.0

@@ -1,0 +1,46 @@
+---
+title: ChainOfThought
+description: Vertical stepper for explicit, structured reasoning steps.
+category: reasoning
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ChainOfThoughtDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ChainOfThoughtDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ChainOfThought, type ChainStep } from 'nyxis-ui';
+
+const steps: ChainStep[] = [
+  { id: '1', text: 'Identify intent', status: 'done' },
+  { id: '2', text: 'Search documentation', status: 'active' },
+  { id: '3', text: 'Synthesise answer', status: 'pending' },
+];
+
+<ChainOfThought steps={steps} />;
+```
+
+## Anatomy
+
+- **Indicator**: number → spinning loader (`active`) → checkmark (`done`) → red badge (`errored`).
+- **Connector**: vertical line shifts to the primary tone once a step is `done`.
+- **Detail**: optional second line for context (e.g. file path, found count).
+
+## When to use this vs. `<ReasoningTrace>`
+
+- `<ChainOfThought>` — when steps are **structured**: planner agents, multi-tool flows, explicit ReAct traces.
+- `<ReasoningTrace>` — when reasoning is **unstructured prose**: extended-thinking, o1 reasoning.

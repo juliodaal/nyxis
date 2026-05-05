@@ -1,0 +1,57 @@
+---
+title: ReasoningTrace
+description: Collapsible disclosure for the model's extended-thinking output, with live streaming.
+category: reasoning
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ReasoningTraceDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ReasoningTraceDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ReasoningTrace } from 'nyxis-ui';
+// or, for stricter tree-shaking:
+// import { ReasoningTrace } from 'nyxis-ui/reasoning-trace';
+
+<ReasoningTrace
+  text={extendedThinking}
+  streaming={isThinking}
+  durationMs={elapsed}
+  summary="3 key reasons + concrete install snippet"
+/>;
+```
+
+## Why a separate component?
+
+Extended-thinking output is conceptually distinct from the assistant's _response_:
+
+- It's verbose — collapsing keeps the conversation surface clean.
+- It's typically rendered in an italic, muted style to signal "internal".
+- It often arrives **before** the visible response — the streaming state is independent.
+
+Use this component when the provider returns thinking/reasoning content separately (Anthropic extended thinking, OpenAI o1 reasoning, etc.).
+
+## Props
+
+| Prop          | Type      | Default       |                                              |
+| ------------- | --------- | ------------- | -------------------------------------------- |
+| `text`        | `string`  | —             | Reasoning content streamed so far.           |
+| `streaming`   | `boolean` | `false`       | Adds the trailing cursor + "thinking" badge. |
+| `defaultOpen` | `boolean` | `false`       | Render expanded on first paint.              |
+| `durationMs`  | `number`  | —             | Time taken to think; shown after completion. |
+| `summary`     | `string`  | —             | One-line summary shown when collapsed.       |
+| `label`       | `string`  | `"Reasoning"` | Header label.                                |
