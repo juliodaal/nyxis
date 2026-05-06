@@ -17,6 +17,7 @@ const baseFrontmatter = z.object({
     'mcp',
     'agents',
     'multimodal',
+    'prompts',
   ]),
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
@@ -94,6 +95,11 @@ const multimodal = defineCollection({
   schema: baseFrontmatter,
 });
 
+const prompts = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/prompts' }),
+  schema: baseFrontmatter,
+});
+
 export const collections = {
   docs,
   components,
@@ -107,4 +113,5 @@ export const collections = {
   mcp,
   agents,
   multimodal,
+  prompts,
 };

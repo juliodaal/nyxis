@@ -1,0 +1,61 @@
+---
+title: EvalRunCard
+description: Eval-run summary — status, prompt, model, dataset, progress, headline metrics.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { EvalRunCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <EvalRunCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { EvalRunCard, type EvalRun } from 'nyxis-ui';
+
+const run: EvalRun = {
+  id: '1',
+  name: 'summarise-pr v2.1 · golden-100',
+  status: 'completed',
+  modelId: 'claude-sonnet-4-5',
+  datasetName: 'golden-100',
+  totalRows: 100,
+  processedRows: 100,
+  durationMs: 184_000,
+  metrics: [
+    /* ... */
+  ],
+};
+
+<EvalRunCard run={run} onSelect={(id) => router.push(`/runs/${id}`)} />;
+```
+
+## Status pills
+
+| Status      | Tone        | Indicator              |
+| ----------- | ----------- | ---------------------- |
+| `queued`    | muted       | clock                  |
+| `running`   | primary     | spinner + progress bar |
+| `completed` | success     | check                  |
+| `failed`    | destructive | warning + error banner |
+| `cancelled` | muted       | ban icon               |
+
+## Anatomy
+
+- Status icon + run name + status pill.
+- Meta row: model, dataset, rows processed, duration.
+- Progress bar visible while `running`.
+- Error banner visible while `failed` (renders `error` field).
+- Inline metric strip composes `<MetricCard>` for the first 6 metrics.

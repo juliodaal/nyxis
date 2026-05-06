@@ -43,6 +43,12 @@ export type {
   MediaGenerationStatus,
   MediaAttachment,
   TranscriptSegment,
+  // Prompts / Eval (Phase K)
+  Prompt,
+  EvalRunStatus,
+  EvalMetric,
+  EvalRun,
+  EvalRow,
 } from './types.js';
 
 // Event bus

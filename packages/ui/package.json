@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -361,6 +361,34 @@
     "./vision-input": {
       "types": "./dist/components/multimodal/vision-input/index.d.ts",
       "import": "./dist/components/multimodal/vision-input/index.js"
+    },
+    "./prompts": {
+      "types": "./dist/components/prompts/index.d.ts",
+      "import": "./dist/components/prompts/index.js"
+    },
+    "./prompt-card": {
+      "types": "./dist/components/prompts/prompt-card/index.d.ts",
+      "import": "./dist/components/prompts/prompt-card/index.js"
+    },
+    "./prompt-variable-form": {
+      "types": "./dist/components/prompts/prompt-variable-form/index.d.ts",
+      "import": "./dist/components/prompts/prompt-variable-form/index.js"
+    },
+    "./metric-card": {
+      "types": "./dist/components/prompts/metric-card/index.d.ts",
+      "import": "./dist/components/prompts/metric-card/index.js"
+    },
+    "./eval-run-card": {
+      "types": "./dist/components/prompts/eval-run-card/index.d.ts",
+      "import": "./dist/components/prompts/eval-run-card/index.js"
+    },
+    "./dataset-table": {
+      "types": "./dist/components/prompts/dataset-table/index.d.ts",
+      "import": "./dist/components/prompts/dataset-table/index.js"
+    },
+    "./ab-compare": {
+      "types": "./dist/components/prompts/ab-compare/index.d.ts",
+      "import": "./dist/components/prompts/ab-compare/index.js"
     },
     "./package.json": "./package.json"
   },

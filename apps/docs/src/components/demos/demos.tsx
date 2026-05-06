@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import {
+  ABCompare,
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -60,6 +61,7 @@ import {
   ConfidenceBadge,
   CountUp,
   DataTable,
+  DatasetTable,
   DecryptText,
   Dialog,
   DialogClose,
@@ -79,6 +81,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
   EmailTriageCard,
+  EvalRunCard,
   FileDropzone,
   Form,
   FormControl,
@@ -93,6 +96,7 @@ import {
   Input,
   KPICard,
   Label,
+  MetricCard,
   LeadCard,
   MagneticButton,
   MarqueeText,
@@ -108,6 +112,8 @@ import {
   ParameterForm,
   ParallaxContainer,
   Popover,
+  PromptCard,
+  PromptVariableForm,
   PopoverContent,
   PopoverTrigger,
   RadioGroup,
@@ -1226,12 +1232,15 @@ import type {
   Agent,
   AgentActivity,
   DelegatedTask,
+  EvalRow,
+  EvalRun,
   HandoffEvent,
   MCPLogEntry,
   MCPPrompt,
   MCPResource,
   MCPServer,
   MediaAttachment,
+  Prompt,
   TranscriptSegment,
 } from 'nyxis-ui/ai';
 
@@ -2436,6 +2445,257 @@ export function VisionInputDemo() {
   return (
     <div className="w-full max-w-md">
       <VisionInput value={file} onChange={setFile} maxBytes={5 * 1024 * 1024} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Prompts / Eval (Phase K)
+// ─────────────────────────────────────────────────────────────────────
+
+const SUMMARISE_PROMPT: Prompt = {
+  id: 'summarise-pr',
+  name: 'Summarise pull request',
+  description: 'Condense a PR diff and recent activity into a 3-bullet summary.',
+  body: 'Summarise the following pull request in {{tone}} bullets:\n\nRepo: {{repo}}\nNumber: {{number}}\nDiff:\n{{diff}}',
+  version: '2.1',
+  modelId: 'claude-sonnet-4-5',
+  tags: ['code-review', 'github', 'summarisation'],
+  updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+};
+
+export function PromptCardDemo() {
+  return (
+    <div className="w-full max-w-md">
+      <PromptCard prompt={SUMMARISE_PROMPT} />
+    </div>
+  );
+}
+
+export function PromptVariableFormDemo() {
+  const [v, setV] = useState<Record<string, string>>({
+    tone: '3',
+    repo: 'juliodaal/nyxis',
+    number: '42',
+    diff: '',
+  });
+  return (
+    <div className="border-border bg-card w-full max-w-lg rounded-lg border p-4">
+      <PromptVariableForm
+        template={SUMMARISE_PROMPT.body}
+        value={v}
+        onValueChange={setV}
+        submitLabel="Run prompt"
+        preview
+        onSubmit={(_, { rendered }) => alert(rendered)}
+      />
+    </div>
+  );
+}
+
+const ACCURACY_SPARK = [0.62, 0.66, 0.69, 0.71, 0.74, 0.78, 0.81, 0.84];
+const LATENCY_SPARK = [240, 230, 215, 220, 200, 190, 180, 175];
+
+export function MetricCardDemo() {
+  return (
+    <div className="grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
+      <MetricCard
+        metric={{
+          name: 'accuracy',
+          value: 0.842,
+          baseline: 0.78,
+          goodDirection: 'up',
+          sparkline: ACCURACY_SPARK,
+          precision: 3,
+        }}
+      />
+      <MetricCard
+        metric={{
+          name: 'latency p95',
+          value: 175,
+          unit: 'ms',
+          baseline: 240,
+          goodDirection: 'down',
+          sparkline: LATENCY_SPARK,
+        }}
+      />
+      <MetricCard
+        metric={{
+          name: 'cost',
+          value: 0.0124,
+          unit: '$',
+          baseline: 0.014,
+          goodDirection: 'down',
+          precision: 4,
+        }}
+      />
+    </div>
+  );
+}
+
+const COMPLETED_RUN: EvalRun = {
+  id: '1',
+  name: 'summarise-pr v2.1 · golden-100',
+  status: 'completed',
+  promptName: 'summarise-pr',
+  modelId: 'claude-sonnet-4-5',
+  datasetName: 'golden-100',
+  totalRows: 100,
+  processedRows: 100,
+  durationMs: 184_000,
+  metrics: [
+    { name: 'accuracy', value: 0.842, baseline: 0.78, goodDirection: 'up', precision: 3 },
+    { name: 'latency p95', value: 175, unit: 'ms', baseline: 240, goodDirection: 'down' },
+    {
+      name: 'cost',
+      value: 0.0124,
+      unit: '$',
+      baseline: 0.014,
+      goodDirection: 'down',
+      precision: 4,
+    },
+  ],
+};
+
+const RUNNING_RUN: EvalRun = {
+  id: '2',
+  name: 'summarise-pr v2.2 · golden-100',
+  status: 'running',
+  promptName: 'summarise-pr',
+  modelId: 'claude-sonnet-4-5',
+  datasetName: 'golden-100',
+  totalRows: 100,
+  processedRows: 42,
+  startedAt: new Date(Date.now() - 90_000).toISOString(),
+};
+
+export function EvalRunCardDemo() {
+  return (
+    <div className="flex w-full max-w-2xl flex-col gap-3">
+      <EvalRunCard run={COMPLETED_RUN} onSelect={(id) => alert(`open ${id}`)} />
+      <EvalRunCard run={RUNNING_RUN} />
+    </div>
+  );
+}
+
+const DATASET_ROWS: EvalRow[] = [
+  {
+    id: '1',
+    input: 'PR #42 — refactor: split chat barrel into per-component subpaths.',
+    expected: '- Split chat barrel\n- Per-component subpaths\n- Tree-shaking improvement',
+    actual: '- Split chat barrel\n- Per-component subpaths\n- Better tree-shaking',
+    score: 0.94,
+    status: 'pass',
+    latencyMs: 420,
+    costUsd: 0.0023,
+  },
+  {
+    id: '2',
+    input: 'PR #43 — fix: handle null adapter in createModel.',
+    expected:
+      '- Null adapter handling\n- Falls back to anthropic\n- Throws when no providers installed',
+    actual: '- Null check on adapter\n- Defaults to anthropic\n- Errors gracefully',
+    score: 0.78,
+    status: 'pass',
+    latencyMs: 380,
+    costUsd: 0.0019,
+  },
+  {
+    id: '3',
+    input: 'PR #44 — feat: add tool execution log component.',
+    expected: '- Tool execution timeline\n- Status icons\n- Args + result expandable',
+    actual: '- New ToolExecutionLog\n- Includes timestamps and statuses',
+    score: 0.62,
+    status: 'pass',
+    latencyMs: 510,
+    costUsd: 0.0024,
+  },
+  {
+    id: '4',
+    input: 'PR #45 — chore: bump dependencies.',
+    expected: '- Dependency upgrades\n- No breaking changes\n- CI passes',
+    actual: 'Bumps several dependencies; no behaviour changes.',
+    score: 0.41,
+    status: 'fail',
+    latencyMs: 290,
+    costUsd: 0.0014,
+    notes: 'Missing the "CI passes" bullet.',
+  },
+  {
+    id: '5',
+    input: 'PR #46 — docs: clarify peer-dep policy.',
+    expected: '- Documents peer-dep policy\n- Lists optional providers\n- Explains lazy loading',
+    actual: '- Adds peer-dep section to README\n- Mentions optional providers',
+    score: 0.71,
+    status: 'pass',
+    latencyMs: 410,
+    costUsd: 0.0021,
+  },
+  {
+    id: '6',
+    input: 'PR #47 — feat: add VisionInput dropzone.',
+    expected: '- Drop, paste, camera input\n- File-type validation\n- Size cap',
+    actual: '- Drop and paste support\n- Validates MIME type',
+    score: 0.55,
+    status: 'fail',
+    latencyMs: 470,
+    costUsd: 0.0022,
+    notes: 'Missed camera capture.',
+  },
+];
+
+export function DatasetTableDemo() {
+  return (
+    <div className="w-full max-w-3xl">
+      <DatasetTable rows={DATASET_ROWS} />
+    </div>
+  );
+}
+
+export function ABCompareDemo() {
+  return (
+    <div className="w-full max-w-3xl">
+      <ABCompare
+        input="Summarise PR #42 — refactor: split chat barrel into per-component subpaths."
+        a={{
+          label: 'summarise-pr v2.1',
+          sublabel: 'baseline',
+          modelId: 'claude-sonnet-4-5',
+          metrics: [
+            { name: 'accuracy', value: 0.78, baseline: 0.78, goodDirection: 'up', precision: 3 },
+            { name: 'latency p95', value: 240, unit: 'ms', baseline: 240, goodDirection: 'down' },
+            {
+              name: 'cost',
+              value: 0.014,
+              unit: '$',
+              baseline: 0.014,
+              goodDirection: 'down',
+              precision: 4,
+            },
+          ],
+          sample:
+            '- Split chat barrel\n- Per-component subpaths\n- Tree-shaking improvement (slight)',
+        }}
+        b={{
+          label: 'summarise-pr v2.2',
+          sublabel: 'challenger',
+          modelId: 'claude-sonnet-4-5',
+          metrics: [
+            { name: 'accuracy', value: 0.842, baseline: 0.78, goodDirection: 'up', precision: 3 },
+            { name: 'latency p95', value: 175, unit: 'ms', baseline: 240, goodDirection: 'down' },
+            {
+              name: 'cost',
+              value: 0.0124,
+              unit: '$',
+              baseline: 0.014,
+              goodDirection: 'down',
+              precision: 4,
+            },
+          ],
+          sample:
+            '- Split chat barrel\n- Per-component subpaths\n- Better tree-shaking, smaller bundles',
+        }}
+      />
     </div>
   );
 }

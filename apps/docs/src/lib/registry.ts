@@ -18,7 +18,8 @@ export type Category =
   | 'tools'
   | 'mcp'
   | 'agents'
-  | 'multimodal';
+  | 'multimodal'
+  | 'prompts';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -110,6 +111,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Media exchanged with the model — images, audio, voice, transcripts, vision input.',
     href: '/multimodal',
+  },
+  {
+    id: 'prompts',
+    label: 'Prompts / Eval',
+    description:
+      'Prompt engineering and offline evaluation — saved prompts, variable forms, eval runs, datasets, A/B compare.',
+    href: '/prompts',
   },
   {
     id: 'domain',
@@ -901,6 +909,54 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'multimodal',
     description:
       'Vision-input dropzone — drag-and-drop, file picker, paste, optional camera capture.',
+    status: 'stable',
+  },
+
+  // ── AI · Prompts / Eval (Phase K) ───────────────────────────────────
+  {
+    slug: 'prompt-card',
+    name: 'PromptCard',
+    category: 'prompts',
+    description:
+      'Saved-prompt card with name, description, version, model, variable count, and tags.',
+    status: 'stable',
+  },
+  {
+    slug: 'prompt-variable-form',
+    name: 'PromptVariableForm',
+    category: 'prompts',
+    description:
+      'Auto-form for `{{variables}}` extracted from a prompt template, with live preview.',
+    status: 'stable',
+  },
+  {
+    slug: 'metric-card',
+    name: 'MetricCard',
+    category: 'prompts',
+    description: 'Single eval metric with delta vs baseline and an optional inline sparkline.',
+    status: 'stable',
+  },
+  {
+    slug: 'eval-run-card',
+    name: 'EvalRunCard',
+    category: 'prompts',
+    description: 'Eval-run summary — status, prompt, model, dataset, progress, headline metrics.',
+    status: 'stable',
+  },
+  {
+    slug: 'dataset-table',
+    name: 'DatasetTable',
+    category: 'prompts',
+    description:
+      'Stacked table for an eval dataset — input / expected / actual / score with bucket filters.',
+    status: 'stable',
+  },
+  {
+    slug: 'ab-compare',
+    name: 'ABCompare',
+    category: 'prompts',
+    description:
+      'Side-by-side comparison of two prompts (or two models) with metric deltas and sample outputs.',
     status: 'stable',
   },
 ] as const;

@@ -1,0 +1,57 @@
+---
+title: ABCompare
+description: Side-by-side comparison of two prompts (or two models) with metric deltas and sample outputs.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ABCompareDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ABCompareDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ABCompare, type ABCompareSide } from 'nyxis-ui';
+
+const a: ABCompareSide = {
+  label: 'summarise-pr v2.1',
+  modelId: 'claude-sonnet-4-5',
+  metrics: [
+    { name: 'accuracy', value: 0.78, goodDirection: 'up', precision: 3 },
+    { name: 'latency p95', value: 240, unit: 'ms', goodDirection: 'down' },
+  ],
+  sample: '- bullet 1\n- bullet 2',
+};
+
+const b: ABCompareSide = {
+  label: 'summarise-pr v2.2',
+  modelId: 'claude-sonnet-4-5',
+  metrics: [
+    { name: 'accuracy', value: 0.842, goodDirection: 'up', precision: 3 },
+    { name: 'latency p95', value: 175, unit: 'ms', goodDirection: 'down' },
+  ],
+  sample: '- bullet 1\n- bullet 2 (sharper)',
+};
+
+<ABCompare input="Summarise PR #42…" a={a} b={b} />;
+```
+
+## Anatomy
+
+- Optional `input` block at the top — the shared test case both sides ran on.
+- Two side panels (A in primary tone, B in violet) with label, sublabel, model.
+- Metric comparison table: each metric row shows `A → B (delta)` with the tone telling which side won.
+- Sample outputs side-by-side at the bottom.
+- `baselineSide` controls which side the deltas are computed against (default `a`).

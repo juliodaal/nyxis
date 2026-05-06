@@ -370,3 +370,100 @@ export interface TranscriptSegment {
   /** Confidence 0..1. */
   confidence?: number;
 }
+
+// ── Prompts / Eval (Phase K) ───────────────────────────────────────────
+
+/** A saved prompt template. */
+export interface Prompt {
+  id: string;
+  /** Display name. */
+  name: string;
+  /** One-line description. */
+  description?: string;
+  /** Prompt body — supports `{{variables}}`. */
+  body: string;
+  /** Semver-style or numeric version label (e.g. `2.1`, `v3`). */
+  version?: string;
+  /** Default model the prompt is tuned for. */
+  modelId?: string;
+  /** Detected variable names. Cached so consumers don't re-scan. */
+  variables?: readonly string[];
+  /** Free-form tags for filtering. */
+  tags?: readonly string[];
+  /** ISO timestamps. */
+  createdAt?: string;
+  updatedAt?: string;
+  /** Optional folder / category. */
+  folder?: string;
+}
+
+/** Lifecycle of a single evaluation run. */
+export type EvalRunStatus = 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
+
+/** A single named metric on an eval run. */
+export interface EvalMetric {
+  name: string;
+  /** Current value. */
+  value: number;
+  /** Unit suffix (e.g. `%`, `ms`, `$`). */
+  unit?: string;
+  /** Baseline value to compare against (renders a delta). */
+  baseline?: number;
+  /** Direction in which an increase is "good". Default `up`. */
+  goodDirection?: 'up' | 'down';
+  /** Optional historical sparkline values (oldest → newest). */
+  sparkline?: readonly number[];
+  /** How many decimals to render. */
+  precision?: number;
+}
+
+/** Summary of a single eval run. */
+export interface EvalRun {
+  id: string;
+  /** Display name (often the prompt name + version). */
+  name: string;
+  /** Lifecycle. */
+  status: EvalRunStatus;
+  /** Prompt under test. */
+  promptId?: string;
+  promptName?: string;
+  /** Model being evaluated. */
+  modelId?: string;
+  /** Dataset id and label. */
+  datasetId?: string;
+  datasetName?: string;
+  /** Number of rows in the dataset. */
+  totalRows?: number;
+  /** Rows processed so far. */
+  processedRows?: number;
+  /** Headline metrics (typically 3-6). */
+  metrics?: readonly EvalMetric[];
+  /** ISO timestamps. */
+  startedAt?: string;
+  completedAt?: string;
+  /** Total duration in ms. */
+  durationMs?: number;
+  /** Error message when `status === 'failed'`. */
+  error?: string;
+}
+
+/** A single row in an eval dataset / run. */
+export interface EvalRow {
+  id: string;
+  /** Input passed to the model. */
+  input: string;
+  /** Expected (golden) output. */
+  expected?: string;
+  /** Actual output produced by the model. */
+  actual?: string;
+  /** Score 0..1 (or any float — colour bucketing handles ranges). */
+  score?: number;
+  /** Latency in ms. */
+  latencyMs?: number;
+  /** Cost in USD. */
+  costUsd?: number;
+  /** Per-row pass/fail when relevant. */
+  status?: 'pass' | 'fail' | 'skipped';
+  /** Free-form notes (graders, comments). */
+  notes?: string;
+}

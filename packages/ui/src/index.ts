@@ -73,3 +73,6 @@ export * from './components/agents/index.js';
 
 // AI · Multimodal (Phase J)
 export * from './components/multimodal/index.js';
+
+// AI · Prompts / Eval (Phase K)
+export * from './components/prompts/index.js';
