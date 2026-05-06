@@ -1,5 +1,57 @@
 # nyxis-ui
 
+## 0.8.0
+
+### Phase H — Model Context Protocol (MCP)
+
+Visual surface for the **Model Context Protocol** — Anthropic's open standard
+for connecting models to external tools, resources, and prompt libraries via
+servers (stdio, SSE, WebSocket, HTTP). Render-only components: they don't
+dictate transport, so any MCP client can drive them.
+
+### What's new
+
+- **`<MCPServerCard>`** — single-server card with title, transport pill,
+  endpoint, version, latency, capability badges, and inline connect / disconnect
+  / remove actions. Error state shows the failure message.
+- **`<MCPServerList>`** — multi-server view with search, "Add server"
+  affordance, and per-server lifecycle handlers. Surfaces a connected/total
+  counter at the top.
+- **`<MCPCapabilityBadge>`** — pill per capability (`tools`, `prompts`,
+  `resources`, `sampling`, `roots`, `logging`) with canonical icons. Compact
+  variant for dense rows.
+- **`<MCPConnectionStatus>`** — inline pill describing the connection lifecycle
+  (`disconnected` / `connecting` / `connected` / `error`) with optional latency
+  readout. Animated pulse when connected, spinner while connecting.
+- **`<MCPResourceBrowser>`** — searchable list of resources exposed by servers,
+  optionally grouped by URI scheme (`file://`, `db://`, `https://`), with
+  mime-type icons.
+- **`<MCPPromptLibrary>`** — catalog of prompt templates with collapsible
+  argument lists. Required args get a red asterisk; click to dispatch.
+- **`<MCPLogStream>`** — real-time JSON-RPC traffic viewer. Direction badges
+  (`in` / `out` / `event`), expandable JSON payloads, optional `limit` with
+  `+N more` footer, log-level pills for `notifications/message`.
+
+### AI core
+
+`nyxis-ui/ai` gains the MCP type vocabulary: `MCPServer`, `MCPResource`,
+`MCPPrompt`, `MCPLogEntry`, `MCPCapability`, `MCPTransport`,
+`MCPConnectionState`, `MCPLogDirection`. Provider-agnostic and spec-aligned.
+
+### Subpath exports
+
+```ts
+import { MCPServerCard } from 'nyxis-ui/mcp-server-card';
+import { MCPLogStream } from 'nyxis-ui/mcp-log-stream';
+// or umbrella:
+import { MCPServerList, MCPResourceBrowser } from 'nyxis-ui/mcp';
+```
+
+### Docs site
+
+New **MCP** category at `/mcp/<slug>` surfaces all seven components with live
+previews. Sidebar picks it up automatically through the `CATEGORIES` registry.
+
 ## 0.7.0
 
 ### Phase F + Phase G — Reasoning & Tool Calling

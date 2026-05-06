@@ -1,0 +1,53 @@
+---
+title: MCPLogStream
+description: Real-time JSON-RPC traffic viewer — direction badges, level pills, expandable JSON payloads.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPLogStreamDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPLogStreamDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPLogStream, type MCPLogEntry } from 'nyxis-ui';
+
+<MCPLogStream entries={entries} limit={50} />;
+```
+
+## Entry shape
+
+```ts
+interface MCPLogEntry {
+  id: string;
+  timestamp: Date | string;
+  direction: 'in' | 'out' | 'event';
+  /** Method / event name (e.g. tools/call, notifications/message) */
+  method: string;
+  /** Optional inline payload preview. */
+  payload?: unknown;
+  /** For log-channel events. */
+  level?: 'debug' | 'info' | 'warn' | 'error';
+}
+```
+
+## Anatomy
+
+- One row per JSON-RPC message: timestamp · direction badge · method · level (when present) · expand chevron.
+- Expand to see the payload as pretty-printed JSON.
+- `limit` collapses older entries with a `+N earlier` footer — useful in side rails.
+
+Wire this to your MCP client's underlying transport (stdio pipe, SSE, WebSocket) and append entries as they flow.

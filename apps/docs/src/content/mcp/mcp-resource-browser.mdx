@@ -1,0 +1,38 @@
+---
+title: MCPResourceBrowser
+description: Searchable list of resources exposed by MCP servers, optionally grouped by URI scheme.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPResourceBrowserDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPResourceBrowserDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPResourceBrowser, type MCPResource } from 'nyxis-ui';
+
+<MCPResourceBrowser resources={resources} activeUri={current} onSelect={(r) => preview(r)} />;
+```
+
+## Anatomy
+
+- Sticky header: count + search input.
+- Group headers per URI scheme (`file://`, `db://`, `https://`, …) — collapsible.
+- Each row: mime-type icon, name, URI, optional description, mime tag.
+- Selected resource highlighted in primary tone (`activeUri` controlled).
+
+Pair with a separate preview pane (e.g. `<StreamingMarkdown>` or a JSON viewer) to surface the resource body when one is picked.

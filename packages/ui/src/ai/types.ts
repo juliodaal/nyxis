@@ -152,3 +152,79 @@ export interface AIChatReturn {
   /** Usage from the latest completed turn. */
   usage: AIUsage | null;
 }
+
+// ── Model Context Protocol (Phase H) ───────────────────────────────────
+
+/** Wire transport for an MCP server. */
+export type MCPTransport = 'stdio' | 'sse' | 'websocket' | 'http';
+
+/** Connection lifecycle for an MCP server. */
+export type MCPConnectionState = 'disconnected' | 'connecting' | 'connected' | 'error';
+
+/** Capabilities an MCP server can expose. Mirrors the spec. */
+export type MCPCapability = 'tools' | 'prompts' | 'resources' | 'sampling' | 'roots' | 'logging';
+
+/** A configured MCP server. */
+export interface MCPServer {
+  id: string;
+  /** Human-readable name. */
+  name: string;
+  /** Optional one-line description. */
+  description?: string;
+  transport: MCPTransport;
+  /** Command + args for stdio, URL for sse/ws/http. */
+  endpoint: string;
+  state: MCPConnectionState;
+  /** Capabilities advertised after the handshake. */
+  capabilities?: readonly MCPCapability[];
+  /** Server-reported version. */
+  version?: string;
+  /** Last-measured round-trip latency, ms. */
+  latencyMs?: number;
+  /** Error message when `state === 'error'`. */
+  error?: string;
+}
+
+/** A resource exposed by an MCP server. */
+export interface MCPResource {
+  /** Stable URI (e.g. `file:///docs/intro.md`, `db://users/42`). */
+  uri: string;
+  /** Display name. */
+  name: string;
+  description?: string;
+  /** MIME type, when known. */
+  mimeType?: string;
+  /** Server id this resource belongs to. */
+  serverId?: string;
+}
+
+/** A prompt template exposed by an MCP server. */
+export interface MCPPrompt {
+  name: string;
+  description?: string;
+  /** Declared arguments. */
+  arguments?: readonly {
+    name: string;
+    description?: string;
+    required?: boolean;
+  }[];
+  /** Server id this prompt belongs to. */
+  serverId?: string;
+}
+
+/** Direction of an MCP log entry. */
+export type MCPLogDirection = 'in' | 'out' | 'event';
+
+/** A single entry from an MCP server's log stream. */
+export interface MCPLogEntry {
+  id: string;
+  /** Wall-clock when emitted. */
+  timestamp: Date | string;
+  direction: MCPLogDirection;
+  /** Method / event name (e.g. `tools/call`, `notifications/message`). */
+  method: string;
+  /** Optional inline payload preview. */
+  payload?: unknown;
+  /** Severity for log-channel events. */
+  level?: 'debug' | 'info' | 'warn' | 'error';
+}

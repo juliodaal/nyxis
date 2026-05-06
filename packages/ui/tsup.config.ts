@@ -8,6 +8,7 @@ const aiUi = (name: string) => `src/components/ai/${name}/index.ts`;
 const chat = (name: string) => `src/components/chat/${name}/index.ts`;
 const reasoning = (name: string) => `src/components/reasoning/${name}/index.ts`;
 const tools = (name: string) => `src/components/tools/${name}/index.ts`;
+const mcp = (name: string) => `src/components/mcp/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -123,6 +124,15 @@ export default defineConfig({
     'components/tools/parameter-form/index': tools('parameter-form'),
     'components/tools/tool-registry/index': tools('tool-registry'),
     'components/tools/tool-execution-log/index': tools('tool-execution-log'),
+    // MCP (Phase H)
+    'components/mcp/index': 'src/components/mcp/index.ts',
+    'components/mcp/mcp-capability-badge/index': mcp('mcp-capability-badge'),
+    'components/mcp/mcp-connection-status/index': mcp('mcp-connection-status'),
+    'components/mcp/mcp-server-card/index': mcp('mcp-server-card'),
+    'components/mcp/mcp-server-list/index': mcp('mcp-server-list'),
+    'components/mcp/mcp-resource-browser/index': mcp('mcp-resource-browser'),
+    'components/mcp/mcp-prompt-library/index': mcp('mcp-prompt-library'),
+    'components/mcp/mcp-log-stream/index': mcp('mcp-log-stream'),
   },
   format: ['esm'],
   target: 'es2022',

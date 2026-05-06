@@ -1,0 +1,42 @@
+---
+title: MCPConnectionStatus
+description: Inline pill describing the MCP connection lifecycle with optional latency readout.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPConnectionStatusDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPConnectionStatusDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPConnectionStatus } from 'nyxis-ui';
+
+<MCPConnectionStatus state="connected" latencyMs={42} />
+<MCPConnectionStatus state="connecting" />
+<MCPConnectionStatus state="error" />
+```
+
+## States
+
+| State          | Tone        | Indicator                            |
+| -------------- | ----------- | ------------------------------------ |
+| `disconnected` | muted       | power icon                           |
+| `connecting`   | primary     | spinning loader                      |
+| `connected`    | success     | plug icon + animated pulse + latency |
+| `error`        | destructive | warning triangle                     |
+
+Pair with `<MCPServerCard>` for the dedicated server surface, or use standalone in a status-bar widget.

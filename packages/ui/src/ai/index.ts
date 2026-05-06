@@ -21,6 +21,15 @@ export type {
   AITool,
   AIChatOptions,
   AIChatReturn,
+  // MCP (Phase H)
+  MCPTransport,
+  MCPConnectionState,
+  MCPCapability,
+  MCPServer,
+  MCPResource,
+  MCPPrompt,
+  MCPLogDirection,
+  MCPLogEntry,
 } from './types.js';
 
 // Event bus

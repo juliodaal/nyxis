@@ -64,3 +64,6 @@ export * from './components/reasoning/index.js';
 
 // AI · Tools / Function Calling (Phase G)
 export * from './components/tools/index.js';
+
+// AI · MCP — Model Context Protocol (Phase H)
+export * from './components/mcp/index.js';

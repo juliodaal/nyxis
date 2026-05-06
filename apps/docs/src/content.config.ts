@@ -14,6 +14,7 @@ const baseFrontmatter = z.object({
     'chat',
     'reasoning',
     'tools',
+    'mcp',
   ]),
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
@@ -76,6 +77,11 @@ const tools = defineCollection({
   schema: baseFrontmatter,
 });
 
+const mcp = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/mcp' }),
+  schema: baseFrontmatter,
+});
+
 export const collections = {
   docs,
   components,
@@ -86,4 +92,5 @@ export const collections = {
   chat,
   reasoning,
   tools,
+  mcp,
 };

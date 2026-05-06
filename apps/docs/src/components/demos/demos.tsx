@@ -88,6 +88,13 @@ import {
   LeadCard,
   MagneticButton,
   MarqueeText,
+  MCPCapabilityBadge,
+  MCPConnectionStatus,
+  MCPLogStream,
+  MCPPromptLibrary,
+  MCPResourceBrowser,
+  MCPServerCard,
+  MCPServerList,
   MessageActions,
   MeshGradientBackground,
   ParameterForm,
@@ -1203,6 +1210,7 @@ import type {
   RegisteredTool,
   ToolExecution,
 } from 'nyxis-ui';
+import type { MCPLogEntry, MCPPrompt, MCPResource, MCPServer } from 'nyxis-ui/ai';
 
 const STREAMING_SAMPLE =
   'Streaming responses make assistants feel responsive even when generation is slow.';
@@ -1691,6 +1699,275 @@ export function ToolExecutionLogDemo() {
   return (
     <div className="w-full max-w-2xl">
       <ToolExecutionLog executions={EXECUTIONS} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · MCP (Phase H)
+// ─────────────────────────────────────────────────────────────────────
+
+const MCP_SERVERS: MCPServer[] = [
+  {
+    id: 'github',
+    name: 'GitHub',
+    description: 'Read/write repositories, issues, pull requests, and CI checks.',
+    transport: 'stdio',
+    endpoint: 'npx -y @modelcontextprotocol/server-github',
+    state: 'connected',
+    capabilities: ['tools', 'resources'],
+    version: '0.4.1',
+    latencyMs: 38,
+  },
+  {
+    id: 'fs',
+    name: 'Filesystem',
+    description: 'Read-only access to the project workspace.',
+    transport: 'stdio',
+    endpoint: 'npx -y @modelcontextprotocol/server-filesystem /home/me/notes',
+    state: 'connected',
+    capabilities: ['resources', 'tools'],
+    version: '0.6.2',
+    latencyMs: 12,
+  },
+  {
+    id: 'pg',
+    name: 'Postgres',
+    description: 'Read-only access to the analytics replica.',
+    transport: 'websocket',
+    endpoint: 'wss://mcp.internal/postgres',
+    state: 'disconnected',
+    capabilities: ['resources'],
+  },
+  {
+    id: 'remote',
+    name: 'Remote API',
+    transport: 'sse',
+    endpoint: 'https://mcp.example.com/sse',
+    state: 'error',
+    error: 'connect ECONNREFUSED 203.0.113.5:443',
+    capabilities: ['tools', 'prompts', 'sampling'],
+  },
+];
+
+export function MCPServerCardDemo() {
+  return (
+    <div className="flex w-full max-w-2xl flex-col gap-3">
+      <MCPServerCard server={MCP_SERVERS[0]!} defaultOpen />
+      <MCPServerCard server={MCP_SERVERS[3]!} />
+    </div>
+  );
+}
+
+export function MCPServerListDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <MCPServerList
+        servers={MCP_SERVERS}
+        onAdd={() => alert('add server')}
+        onConnect={(id) => alert(`connect ${id}`)}
+        onDisconnect={(id) => alert(`disconnect ${id}`)}
+      />
+    </div>
+  );
+}
+
+export function MCPCapabilityBadgeDemo() {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <MCPCapabilityBadge capability="tools" />
+        <MCPCapabilityBadge capability="prompts" />
+        <MCPCapabilityBadge capability="resources" />
+        <MCPCapabilityBadge capability="sampling" />
+        <MCPCapabilityBadge capability="roots" />
+        <MCPCapabilityBadge capability="logging" />
+      </div>
+      <div className="flex flex-wrap items-center gap-1.5">
+        <MCPCapabilityBadge capability="tools" compact />
+        <MCPCapabilityBadge capability="prompts" compact />
+        <MCPCapabilityBadge capability="resources" compact />
+        <MCPCapabilityBadge capability="sampling" compact />
+        <MCPCapabilityBadge capability="roots" compact />
+        <MCPCapabilityBadge capability="logging" compact />
+      </div>
+    </div>
+  );
+}
+
+export function MCPConnectionStatusDemo() {
+  return (
+    <div className="flex flex-col items-start gap-3">
+      <MCPConnectionStatus state="connected" latencyMs={42} />
+      <MCPConnectionStatus state="connecting" />
+      <MCPConnectionStatus state="disconnected" />
+      <MCPConnectionStatus state="error" />
+    </div>
+  );
+}
+
+const MCP_RESOURCES: MCPResource[] = [
+  {
+    uri: 'file:///workspace/README.md',
+    name: 'README.md',
+    description: 'Project overview, install steps, link to the docs.',
+    mimeType: 'text/markdown',
+  },
+  {
+    uri: 'file:///workspace/src/index.ts',
+    name: 'src/index.ts',
+    description: 'Public surface of nyxis-ui.',
+    mimeType: 'text/typescript',
+  },
+  {
+    uri: 'file:///workspace/package.json',
+    name: 'package.json',
+    description: 'Manifest with peer deps and exports map.',
+    mimeType: 'application/json',
+  },
+  {
+    uri: 'db://analytics/users/42',
+    name: 'users/42',
+    description: 'Single row from the analytics replica.',
+    mimeType: 'application/json',
+  },
+  {
+    uri: 'db://analytics/sessions',
+    name: 'sessions table',
+    mimeType: 'application/json',
+  },
+  {
+    uri: 'https://docs.nyxis.dev/api/index.html',
+    name: 'API docs',
+    description: 'Hosted API reference.',
+    mimeType: 'text/html',
+  },
+];
+
+export function MCPResourceBrowserDemo() {
+  const [active, setActive] = useState('file:///workspace/README.md');
+  return (
+    <div className="w-full max-w-md">
+      <MCPResourceBrowser
+        resources={MCP_RESOURCES}
+        activeUri={active}
+        onSelect={(r) => setActive(r.uri)}
+      />
+    </div>
+  );
+}
+
+const MCP_PROMPTS: MCPPrompt[] = [
+  {
+    name: 'summarise_pr',
+    description: 'Summarise a pull request given its diff and recent activity.',
+    arguments: [
+      { name: 'repo', description: 'owner/name', required: true },
+      { name: 'number', description: 'PR number', required: true },
+      { name: 'tone', description: 'concise | detailed | bullet' },
+    ],
+  },
+  {
+    name: 'extract_entities',
+    description: 'Pull named entities from a passage of text.',
+    arguments: [
+      { name: 'text', required: true },
+      { name: 'types', description: 'Comma-separated list (PERSON, ORG, LOC...)' },
+    ],
+  },
+  {
+    name: 'list_open_incidents',
+    description: 'No-arg prompt that returns the current incident list.',
+  },
+  {
+    name: 'translate',
+    description: 'Translate a passage between languages.',
+    arguments: [
+      { name: 'text', required: true },
+      { name: 'target', required: true, description: 'BCP-47 language tag' },
+      { name: 'register', description: 'formal | casual' },
+    ],
+  },
+];
+
+export function MCPPromptLibraryDemo() {
+  return (
+    <div className="w-full max-w-md">
+      <MCPPromptLibrary prompts={MCP_PROMPTS} onSelect={(p) => alert(`pick ${p.name}`)} />
+    </div>
+  );
+}
+
+const MCP_LOG_NOW = new Date();
+const mcpAgo = (ms: number) => new Date(MCP_LOG_NOW.getTime() - ms);
+const MCP_LOG: MCPLogEntry[] = [
+  {
+    id: '8',
+    timestamp: mcpAgo(120),
+    direction: 'out',
+    method: 'tools/call',
+    payload: { name: 'list_repos', arguments: { owner: 'juliodaal' } },
+  },
+  {
+    id: '7',
+    timestamp: mcpAgo(180),
+    direction: 'in',
+    method: 'tools/call (response)',
+    payload: { content: [{ type: 'json', json: { repos: ['nyxis', 'taller'] } }] },
+  },
+  {
+    id: '6',
+    timestamp: mcpAgo(420),
+    direction: 'event',
+    method: 'notifications/message',
+    level: 'info',
+    payload: { logger: 'mcp-server-github', message: 'Authenticated as juliodaal' },
+  },
+  {
+    id: '5',
+    timestamp: mcpAgo(640),
+    direction: 'out',
+    method: 'resources/list',
+  },
+  {
+    id: '4',
+    timestamp: mcpAgo(720),
+    direction: 'in',
+    method: 'resources/list (response)',
+    payload: { resources: [{ uri: 'file:///workspace/README.md', name: 'README.md' }] },
+  },
+  {
+    id: '3',
+    timestamp: mcpAgo(1240),
+    direction: 'event',
+    method: 'notifications/message',
+    level: 'warn',
+    payload: { logger: 'mcp-server-github', message: 'Rate limit at 80%' },
+  },
+  {
+    id: '2',
+    timestamp: mcpAgo(1820),
+    direction: 'in',
+    method: 'initialize (response)',
+    payload: {
+      protocolVersion: '2024-11-05',
+      capabilities: { tools: {}, resources: {} },
+      serverInfo: { name: 'github', version: '0.4.1' },
+    },
+  },
+  {
+    id: '1',
+    timestamp: mcpAgo(2120),
+    direction: 'out',
+    method: 'initialize',
+    payload: { protocolVersion: '2024-11-05', clientInfo: { name: 'nyxis', version: '0.8.0' } },
+  },
+];
+
+export function MCPLogStreamDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <MCPLogStream entries={MCP_LOG} />
     </div>
   );
 }
