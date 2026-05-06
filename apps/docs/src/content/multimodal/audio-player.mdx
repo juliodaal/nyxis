@@ -1,0 +1,45 @@
+---
+title: AudioPlayer
+description: Compact player for TTS / transcribed audio — play, seek, mute, cycle speed, download.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AudioPlayerDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AudioPlayerDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AudioPlayer } from 'nyxis-ui';
+
+<AudioPlayer src="/api/tts?text=hello" title="Voice reply" waveform={precomputedAmplitudes} />;
+```
+
+## Controls
+
+| Control      | Behaviour                                                                    |
+| ------------ | ---------------------------------------------------------------------------- |
+| Play / pause | Toggles playback.                                                            |
+| Waveform     | Click anywhere to scrub via the thin range below.                            |
+| Time         | Current / total in `m:ss`.                                                   |
+| Speed        | Cycles through `0.75x → 1x → 1.25x → 1.5x → 2x` (configurable via `speeds`). |
+| Mute         | Toggles `audio.muted`.                                                       |
+| Download     | Direct link to `src`.                                                        |
+
+## Composition
+
+- Composes `<VoiceWaveform>` with `progress` driven from the underlying `<audio>` element.
+- Pair with `<TranscriptionView>` listening to the same audio time to get a synced caption track.

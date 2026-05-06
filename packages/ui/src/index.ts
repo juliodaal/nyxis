@@ -70,3 +70,6 @@ export * from './components/mcp/index.js';
 
 // AI · Agents (Phase I)
 export * from './components/agents/index.js';
+
+// AI · Multimodal (Phase J)
+export * from './components/multimodal/index.js';

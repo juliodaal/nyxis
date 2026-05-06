@@ -10,6 +10,7 @@ const reasoning = (name: string) => `src/components/reasoning/${name}/index.ts`;
 const tools = (name: string) => `src/components/tools/${name}/index.ts`;
 const mcp = (name: string) => `src/components/mcp/${name}/index.ts`;
 const agents = (name: string) => `src/components/agents/${name}/index.ts`;
+const multimodal = (name: string) => `src/components/multimodal/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -142,6 +143,14 @@ export default defineConfig({
     'components/agents/agent-activity-feed/index': agents('agent-activity-feed'),
     'components/agents/agent-handoff/index': agents('agent-handoff'),
     'components/agents/task-delegation/index': agents('task-delegation'),
+    // Multimodal (Phase J)
+    'components/multimodal/index': 'src/components/multimodal/index.ts',
+    'components/multimodal/image-message/index': multimodal('image-message'),
+    'components/multimodal/image-gallery/index': multimodal('image-gallery'),
+    'components/multimodal/voice-waveform/index': multimodal('voice-waveform'),
+    'components/multimodal/audio-player/index': multimodal('audio-player'),
+    'components/multimodal/transcription-view/index': multimodal('transcription-view'),
+    'components/multimodal/vision-input/index': multimodal('vision-input'),
   },
   format: ['esm'],
   target: 'es2022',

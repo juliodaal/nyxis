@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -334,6 +334,34 @@
       "types": "./dist/components/agents/task-delegation/index.d.ts",
       "import": "./dist/components/agents/task-delegation/index.js"
     },
+    "./multimodal": {
+      "types": "./dist/components/multimodal/index.d.ts",
+      "import": "./dist/components/multimodal/index.js"
+    },
+    "./image-message": {
+      "types": "./dist/components/multimodal/image-message/index.d.ts",
+      "import": "./dist/components/multimodal/image-message/index.js"
+    },
+    "./image-gallery": {
+      "types": "./dist/components/multimodal/image-gallery/index.d.ts",
+      "import": "./dist/components/multimodal/image-gallery/index.js"
+    },
+    "./voice-waveform": {
+      "types": "./dist/components/multimodal/voice-waveform/index.d.ts",
+      "import": "./dist/components/multimodal/voice-waveform/index.js"
+    },
+    "./audio-player": {
+      "types": "./dist/components/multimodal/audio-player/index.d.ts",
+      "import": "./dist/components/multimodal/audio-player/index.js"
+    },
+    "./transcription-view": {
+      "types": "./dist/components/multimodal/transcription-view/index.d.ts",
+      "import": "./dist/components/multimodal/transcription-view/index.js"
+    },
+    "./vision-input": {
+      "types": "./dist/components/multimodal/vision-input/index.d.ts",
+      "import": "./dist/components/multimodal/vision-input/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -349,7 +377,7 @@
   },
   "scripts": {
     "dev": "tsup --watch --no-dts",
-    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=12288\" tsup",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=16384\" tsup",
     "build:css": "node scripts/copy-styles.mjs",
     "build:directives": "node scripts/preserve-directives.mjs",
     "lint": "eslint src --max-warnings=0",

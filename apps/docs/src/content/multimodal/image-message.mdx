@@ -1,0 +1,53 @@
+---
+title: ImageMessage
+description: Image bubble for chat replies with loading, generation progress, error, and ready states.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ImageMessageDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ImageMessageDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ImageMessage } from 'nyxis-ui';
+
+<ImageMessage
+  src={generatedUrl}
+  alt="Brass circuit board with copper traces."
+  caption="Generated · 1024×1024 · 8s"
+  onOpen={() => openLightbox(id)}
+/>;
+
+// While generating:
+<ImageMessage alt="Generating..." status="generating" progress={0.42} />;
+```
+
+## States
+
+| Status       | What renders                                                                                                  |
+| ------------ | ------------------------------------------------------------------------------------------------------------- |
+| `pending`    | Queued placeholder with image icon.                                                                           |
+| `generating` | Spinner + optional progress bar; if `src` is supplied (partial preview), it's shown faded behind the spinner. |
+| `ready`      | The image fades in once loaded; download button on hover; click to open.                                      |
+| `errored`    | Destructive variant with the error message.                                                                   |
+
+## Anatomy
+
+- Aspect ratio is enforced via `aspectRatio` (default `4 / 3`). The image always uses `object-cover`.
+- Caption renders below the image inside a bordered footer.
+- Hover surfaces a download link (turn off via `downloadable={false}`).
+- Click triggers `onOpen` if provided — pair with `<ImageGallery>` or a custom lightbox.

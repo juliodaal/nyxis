@@ -1,0 +1,63 @@
+---
+title: TranscriptionView
+description: Time-anchored transcript with active-segment highlight, auto-scroll, click-to-seek.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TranscriptionViewDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TranscriptionViewDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TranscriptionView, type TranscriptSegment } from 'nyxis-ui';
+
+const segments: TranscriptSegment[] = [
+  { id: '1', start: 0, end: 3.2, speaker: 'Maria', text: 'Hi, thanks for joining.' },
+  { id: '2', start: 3.2, end: 8.4, speaker: 'Lukas', text: 'Of course.' },
+];
+
+<TranscriptionView segments={segments} currentTime={audioTime} onSelect={(s) => seekTo(s.start)} />;
+```
+
+## Anatomy
+
+- Each segment renders as a button: `[start time] · [SPEAKER] · text`.
+- The segment containing `currentTime` is highlighted (primary tone) and auto-scrolls into view.
+- Low-confidence segments (`< 0.7`) get a small `LOW CONF` flag.
+- `onSelect` makes the row clickable for click-to-seek.
+
+## Wiring with audio
+
+Drive `currentTime` from the underlying `<audio>` element:
+
+```tsx
+const [time, setTime] = useState(0);
+const ref = useRef<HTMLAudioElement>(null);
+
+useEffect(() => {
+  const el = ref.current;
+  if (!el) return;
+  const tick = () => setTime(el.currentTime);
+  el.addEventListener('timeupdate', tick);
+  return () => el.removeEventListener('timeupdate', tick);
+}, []);
+
+<audio ref={ref} src="/call.mp3" controls />
+<TranscriptionView segments={segments} currentTime={time} onSelect={(s) => {
+  if (ref.current) ref.current.currentTime = s.start;
+}} />
+```

@@ -1,0 +1,48 @@
+---
+title: VoiceWaveform
+description: Bar-based audio waveform — live recording, playback progress, or idle baseline.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { VoiceWaveformDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <VoiceWaveformDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { VoiceWaveform } from 'nyxis-ui';
+
+// Live recording (no precomputed bars needed — animates from sine + jitter):
+<VoiceWaveform isRecording />
+
+// Static playback bars + progress fill:
+<VoiceWaveform bars={amplitudes} isPlaying progress={progress} />
+
+// Idle / placeholder:
+<VoiceWaveform bars={amplitudes} />
+```
+
+## Modes
+
+| Mode      | When                     | Look                                             |
+| --------- | ------------------------ | ------------------------------------------------ |
+| Recording | `isRecording`            | Bars animate live with destructive (red) tone.   |
+| Playback  | `isPlaying` + `progress` | Filled portion in primary tone; remainder muted. |
+| Idle      | neither                  | Flat baseline, all bars muted.                   |
+
+## Composition
+
+Used internally by `<AudioPlayer>` for the visual track. Standalone, it's useful as a microphone-recording indicator above a chat composer.

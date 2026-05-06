@@ -38,6 +38,11 @@ export type {
   HandoffEvent,
   DelegatedTask,
   DelegatedTaskStatus,
+  // Multimodal (Phase J)
+  MediaKind,
+  MediaGenerationStatus,
+  MediaAttachment,
+  TranscriptSegment,
 } from './types.js';
 
 // Event bus
