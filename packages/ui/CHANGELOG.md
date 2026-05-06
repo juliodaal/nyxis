@@ -1,5 +1,55 @@
 # nyxis-ui
 
+## 0.10.0
+
+### Phase J — Multimodal
+
+Visual surface for media exchanged with the model — images, audio, voice,
+transcripts, and vision input. Build chat surfaces that let users send
+screenshots, listen to TTS replies, or watch transcribed calls in real time.
+
+### What's new
+
+- **`<ImageMessage>`** — image bubble for chat replies. Handles loading,
+  generation progress (with optional partial preview), errors, and a "ready"
+  state with download + click-to-zoom. Pairs with any image-output model
+  (DALL-E, Imagen, Stable Diffusion, etc.).
+- **`<ImageGallery>`** — responsive grid of images with built-in lightbox:
+  keyboard navigation, prev/next, download, dimensions. Configurable column
+  count.
+- **`<VoiceWaveform>`** — bar-based waveform that supports three modes: live
+  recording (jittery, destructive tone), playback (progress fill in primary
+  tone), and idle. Pre-computed amplitudes optional.
+- **`<AudioPlayer>`** — compact player for TTS / transcribed audio. Play / pause
+  / seek / mute / cycle speed (0.75x–2x) / download. Composes `<VoiceWaveform>`
+  for the visual track.
+- **`<TranscriptionView>`** — time-anchored transcript with the active segment
+  highlighted and auto-scrolled into view. Click segments to seek; speaker
+  labels and low-confidence flags.
+- **`<VisionInput>`** — dropzone tuned for vision-capable models. Accepts
+  drag-and-drop, file picker, paste (Cmd/Ctrl+V), and optional camera capture.
+  Validates MIME type and size.
+
+### AI core
+
+`nyxis-ui/ai` types extended with `MediaKind`, `MediaGenerationStatus`,
+`MediaAttachment`, `TranscriptSegment`. Provider-agnostic.
+
+### Subpath exports
+
+```ts
+import { ImageGallery } from 'nyxis-ui/image-gallery';
+import { AudioPlayer } from 'nyxis-ui/audio-player';
+// or umbrella:
+import { VisionInput, TranscriptionView } from 'nyxis-ui/multimodal';
+```
+
+### Docs site
+
+New **Multimodal** category at `/multimodal/<slug>` surfaces all six components
+with live previews. Sidebar picks it up automatically through the `CATEGORIES`
+registry.
+
 ## 0.9.0
 
 ### Phase I — Agents

@@ -1,0 +1,46 @@
+---
+title: VisionInput
+description: Vision-input dropzone — drag-and-drop, file picker, paste, optional camera capture.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { VisionInputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <VisionInputDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { VisionInput } from 'nyxis-ui';
+
+const [file, setFile] = useState<File | null>(null);
+
+<VisionInput value={file} onChange={setFile} maxBytes={5 * 1024 * 1024} />;
+```
+
+## Input methods
+
+| Method               | Behaviour                                                                                     |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| Drag-and-drop        | Highlights the dropzone in primary tone.                                                      |
+| File picker          | Click anywhere on the empty dropzone.                                                         |
+| Paste (`Cmd/Ctrl+V`) | Document-level handler; ignored when an `<input>` has focus.                                  |
+| Camera capture       | Tap the "Use camera" button. Mobile devices launch the rear camera (`capture="environment"`). |
+
+## Validation
+
+- Pass `maxBytes` to enforce a size cap. Oversize files surface a destructive inline error.
+- Non-image MIME types are rejected.
+- Already-selected files can be removed via the X button on the preview.

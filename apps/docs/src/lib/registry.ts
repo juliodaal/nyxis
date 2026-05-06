@@ -17,7 +17,8 @@ export type Category =
   | 'reasoning'
   | 'tools'
   | 'mcp'
-  | 'agents';
+  | 'agents'
+  | 'multimodal';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -102,6 +103,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Multi-agent surface — status, cards, rosters, activity feeds, handoffs, task delegation.',
     href: '/agents',
+  },
+  {
+    id: 'multimodal',
+    label: 'Multimodal',
+    description:
+      'Media exchanged with the model — images, audio, voice, transcripts, vision input.',
+    href: '/multimodal',
   },
   {
     id: 'domain',
@@ -845,6 +853,54 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'agents',
     description:
       'Hierarchical task tree with per-node status, assigned-agent chips, and progress bars.',
+    status: 'stable',
+  },
+
+  // ── AI · Multimodal (Phase J) ───────────────────────────────────────
+  {
+    slug: 'image-message',
+    name: 'ImageMessage',
+    category: 'multimodal',
+    description:
+      'Image bubble for chat replies with loading, generation progress, error, and ready states.',
+    status: 'stable',
+  },
+  {
+    slug: 'image-gallery',
+    name: 'ImageGallery',
+    category: 'multimodal',
+    description: 'Responsive image grid with built-in lightbox, keyboard navigation, and download.',
+    status: 'stable',
+  },
+  {
+    slug: 'voice-waveform',
+    name: 'VoiceWaveform',
+    category: 'multimodal',
+    description: 'Bar-based audio waveform: live recording, playback progress, or idle baseline.',
+    status: 'stable',
+  },
+  {
+    slug: 'audio-player',
+    name: 'AudioPlayer',
+    category: 'multimodal',
+    description:
+      'Compact player for TTS / transcribed audio — play, seek, mute, cycle speed, download.',
+    status: 'stable',
+  },
+  {
+    slug: 'transcription-view',
+    name: 'TranscriptionView',
+    category: 'multimodal',
+    description:
+      'Time-anchored transcript with active-segment highlight, auto-scroll, click-to-seek.',
+    status: 'stable',
+  },
+  {
+    slug: 'vision-input',
+    name: 'VisionInput',
+    category: 'multimodal',
+    description:
+      'Vision-input dropzone — drag-and-drop, file picker, paste, optional camera capture.',
     status: 'stable',
   },
 ] as const;

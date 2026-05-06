@@ -1,0 +1,47 @@
+---
+title: ImageGallery
+description: Responsive image grid with built-in lightbox, keyboard navigation, and download.
+category: multimodal
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ImageGalleryDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ImageGalleryDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ImageGallery, type MediaAttachment } from 'nyxis-ui';
+
+const images: MediaAttachment[] = [
+  { id: '1', kind: 'image', url: '...', alt: 'first', width: 640, height: 426 },
+  // ...
+];
+
+<ImageGallery images={images} columns={3} />;
+```
+
+## Anatomy
+
+- Grid: 1 column on mobile, `2 | 3 | 4` columns from `sm:` upwards (default 3).
+- Each thumbnail is a square (`aspect-square`) with `object-cover`. Hover surfaces the filename.
+- Click opens the **lightbox**: full image, prev/next arrows, keyboard navigation (Esc / ←/→), close button, download link, dimensions readout.
+- Set `disableLightbox` to handle previews yourself; `onSelect` is then invoked with the index.
+
+## Use cases
+
+- Image-generation batches (DALL-E, Stable Diffusion, Imagen).
+- Vision-input galleries — what the user has uploaded so far.
+- Reference-image picker for chat composers.
