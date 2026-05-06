@@ -30,6 +30,14 @@ export type {
   MCPPrompt,
   MCPLogDirection,
   MCPLogEntry,
+  // Agents (Phase I)
+  Agent,
+  AgentStatus,
+  AgentActivity,
+  AgentActivityKind,
+  HandoffEvent,
+  DelegatedTask,
+  DelegatedTaskStatus,
 } from './types.js';
 
 // Event bus

@@ -22,6 +22,11 @@ import {
   AccordionItem,
   AccordionTrigger,
   ActionItem,
+  AgentActivityFeed,
+  AgentCard,
+  AgentHandoff,
+  AgentRoster,
+  AgentStatusBadge,
   AuditLogItem,
   AuroraBackground,
   Avatar,
@@ -128,6 +133,7 @@ import {
   SplitText,
   SpotlightCursor,
   StaggerReveal,
+  TaskDelegation,
   StreamingCode,
   StreamingMarkdown,
   StreamingText,
@@ -1210,7 +1216,16 @@ import type {
   RegisteredTool,
   ToolExecution,
 } from 'nyxis-ui';
-import type { MCPLogEntry, MCPPrompt, MCPResource, MCPServer } from 'nyxis-ui/ai';
+import type {
+  Agent,
+  AgentActivity,
+  DelegatedTask,
+  HandoffEvent,
+  MCPLogEntry,
+  MCPPrompt,
+  MCPResource,
+  MCPServer,
+} from 'nyxis-ui/ai';
 
 const STREAMING_SAMPLE =
   'Streaming responses make assistants feel responsive even when generation is slow.';
@@ -1968,6 +1983,249 @@ export function MCPLogStreamDemo() {
   return (
     <div className="w-full max-w-2xl">
       <MCPLogStream entries={MCP_LOG} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Agents (Phase I)
+// ─────────────────────────────────────────────────────────────────────
+
+const AGENT_TEAM: Agent[] = [
+  {
+    id: 'planner',
+    name: 'Planner',
+    role: 'Decomposes the task into subtasks.',
+    modelId: 'claude-opus-4',
+    initials: 'PL',
+    status: 'done',
+    tools: ['decompose'],
+  },
+  {
+    id: 'researcher',
+    name: 'Researcher',
+    role: 'Gathers facts from the web and internal corpora.',
+    modelId: 'claude-sonnet-4-5',
+    initials: 'RS',
+    status: 'working',
+    tools: ['search_web', 'fetch_url', 'search_documents'],
+  },
+  {
+    id: 'writer',
+    name: 'Writer',
+    role: 'Synthesises findings into a final answer.',
+    modelId: 'claude-opus-4',
+    initials: 'WR',
+    status: 'idle',
+    tools: ['write_markdown'],
+  },
+  {
+    id: 'critic',
+    name: 'Critic',
+    role: 'Reviews drafts for accuracy and tone.',
+    modelId: 'gpt-4o',
+    initials: 'CR',
+    status: 'idle',
+    tools: ['rate_text'],
+  },
+  {
+    id: 'fact-check',
+    name: 'Fact-checker',
+    role: 'Validates citations against sources.',
+    modelId: 'claude-sonnet-4-5',
+    initials: 'FC',
+    status: 'blocked',
+    tools: ['verify_citation'],
+  },
+];
+
+export function AgentStatusBadgeDemo() {
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <AgentStatusBadge status="idle" />
+      <AgentStatusBadge status="thinking" />
+      <AgentStatusBadge status="working" />
+      <AgentStatusBadge status="blocked" />
+      <AgentStatusBadge status="done" />
+      <AgentStatusBadge status="errored" />
+    </div>
+  );
+}
+
+export function AgentCardDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <AgentCard agent={AGENT_TEAM[1]!} />
+      <AgentCard agent={AGENT_TEAM[2]!} />
+    </div>
+  );
+}
+
+export function AgentRosterDemo() {
+  const [active, setActive] = useState<string | undefined>('researcher');
+  return (
+    <div className="w-full max-w-lg">
+      <AgentRoster agents={AGENT_TEAM} activeId={active} onSelect={setActive} layout="list" />
+    </div>
+  );
+}
+
+const AGENT_NOW = new Date();
+const agentAgo = (s: number) => new Date(AGENT_NOW.getTime() - s * 1000);
+const ACTIVITIES: AgentActivity[] = [
+  {
+    id: '8',
+    agentId: 'writer',
+    agentName: 'Writer',
+    kind: 'message',
+    summary: 'Drafted opening paragraph (124 words).',
+    detail:
+      'Nyxis ships adapters as peer dependencies for three reasons:\n1. Bundle size — apps targeting only one provider...',
+    timestamp: agentAgo(2),
+  },
+  {
+    id: '7',
+    agentId: 'researcher',
+    agentName: 'Researcher',
+    kind: 'handoff',
+    summary: 'Handed off to Writer with 6 sources.',
+    timestamp: agentAgo(15),
+  },
+  {
+    id: '6',
+    agentId: 'researcher',
+    agentName: 'Researcher',
+    kind: 'tool-call',
+    summary: 'search_documents("streaming protocol", limit=5)',
+    detail: '{ "hits": [ ... 5 results ... ] }',
+    timestamp: agentAgo(45),
+  },
+  {
+    id: '5',
+    agentId: 'researcher',
+    agentName: 'Researcher',
+    kind: 'thought',
+    summary: 'Cross-referencing peer-deps explanation against source code.',
+    timestamp: agentAgo(80),
+  },
+  {
+    id: '4',
+    agentId: 'planner',
+    agentName: 'Planner',
+    kind: 'handoff',
+    summary: 'Handed off to Researcher with 3 sub-tasks.',
+    timestamp: agentAgo(180),
+  },
+  {
+    id: '3',
+    agentId: 'planner',
+    agentName: 'Planner',
+    kind: 'action',
+    summary: 'Decomposed task into research → write → review.',
+    timestamp: agentAgo(220),
+  },
+  {
+    id: '2',
+    agentId: 'planner',
+    agentName: 'Planner',
+    kind: 'thought',
+    summary: 'User asked about peer-dep architecture — needs research + synthesis.',
+    timestamp: agentAgo(240),
+  },
+];
+
+export function AgentActivityFeedDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <AgentActivityFeed activities={ACTIVITIES} />
+    </div>
+  );
+}
+
+const HANDOFFS: HandoffEvent[] = [
+  {
+    fromAgentId: 'planner',
+    toAgentId: 'researcher',
+    fromAgentName: 'Planner',
+    toAgentName: 'Researcher',
+    reason: 'Needs to gather facts about peer-dep architecture.',
+    state: 'accepted',
+    timestamp: new Date(),
+  },
+  {
+    fromAgentId: 'researcher',
+    toAgentId: 'writer',
+    fromAgentName: 'Researcher',
+    toAgentName: 'Writer',
+    reason: 'Found 6 sources, ready to synthesise.',
+    state: 'pending',
+    timestamp: new Date(Date.now() - 60_000),
+  },
+];
+
+export function AgentHandoffDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      {HANDOFFS.map((h) => (
+        <AgentHandoff key={`${h.fromAgentId}-${h.toAgentId}`} handoff={h} />
+      ))}
+    </div>
+  );
+}
+
+const TASK_TREE: DelegatedTask[] = [
+  {
+    id: 'root',
+    title: 'Answer: why peer-dep adapters?',
+    description: 'Research, draft, review, finalise.',
+    status: 'in-progress',
+    progress: 0.55,
+    children: [
+      {
+        id: 'research',
+        title: 'Research peer-dep architecture',
+        agentName: 'Researcher',
+        agentId: 'researcher',
+        status: 'done',
+        children: [
+          { id: 'r-1', title: 'Search internal docs', agentName: 'Researcher', status: 'done' },
+          {
+            id: 'r-2',
+            title: 'Fetch README + installation',
+            agentName: 'Researcher',
+            status: 'done',
+          },
+          { id: 'r-3', title: 'Verify against source', agentName: 'Researcher', status: 'done' },
+        ],
+      },
+      {
+        id: 'draft',
+        title: 'Draft answer (3 reasons + example)',
+        agentName: 'Writer',
+        status: 'in-progress',
+        progress: 0.4,
+      },
+      {
+        id: 'review',
+        title: 'Review for accuracy and tone',
+        agentName: 'Critic',
+        status: 'pending',
+      },
+      {
+        id: 'finalise',
+        title: 'Finalise + publish',
+        status: 'blocked',
+        description: 'Waiting on Critic approval.',
+      },
+    ],
+  },
+];
+
+export function TaskDelegationDemo() {
+  const [active, setActive] = useState<string>('draft');
+  return (
+    <div className="w-full max-w-xl">
+      <TaskDelegation tasks={TASK_TREE} activeId={active} onSelect={(t) => setActive(t.id)} />
     </div>
   );
 }

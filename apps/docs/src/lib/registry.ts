@@ -16,7 +16,8 @@ export type Category =
   | 'chat'
   | 'reasoning'
   | 'tools'
-  | 'mcp';
+  | 'mcp'
+  | 'agents';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -94,6 +95,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Visual surface for the Model Context Protocol — servers, capabilities, resources, prompts, traffic.',
     href: '/mcp',
+  },
+  {
+    id: 'agents',
+    label: 'Agents',
+    description:
+      'Multi-agent surface — status, cards, rosters, activity feeds, handoffs, task delegation.',
+    href: '/agents',
   },
   {
     id: 'domain',
@@ -788,6 +796,55 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'mcp',
     description:
       'Real-time JSON-RPC traffic viewer — direction badges, level pills, expandable JSON payloads.',
+    status: 'stable',
+  },
+
+  // ── AI · Agents (Phase I) ───────────────────────────────────────────
+  {
+    slug: 'agent-status-badge',
+    name: 'AgentStatusBadge',
+    category: 'agents',
+    description:
+      'Pill describing an agent lifecycle (idle/thinking/working/blocked/done/errored) with animated indicator.',
+    status: 'stable',
+  },
+  {
+    slug: 'agent-card',
+    name: 'AgentCard',
+    category: 'agents',
+    description:
+      'Single-agent card with avatar, name, role, model, status, and the tools available to it.',
+    status: 'stable',
+  },
+  {
+    slug: 'agent-roster',
+    name: 'AgentRoster',
+    category: 'agents',
+    description: 'Multi-agent team view with search, status filters, and list/grid layouts.',
+    status: 'stable',
+  },
+  {
+    slug: 'agent-activity-feed',
+    name: 'AgentActivityFeed',
+    category: 'agents',
+    description:
+      'Vertical timeline of agent activity — thoughts, actions, tool calls, messages, handoffs, errors.',
+    status: 'stable',
+  },
+  {
+    slug: 'agent-handoff',
+    name: 'AgentHandoff',
+    category: 'agents',
+    description:
+      'Card visualising a handoff between two agents with reason and pending/accepted/rejected state.',
+    status: 'stable',
+  },
+  {
+    slug: 'task-delegation',
+    name: 'TaskDelegation',
+    category: 'agents',
+    description:
+      'Hierarchical task tree with per-node status, assigned-agent chips, and progress bars.',
     status: 'stable',
   },
 ] as const;

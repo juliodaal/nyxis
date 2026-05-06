@@ -9,6 +9,7 @@ const chat = (name: string) => `src/components/chat/${name}/index.ts`;
 const reasoning = (name: string) => `src/components/reasoning/${name}/index.ts`;
 const tools = (name: string) => `src/components/tools/${name}/index.ts`;
 const mcp = (name: string) => `src/components/mcp/${name}/index.ts`;
+const agents = (name: string) => `src/components/agents/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -133,6 +134,14 @@ export default defineConfig({
     'components/mcp/mcp-resource-browser/index': mcp('mcp-resource-browser'),
     'components/mcp/mcp-prompt-library/index': mcp('mcp-prompt-library'),
     'components/mcp/mcp-log-stream/index': mcp('mcp-log-stream'),
+    // Agents (Phase I)
+    'components/agents/index': 'src/components/agents/index.ts',
+    'components/agents/agent-status-badge/index': agents('agent-status-badge'),
+    'components/agents/agent-card/index': agents('agent-card'),
+    'components/agents/agent-roster/index': agents('agent-roster'),
+    'components/agents/agent-activity-feed/index': agents('agent-activity-feed'),
+    'components/agents/agent-handoff/index': agents('agent-handoff'),
+    'components/agents/task-delegation/index': agents('task-delegation'),
   },
   format: ['esm'],
   target: 'es2022',

@@ -1,0 +1,43 @@
+---
+title: AgentStatusBadge
+description: Pill describing an agent lifecycle (idle/thinking/working/blocked/done/errored) with animated indicator.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AgentStatusBadgeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AgentStatusBadgeDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AgentStatusBadge } from 'nyxis-ui';
+
+<AgentStatusBadge status="thinking" />
+<AgentStatusBadge status="working" compact />
+```
+
+## States
+
+| Status     | Tone        | Animation |
+| ---------- | ----------- | --------- |
+| `idle`     | muted       | none      |
+| `thinking` | primary     | pulse     |
+| `working`  | sky         | spin      |
+| `blocked`  | amber       | none      |
+| `done`     | success     | none      |
+| `errored`  | destructive | none      |
+
+Pair with `<AgentCard>` for the full agent surface, or render alongside an agent name in any list / feed.

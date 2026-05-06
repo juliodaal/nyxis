@@ -1,5 +1,55 @@
 # nyxis-ui
 
+## 0.9.0
+
+### Phase I — Agents
+
+Visual surface for **multi-agent systems**: status, individual agent cards, team
+rosters, activity timelines, handoffs between agents, and hierarchical task
+delegation. Render-only — works with any orchestrator (LangGraph, Mastra,
+Inngest, OpenAI Swarm, custom).
+
+### What's new
+
+- **`<AgentStatusBadge>`** — pill describing an agent's lifecycle (`idle` /
+  `thinking` / `working` / `blocked` / `done` / `errored`) with the appropriate
+  icon and animated indicator (spin while working, pulse while thinking).
+- **`<AgentCard>`** — single-agent card with avatar / initials, name, role,
+  model, status, and the tools available to it. Compact and full variants;
+  selection support via `onSelect`.
+- **`<AgentRoster>`** — multi-agent team view with search, status filters, and
+  list/grid layouts. Renders `<AgentCard>` per row with selection.
+- **`<AgentActivityFeed>`** — vertical timeline of agent activity: thoughts,
+  actions, tool calls, messages, handoffs, errors. Each kind gets its own icon
+  and tone; payloads expand inline.
+- **`<AgentHandoff>`** — card visualising a handoff between two agents
+  (`from → to`) with the stated reason and a `pending` / `accepted` / `rejected`
+  lifecycle.
+- **`<TaskDelegation>`** — hierarchical task tree with per-node status icons
+  (`pending` / `in-progress` / `blocked` / `done` / `errored`), assigned-agent
+  chips (`@AgentName`), and an optional progress bar per node.
+
+### AI core
+
+`nyxis-ui/ai` types extended with `Agent`, `AgentStatus`, `AgentActivity`,
+`AgentActivityKind`, `HandoffEvent`, `DelegatedTask`, `DelegatedTaskStatus`.
+Provider-agnostic, pairs with any agent runtime.
+
+### Subpath exports
+
+```ts
+import { AgentRoster } from 'nyxis-ui/agent-roster';
+import { TaskDelegation } from 'nyxis-ui/task-delegation';
+// or umbrella:
+import { AgentCard, AgentActivityFeed } from 'nyxis-ui/agents';
+```
+
+### Docs site
+
+New **Agents** category at `/agents/<slug>` surfaces all six components with
+live previews. Sidebar picks it up automatically through the `CATEGORIES`
+registry.
+
 ## 0.8.0
 
 ### Phase H — Model Context Protocol (MCP)
