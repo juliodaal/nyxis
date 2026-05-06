@@ -1,0 +1,54 @@
+---
+title: RAGPipeline
+description: Connected stage chips for embed → retrieve → rerank → generate with status, durations, and counts.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { RAGPipelineDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <RAGPipelineDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { RAGPipeline, type RAGStage } from 'nyxis-ui';
+
+const stages: RAGStage[] = [
+  { id: 'embed', name: 'Embed query', status: 'done', durationMs: 92 },
+  { id: 'retrieve', name: 'Retrieve', status: 'done', durationMs: 41, count: 20 },
+  { id: 'rerank', name: 'Rerank', status: 'running', count: 8 },
+  { id: 'generate', name: 'Generate', status: 'pending' },
+];
+
+<RAGPipeline stages={stages} orientation="horizontal" />;
+```
+
+## Status
+
+Drives the chip's icon and tone:
+
+| Status    | Tone        | Indicator       |
+| --------- | ----------- | --------------- |
+| `pending` | muted       | empty circle    |
+| `running` | primary     | spinning loader |
+| `done`    | success     | checkmark       |
+| `errored` | destructive | warning         |
+
+## Layouts
+
+- `horizontal` — stage chips left-to-right (default), great for a pipeline summary above a chat surface.
+- `vertical` — stage chips top-to-bottom, suits a side rail.
+
+Stages can be clicked when `onSelect` is provided — pair with a side panel that surfaces logs / inputs / outputs for that stage.

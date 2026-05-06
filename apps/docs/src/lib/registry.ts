@@ -19,7 +19,8 @@ export type Category =
   | 'mcp'
   | 'agents'
   | 'multimodal'
-  | 'prompts';
+  | 'prompts'
+  | 'rag';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -118,6 +119,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Prompt engineering and offline evaluation — saved prompts, variable forms, eval runs, datasets, A/B compare.',
     href: '/prompts',
+  },
+  {
+    id: 'rag',
+    label: 'RAG',
+    description:
+      'Retrieval-augmented generation — chunks, retrieval results, search input, document chunker, embedding scatter, pipeline.',
+    href: '/rag',
   },
   {
     id: 'domain',
@@ -957,6 +965,53 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'prompts',
     description:
       'Side-by-side comparison of two prompts (or two models) with metric deltas and sample outputs.',
+    status: 'stable',
+  },
+
+  // ── AI · RAG (Phase L) ──────────────────────────────────────────────
+  {
+    slug: 'chunk-card',
+    name: 'ChunkCard',
+    category: 'rag',
+    description:
+      'Single retrieved chunk with rank, source, score, optional reranker delta, and expandable metadata.',
+    status: 'stable',
+  },
+  {
+    slug: 'retrieval-results',
+    name: 'RetrievalResults',
+    category: 'rag',
+    description: 'List of retrieved chunks with in-set search and a score-threshold slider.',
+    status: 'stable',
+  },
+  {
+    slug: 'vector-search-input',
+    name: 'VectorSearchInput',
+    category: 'rag',
+    description: 'Query input with topK slider, similarity threshold, and reranker toggle.',
+    status: 'stable',
+  },
+  {
+    slug: 'document-chunker',
+    name: 'DocumentChunker',
+    category: 'rag',
+    description: 'Source document with chunk boundaries highlighted — preview a chunking strategy.',
+    status: 'stable',
+  },
+  {
+    slug: 'embedding-scatter',
+    name: 'EmbeddingScatter',
+    category: 'rag',
+    description:
+      'Pure-SVG 2D scatter for UMAP / t-SNE / PCA projections with hover tooltips and group colour-coding.',
+    status: 'stable',
+  },
+  {
+    slug: 'rag-pipeline',
+    name: 'RAGPipeline',
+    category: 'rag',
+    description:
+      'Connected stage chips for embed → retrieve → rerank → generate with status, durations, and counts.',
     status: 'stable',
   },
 ] as const;

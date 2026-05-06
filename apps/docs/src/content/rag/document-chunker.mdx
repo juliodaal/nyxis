@@ -1,0 +1,44 @@
+---
+title: DocumentChunker
+description: Source document with chunk boundaries highlighted — preview a chunking strategy.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DocumentChunkerDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DocumentChunkerDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { DocumentChunker, type DocumentChunk } from 'nyxis-ui';
+
+const chunks: DocumentChunk[] = [
+  { id: 'c1', start: 0, end: 240 },
+  { id: 'c2', start: 240, end: 510 },
+];
+
+<DocumentChunker text={source} chunks={chunks} onSelect={(c) => focus(c.id)} />;
+```
+
+## Why this is useful
+
+Chunking strategies are easy to get wrong: you cut a sentence mid-clause, you over-include surrounding noise, you produce wildly uneven chunk sizes. Rendering the source document with chunk boundaries highlighted exposes these issues at a glance.
+
+## Anatomy
+
+- Header: chunk count + size stats (avg / min / max in chars).
+- Source text rendered in mono, with chunks alternating between primary and violet tints; gaps render in muted text.
+- Each chunk has a small index badge and is clickable / hoverable.

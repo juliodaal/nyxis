@@ -1,0 +1,42 @@
+---
+title: VectorSearchInput
+description: Query input with topK slider, similarity threshold, and reranker toggle.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { VectorSearchInputDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <VectorSearchInputDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { VectorSearchInput } from 'nyxis-ui';
+
+<VectorSearchInput
+  defaultValue="when does the fiscal year end?"
+  onSubmit={(query, { topK, threshold, reranker }) => {
+    runRetriever({ query, topK, threshold, reranker });
+  }}
+/>;
+```
+
+## Anatomy
+
+- Search input with leading icon (spinner while `loading`).
+- `top-K` slider (default range `[1, 20]`).
+- Similarity-threshold slider `0..1`.
+- Reranker toggle.
+- Submit fires `onSubmit(query, options)` — Enter in the input also submits.

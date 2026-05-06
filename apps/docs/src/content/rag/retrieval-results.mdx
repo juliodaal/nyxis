@@ -1,0 +1,41 @@
+---
+title: RetrievalResults
+description: List of retrieved chunks with in-set search and a score-threshold slider.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { RetrievalResultsDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <RetrievalResultsDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { RetrievalResults, type RetrievedChunk } from 'nyxis-ui';
+
+<RetrievalResults
+  chunks={chunks}
+  query="When does the fiscal year end?"
+  defaultThreshold={0.5}
+  onSelect={(id) => focus(id)}
+/>;
+```
+
+## Anatomy
+
+- Header: query (rendered in mono) + filtered/total count.
+- Search input filters by source, locator, and chunk text.
+- Threshold slider hides anything below the chosen score (uses `rerankScore` when present, else `score`).
+- Stack of `<ChunkCard>` rows; selection is forwarded to each.
