@@ -47,6 +47,7 @@ import {
   ChatMessage,
   ChatThread,
   Checkbox,
+  ChunkCard,
   CitationCard,
   Combobox,
   ConversationFork,
@@ -78,9 +79,11 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  DocumentChunker,
   DrawerTitle,
   DrawerTrigger,
   EmailTriageCard,
+  EmbeddingScatter,
   EvalRunCard,
   FileDropzone,
   Form,
@@ -118,7 +121,9 @@ import {
   PopoverTrigger,
   RadioGroup,
   RadioGroupItem,
+  RAGPipeline,
   ReasoningTrace,
+  RetrievalResults,
   RevealText,
   RotatingText,
   ScrambleText,
@@ -168,6 +173,7 @@ import {
   TooltipTrigger,
   TypeWriter,
   TypingIndicator,
+  VectorSearchInput,
   VisionInput,
   VoiceWaveform,
   toast,
@@ -1223,6 +1229,7 @@ import type { AIMessage } from 'nyxis-ui/ai';
 import type {
   ChainStep,
   ConversationItem,
+  DocumentChunk,
   ForkNode,
   ParameterField,
   RegisteredTool,
@@ -1232,6 +1239,7 @@ import type {
   Agent,
   AgentActivity,
   DelegatedTask,
+  EmbeddingPoint,
   EvalRow,
   EvalRun,
   HandoffEvent,
@@ -1241,6 +1249,8 @@ import type {
   MCPServer,
   MediaAttachment,
   Prompt,
+  RAGStage,
+  RetrievedChunk,
   TranscriptSegment,
 } from 'nyxis-ui/ai';
 
@@ -2696,6 +2706,203 @@ export function ABCompareDemo() {
             '- Split chat barrel\n- Per-component subpaths\n- Better tree-shaking, smaller bundles',
         }}
       />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · RAG (Phase L)
+// ─────────────────────────────────────────────────────────────────────
+
+const SAMPLE_CHUNK: RetrievedChunk = {
+  id: 'doc-12-§4.2',
+  source: 'employee-handbook.md',
+  locator: '§4.2',
+  rank: 1,
+  score: 0.71,
+  rerankScore: 0.94,
+  text: 'The fiscal year ends on March 31. All quarterly reports must be submitted no later than ten business days after each quarter close, and a parallel review by audit and finance is required before release.',
+  metadata: {
+    collection: 'hr-corpus',
+    docType: 'policy',
+    lang: 'en',
+    updated: '2026-01-15',
+  },
+};
+
+export function ChunkCardDemo() {
+  return (
+    <div className="w-full max-w-xl">
+      <ChunkCard chunk={SAMPLE_CHUNK} />
+    </div>
+  );
+}
+
+const RETRIEVAL_CHUNKS: RetrievedChunk[] = [
+  SAMPLE_CHUNK,
+  {
+    id: '2',
+    source: 'finance-2025-Q4-review.pdf',
+    locator: 'page 3',
+    rank: 2,
+    score: 0.68,
+    rerankScore: 0.86,
+    text: 'Quarterly cadence remains unchanged: ten-day reporting window, parallel review by audit and finance.',
+  },
+  {
+    id: '3',
+    source: 'employee-handbook.md',
+    locator: '§4.3',
+    rank: 3,
+    score: 0.62,
+    rerankScore: 0.58,
+    text: 'Audit findings must be logged into the central tracker within five business days of identification.',
+  },
+  {
+    id: '4',
+    source: 'sox-controls-matrix.xlsx',
+    locator: 'row 412',
+    rank: 4,
+    score: 0.42,
+    rerankScore: 0.31,
+    text: 'Control SOX-412: monthly reconciliation evidence stored in the GRC vault.',
+  },
+];
+
+export function RetrievalResultsDemo() {
+  const [active, setActive] = useState<string | undefined>(undefined);
+  return (
+    <div className="w-full max-w-2xl">
+      <RetrievalResults
+        chunks={RETRIEVAL_CHUNKS}
+        query="When does the fiscal year end and how are quarterly reports submitted?"
+        activeId={active}
+        onSelect={setActive}
+      />
+    </div>
+  );
+}
+
+export function VectorSearchInputDemo() {
+  const [last, setLast] = useState<string | null>(null);
+  return (
+    <div className="flex w-full max-w-xl flex-col gap-3">
+      <VectorSearchInput
+        defaultValue="when does the fiscal year end?"
+        onSubmit={(query, opts) => setLast(`${query} · ${JSON.stringify(opts)}`)}
+      />
+      {last && <p className="text-muted-foreground font-mono text-[11px]">last submit: {last}</p>}
+    </div>
+  );
+}
+
+const CHUNKER_TEXT = `# Fiscal year and reporting cadence
+
+The fiscal year ends on March 31. All quarterly reports must be submitted no later than ten business days after each quarter close. Parallel review by audit and finance is required before release.
+
+Audit findings must be logged into the central tracker within five business days of identification. Findings are triaged by severity (S0–S3) and assigned an owner.
+
+New finance team members complete the SOX awareness module in their first week. The module is also re-administered annually as part of the compliance refresh.`;
+
+const CHUNKER_CHUNKS: DocumentChunk[] = [
+  { id: 'c1', start: 0, end: CHUNKER_TEXT.indexOf('Audit findings') },
+  {
+    id: 'c2',
+    start: CHUNKER_TEXT.indexOf('Audit findings'),
+    end: CHUNKER_TEXT.indexOf('New finance team members'),
+  },
+  {
+    id: 'c3',
+    start: CHUNKER_TEXT.indexOf('New finance team members'),
+    end: CHUNKER_TEXT.length,
+  },
+];
+
+export function DocumentChunkerDemo() {
+  const [active, setActive] = useState<string | undefined>(undefined);
+  return (
+    <div className="w-full max-w-3xl">
+      <DocumentChunker
+        text={CHUNKER_TEXT}
+        chunks={CHUNKER_CHUNKS}
+        activeId={active}
+        onSelect={(c) => setActive(c.id)}
+      />
+    </div>
+  );
+}
+
+function generateScatter(): EmbeddingPoint[] {
+  const out: EmbeddingPoint[] = [];
+  const clusters = [
+    { name: 'finance', cx: 0.25, cy: 0.7, count: 14 },
+    { name: 'hr', cx: 0.7, cy: 0.6, count: 12 },
+    { name: 'engineering', cx: 0.5, cy: 0.25, count: 16 },
+  ];
+  let id = 0;
+  for (const c of clusters) {
+    for (let i = 0; i < c.count; i++) {
+      const dx = (Math.random() - 0.5) * 0.18;
+      const dy = (Math.random() - 0.5) * 0.18;
+      out.push({
+        id: `pt-${id++}`,
+        label: `${c.name} chunk ${i + 1}`,
+        group: c.name,
+        x: c.cx + dx,
+        y: c.cy + dy,
+      });
+    }
+  }
+  return out;
+}
+const SCATTER_POINTS = generateScatter();
+
+export function EmbeddingScatterDemo() {
+  return (
+    <div className="w-full max-w-xl">
+      <EmbeddingScatter
+        points={SCATTER_POINTS}
+        legendLabel="UMAP projection · 42 chunks · 3 collections"
+      />
+    </div>
+  );
+}
+
+const RAG_STAGES: RAGStage[] = [
+  {
+    id: 'embed',
+    name: 'Embed query',
+    description: 'text-embedding-3-large · 3072 dims',
+    status: 'done',
+    durationMs: 92,
+  },
+  {
+    id: 'retrieve',
+    name: 'Retrieve',
+    description: 'Postgres + pgvector · k = 20',
+    status: 'done',
+    durationMs: 41,
+    count: 20,
+  },
+  {
+    id: 'rerank',
+    name: 'Rerank',
+    description: 'Cohere rerank-v3.5',
+    status: 'running',
+    count: 8,
+  },
+  {
+    id: 'generate',
+    name: 'Generate',
+    description: 'claude-sonnet-4-5 · streaming',
+    status: 'pending',
+  },
+];
+
+export function RAGPipelineDemo() {
+  return (
+    <div className="w-full max-w-3xl">
+      <RAGPipeline stages={RAG_STAGES} />
     </div>
   );
 }

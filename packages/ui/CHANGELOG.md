@@ -1,5 +1,54 @@
 # nyxis-ui
 
+## 0.12.0
+
+### Phase L — RAG (Retrieval-Augmented Generation)
+
+Visual surface for retrieval pipelines. Build chat surfaces with inline
+citations and internal RAG-debugging tools that let you inspect what the
+retriever returned, how the reranker reordered it, and how chunks land on the
+embedding manifold.
+
+### What's new
+
+- **`<ChunkCard>`** — single retrieved-chunk card with rank, source, locator,
+  score (and optional reranker delta with directional arrow), text snippet, and
+  an expandable metadata table. Tone buckets at 0.5 / 0.8.
+- **`<RetrievalResults>`** — stack of `<ChunkCard>` rows for one query. Header
+  shows the query and result count; in-set search filter and a score-threshold
+  slider.
+- **`<VectorSearchInput>`** — query input with `topK` slider,
+  similarity-threshold slider, and reranker toggle. Submits the full retrieval
+  options through `onSubmit`.
+- **`<DocumentChunker>`** — renders the source document with chunk boundaries
+  highlighted (alternating tones, per-chunk index badge, hover/click selection).
+  Stats header surfaces avg / min / max chunk size.
+- **`<EmbeddingScatter>`** — pure-SVG 2D scatter for UMAP / t-SNE / PCA
+  projections. Points coloured by `group`; hover tooltips with label; legend
+  strip below.
+- **`<RAGPipeline>`** — connected stage chips (embed → retrieve → rerank →
+  generate) with status icons, durations, counts, and error details. Horizontal
+  and vertical layouts.
+
+### AI core
+
+`nyxis-ui/ai` types extended with `RetrievedChunk`, `EmbeddingPoint`,
+`RAGStageStatus`, `RAGStage`. Provider-agnostic.
+
+### Subpath exports
+
+```ts
+import { ChunkCard } from 'nyxis-ui/chunk-card';
+import { RAGPipeline } from 'nyxis-ui/rag-pipeline';
+// or umbrella:
+import { RetrievalResults, EmbeddingScatter } from 'nyxis-ui/rag';
+```
+
+### Docs site
+
+New **RAG** category at `/rag/<slug>` surfaces all six components with live
+previews. Sidebar picks it up automatically through the `CATEGORIES` registry.
+
 ## 0.11.0
 
 ### Phase K — Prompts / Eval

@@ -467,3 +467,57 @@ export interface EvalRow {
   /** Free-form notes (graders, comments). */
   notes?: string;
 }
+
+// ── RAG (Phase L) ──────────────────────────────────────────────────────
+
+/** A chunk returned by a retriever, optionally reranked. */
+export interface RetrievedChunk {
+  id: string;
+  /** Source identifier (filename, URL, document id). */
+  source: string;
+  /** Optional locator within the source (page, section, line range, timestamp). */
+  locator?: string;
+  /** The chunk's text content. */
+  text: string;
+  /** Similarity score from the retriever (0..1). */
+  score?: number;
+  /** Score after a reranker stage, when present. */
+  rerankScore?: number;
+  /** Original rank from the retriever (1-based). */
+  rank?: number;
+  /** Free-form metadata (collection, document type, custom labels). */
+  metadata?: Record<string, unknown>;
+}
+
+/** A point in a 2D embedding projection (UMAP / t-SNE / PCA). */
+export interface EmbeddingPoint {
+  id: string;
+  /** Projection x. */
+  x: number;
+  /** Projection y. */
+  y: number;
+  /** Display label. */
+  label?: string;
+  /** Group / cluster label — drives colour. */
+  group?: string;
+}
+
+/** Lifecycle of a single stage in a RAG pipeline. */
+export type RAGStageStatus = 'pending' | 'running' | 'done' | 'errored';
+
+/** A single stage in a RAG pipeline (e.g. embed, retrieve, rerank, generate). */
+export interface RAGStage {
+  id: string;
+  /** Display name. */
+  name: string;
+  /** One-line description. */
+  description?: string;
+  /** Lifecycle. */
+  status: RAGStageStatus;
+  /** Stage duration in ms. */
+  durationMs?: number;
+  /** Optional count produced/consumed (e.g. `12` chunks). */
+  count?: number;
+  /** Free-form detail (renders inline). */
+  detail?: string;
+}

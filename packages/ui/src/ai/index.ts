@@ -49,6 +49,11 @@ export type {
   EvalMetric,
   EvalRun,
   EvalRow,
+  // RAG (Phase L)
+  RetrievedChunk,
+  EmbeddingPoint,
+  RAGStageStatus,
+  RAGStage,
 } from './types.js';
 
 // Event bus

@@ -76,3 +76,6 @@ export * from './components/multimodal/index.js';
 
 // AI · Prompts / Eval (Phase K)
 export * from './components/prompts/index.js';
+
+// AI · RAG (Phase L)
+export * from './components/rag/index.js';

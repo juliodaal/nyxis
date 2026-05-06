@@ -12,6 +12,7 @@ const mcp = (name: string) => `src/components/mcp/${name}/index.ts`;
 const agents = (name: string) => `src/components/agents/${name}/index.ts`;
 const multimodal = (name: string) => `src/components/multimodal/${name}/index.ts`;
 const prompts = (name: string) => `src/components/prompts/${name}/index.ts`;
+const rag = (name: string) => `src/components/rag/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -160,6 +161,14 @@ export default defineConfig({
     'components/prompts/eval-run-card/index': prompts('eval-run-card'),
     'components/prompts/dataset-table/index': prompts('dataset-table'),
     'components/prompts/ab-compare/index': prompts('ab-compare'),
+    // RAG (Phase L)
+    'components/rag/index': 'src/components/rag/index.ts',
+    'components/rag/chunk-card/index': rag('chunk-card'),
+    'components/rag/retrieval-results/index': rag('retrieval-results'),
+    'components/rag/vector-search-input/index': rag('vector-search-input'),
+    'components/rag/document-chunker/index': rag('document-chunker'),
+    'components/rag/embedding-scatter/index': rag('embedding-scatter'),
+    'components/rag/rag-pipeline/index': rag('rag-pipeline'),
   },
   format: ['esm'],
   target: 'es2022',

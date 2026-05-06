@@ -1,0 +1,48 @@
+---
+title: ChunkCard
+description: Single retrieved chunk with rank, source, score, optional reranker delta, and expandable metadata.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ChunkCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ChunkCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ChunkCard, type RetrievedChunk } from 'nyxis-ui';
+
+const chunk: RetrievedChunk = {
+  id: 'doc-12-§4.2',
+  source: 'employee-handbook.md',
+  locator: '§4.2',
+  rank: 1,
+  score: 0.71,
+  rerankScore: 0.94,
+  text: 'The fiscal year ends on March 31…',
+  metadata: { collection: 'hr-corpus', docType: 'policy' },
+};
+
+<ChunkCard chunk={chunk} onSelect={(id) => openSource(id)} />;
+```
+
+## Anatomy
+
+- Rank badge (1-based) + source filename + locator on the title row.
+- Snippet line-clamped to 2 lines; click to expand.
+- Score badge: tone buckets at `< 0.5` (bad), `< 0.8` (warn), `≥ 0.8` (good).
+- When `rerankScore` is present, shows the **delta arrow** under the badge — `↑ 0.23` means the reranker boosted this chunk; `↓ 0.13` means it pushed it down.
+- Metadata table renders inline when expanded.

@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -389,6 +389,34 @@
     "./ab-compare": {
       "types": "./dist/components/prompts/ab-compare/index.d.ts",
       "import": "./dist/components/prompts/ab-compare/index.js"
+    },
+    "./rag": {
+      "types": "./dist/components/rag/index.d.ts",
+      "import": "./dist/components/rag/index.js"
+    },
+    "./chunk-card": {
+      "types": "./dist/components/rag/chunk-card/index.d.ts",
+      "import": "./dist/components/rag/chunk-card/index.js"
+    },
+    "./retrieval-results": {
+      "types": "./dist/components/rag/retrieval-results/index.d.ts",
+      "import": "./dist/components/rag/retrieval-results/index.js"
+    },
+    "./vector-search-input": {
+      "types": "./dist/components/rag/vector-search-input/index.d.ts",
+      "import": "./dist/components/rag/vector-search-input/index.js"
+    },
+    "./document-chunker": {
+      "types": "./dist/components/rag/document-chunker/index.d.ts",
+      "import": "./dist/components/rag/document-chunker/index.js"
+    },
+    "./embedding-scatter": {
+      "types": "./dist/components/rag/embedding-scatter/index.d.ts",
+      "import": "./dist/components/rag/embedding-scatter/index.js"
+    },
+    "./rag-pipeline": {
+      "types": "./dist/components/rag/rag-pipeline/index.d.ts",
+      "import": "./dist/components/rag/rag-pipeline/index.js"
     },
     "./package.json": "./package.json"
   },

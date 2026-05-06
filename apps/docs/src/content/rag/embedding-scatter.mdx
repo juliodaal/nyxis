@@ -1,0 +1,47 @@
+---
+title: EmbeddingScatter
+description: Pure-SVG 2D scatter for UMAP / t-SNE / PCA projections with hover tooltips.
+category: rag
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { EmbeddingScatterDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <EmbeddingScatterDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { EmbeddingScatter, type EmbeddingPoint } from 'nyxis-ui';
+
+const points: EmbeddingPoint[] = await projectUMAP(chunks);
+
+<EmbeddingScatter
+  points={points}
+  legendLabel="UMAP projection · 1024 chunks"
+  onSelect={(p) => focus(p.id)}
+/>;
+```
+
+## What does the input look like?
+
+Pre-project your embeddings to **2D** before passing them in. Use UMAP, t-SNE, or PCA — the component is render-only. Each point needs an `id`, `x`, `y`, an optional `label`, and an optional `group` (used for colour-coding).
+
+## Anatomy
+
+- Pure SVG, no canvas, no deps.
+- Points coloured by `group` (8-colour palette cycles).
+- Hover surfaces a tooltip with label + group.
+- Active point gets a ring outline.
+- Legend strip at the bottom shows the group → colour mapping.
