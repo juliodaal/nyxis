@@ -11,6 +11,7 @@ const tools = (name: string) => `src/components/tools/${name}/index.ts`;
 const mcp = (name: string) => `src/components/mcp/${name}/index.ts`;
 const agents = (name: string) => `src/components/agents/${name}/index.ts`;
 const multimodal = (name: string) => `src/components/multimodal/${name}/index.ts`;
+const prompts = (name: string) => `src/components/prompts/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -151,6 +152,14 @@ export default defineConfig({
     'components/multimodal/audio-player/index': multimodal('audio-player'),
     'components/multimodal/transcription-view/index': multimodal('transcription-view'),
     'components/multimodal/vision-input/index': multimodal('vision-input'),
+    // Prompts / Eval (Phase K)
+    'components/prompts/index': 'src/components/prompts/index.ts',
+    'components/prompts/prompt-card/index': prompts('prompt-card'),
+    'components/prompts/prompt-variable-form/index': prompts('prompt-variable-form'),
+    'components/prompts/metric-card/index': prompts('metric-card'),
+    'components/prompts/eval-run-card/index': prompts('eval-run-card'),
+    'components/prompts/dataset-table/index': prompts('dataset-table'),
+    'components/prompts/ab-compare/index': prompts('ab-compare'),
   },
   format: ['esm'],
   target: 'es2022',

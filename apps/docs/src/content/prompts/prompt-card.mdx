@@ -1,0 +1,48 @@
+---
+title: PromptCard
+description: Saved-prompt card with name, description, version, model, variable count, and tags.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { PromptCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <PromptCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { PromptCard, type Prompt } from 'nyxis-ui';
+
+const prompt: Prompt = {
+  id: 'summarise-pr',
+  name: 'Summarise pull request',
+  description: 'Condense a PR diff into 3 bullets.',
+  body: 'Summarise PR #{{number}} in {{tone}} bullets…',
+  version: '2.1',
+  modelId: 'claude-sonnet-4-5',
+  tags: ['code-review', 'github'],
+  updatedAt: new Date().toISOString(),
+};
+
+<PromptCard prompt={prompt} onSelect={(id) => open(id)} />;
+```
+
+## Anatomy
+
+- File icon + name + version chip on the title row.
+- One-line description (line-clamped).
+- Meta row: model · variable count · last-modified relative time.
+- Tags row (max 6 visible, `+N` overflow).
+- Selection: pass `onSelect` and the card becomes a button (Enter/Space supported).

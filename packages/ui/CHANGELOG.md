@@ -1,5 +1,55 @@
 # nyxis-ui
 
+## 0.11.0
+
+### Phase K — Prompts / Eval
+
+Visual surface for prompt engineering and offline evaluation. Build internal
+tooling that lets your team save prompts, fill in `{{variables}}`, run them
+against golden datasets, and compare versions side-by-side.
+
+### What's new
+
+- **`<PromptCard>`** — saved-prompt card with name, description, version, model,
+  variable count, tags, and last-modified relative time. Compact and full
+  variants; selection support.
+- **`<PromptVariableForm>`** — auto-extracts `{{variables}}` from a template
+  body and renders an input per variable (`<input>` for short values,
+  `<textarea>` for longer ones). Live `preview` mode shows the rendered
+  template.
+- **`<MetricCard>`** — single metric with current value, delta vs baseline (tone
+  driven by `goodDirection`), and optional inline SVG sparkline. Compact variant
+  for dense grids.
+- **`<EvalRunCard>`** — eval-run summary with status pill, prompt / model /
+  dataset, progress bar (when running), inline metric strip, and error banner.
+  Composes `<MetricCard>` for the headline metrics.
+- **`<DatasetTable>`** — stacked table for an eval dataset run. Input → expected
+  → actual → score columns with low/mid/high score buckets; click to expand each
+  row's full text.
+- **`<ABCompare>`** — side-by-side comparison of two prompts (or two models).
+  Matched metrics with delta arrows showing which side won each one, plus
+  optional sample outputs. Configurable baseline side.
+
+### AI core
+
+`nyxis-ui/ai` types extended with `Prompt`, `EvalRunStatus`, `EvalMetric`,
+`EvalRun`, `EvalRow`. Provider-agnostic.
+
+### Subpath exports
+
+```ts
+import { EvalRunCard } from 'nyxis-ui/eval-run-card';
+import { ABCompare } from 'nyxis-ui/ab-compare';
+// or umbrella:
+import { PromptCard, MetricCard } from 'nyxis-ui/prompts';
+```
+
+### Docs site
+
+New **Prompts / Eval** category at `/prompts/<slug>` surfaces all six components
+with live previews. Sidebar picks it up automatically through the `CATEGORIES`
+registry.
+
 ## 0.10.0
 
 ### Phase J — Multimodal

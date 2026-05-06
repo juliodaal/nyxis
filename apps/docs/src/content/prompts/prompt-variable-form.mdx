@@ -1,0 +1,48 @@
+---
+title: PromptVariableForm
+description: Auto-form for `{{variables}}` extracted from a prompt template, with live preview.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { PromptVariableFormDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <PromptVariableFormDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { PromptVariableForm } from 'nyxis-ui';
+
+const template = `Summarise PR #{{number}} in {{tone}} bullets:\n\n{{diff}}`;
+
+<PromptVariableForm
+  template={template}
+  preview
+  submitLabel="Run"
+  onSubmit={(values, { rendered }) => runModel(rendered)}
+/>;
+```
+
+## Anatomy
+
+- Scans the template body for `{{variable}}` patterns and renders an input per unique variable.
+- Switches to a `<textarea>` once the value gets long (default threshold 80 chars).
+- `preview` mode shows the rendered template live, with un-filled variables left as `{{name}}`.
+- Submit button is disabled until all variables are filled (counter shows progress).
+
+## When to use this vs. `<ParameterForm>`
+
+- `<PromptVariableForm>` — variables come from the prompt **template body** (template-string substitution).
+- `<ParameterForm>` — fields come from a **JSON schema** declared by a tool (typed validation).

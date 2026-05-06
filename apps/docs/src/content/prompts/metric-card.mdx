@@ -1,0 +1,45 @@
+---
+title: MetricCard
+description: Single eval metric with delta vs baseline and an optional inline sparkline.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MetricCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MetricCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MetricCard, type EvalMetric } from 'nyxis-ui';
+
+const accuracy: EvalMetric = {
+  name: 'accuracy',
+  value: 0.842,
+  baseline: 0.78,
+  goodDirection: 'up',
+  sparkline: [0.62, 0.66, 0.69, 0.71, 0.74, 0.78, 0.81, 0.84],
+  precision: 3,
+};
+
+<MetricCard metric={accuracy} />;
+```
+
+## Anatomy
+
+- Header: metric name + delta pill (`↑ 0.062` vs baseline).
+- Big value with optional unit suffix.
+- SVG sparkline (when `sparkline` is supplied).
+- `goodDirection` controls the delta tone: `up` means "higher is better" (default), `down` means "lower is better" — affects whether a positive delta renders as success or destructive.

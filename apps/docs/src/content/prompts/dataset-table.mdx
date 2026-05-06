@@ -1,0 +1,51 @@
+---
+title: DatasetTable
+description: Stacked table for an eval dataset — input / expected / actual / score with bucket filters.
+category: prompts
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { DatasetTableDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <DatasetTableDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { DatasetTable, type EvalRow } from 'nyxis-ui';
+
+const rows: EvalRow[] = [
+  {
+    id: '1',
+    input: 'PR #42 — refactor: split chat barrel',
+    expected: '- Split chat barrel\n- Per-component subpaths',
+    actual: '- Split chat barrel\n- Per-component subpaths',
+    score: 0.94,
+    status: 'pass',
+    latencyMs: 420,
+    costUsd: 0.0023,
+  },
+  // ...
+];
+
+<DatasetTable rows={rows} />;
+```
+
+## Anatomy
+
+- Header: title + filtered/total row count + bucket filter pills (`low` / `mid` / `high` with counts).
+- Search input: matches input, expected, actual, and notes.
+- Each row shows input / expected / actual columns truncated to 2 lines.
+- Click a row to expand the full text plus latency, cost, and notes.
+- Score bucket thresholds default to `[0.5, 0.8]` and are configurable via `scoreBuckets`.
