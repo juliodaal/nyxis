@@ -1,5 +1,55 @@
 # nyxis-ui
 
+## 0.14.0
+
+### Phase N — AI Animations
+
+The final motion-primitives pass — AI-specific motion language that the rest of
+the library (chat, agents, RAG, skills) can lean on. Six new components, all
+GPU-accelerated, all honouring `prefers-reduced-motion`, all dependency-free at
+runtime.
+
+### What's new
+
+- **`<SparkleField>`** — twinkling four-point stars at random positions inside a
+  container. The "magic AI" affordance — wrap any AI button or generated
+  content. Static fallback under reduced motion.
+- **`<AIHaloBorder>`** — animated conic-gradient border that orbits around an
+  element. Indicates "AI-touched" content. Tunable thickness / radius / speed;
+  supports a static-but-still-pretty off-state.
+- **`<ThinkingOrb>`** — Siri-style breathing orb with four states (`idle` /
+  `thinking` / `speaking` / `errored`) driving distinct animation curves. Pure
+  CSS, no canvas.
+- **`<NeuralBackground>`** — animated network of nodes and edges drifting across
+  a hero. Pure canvas + RAF, with a static snapshot under reduced motion.
+  Configurable density, edge radius, speed.
+- **`<TokenStream>`** — visual representation of tokens flowing through a
+  horizontal lane. Use as a streaming indicator above a chat composer or codegen
+  surface.
+- **`<GradientAura>`** — soft, rotating conic-gradient glow behind any child.
+  Element-scoped (use `<AuroraBackground>` for full viewport). Configurable
+  intensity / speed / colour stops.
+
+### Internal
+
+- All AI-animation components are `'use client';` and zero-dep — no GSAP, no
+  Framer Motion. Lightweight enough to ship inline in any edge runtime.
+
+### Subpath exports
+
+```ts
+import { SparkleField } from 'nyxis-ui/sparkle-field';
+import { ThinkingOrb } from 'nyxis-ui/thinking-orb';
+// or umbrella:
+import { AIHaloBorder, NeuralBackground } from 'nyxis-ui/ai-animations';
+```
+
+### Docs site
+
+New **AI Animations** category at `/ai-animations/<slug>` surfaces all six
+primitives with live previews. Sidebar picks it up automatically through the
+`CATEGORIES` registry.
+
 ## 0.13.0
 
 ### Phase M — Skills

@@ -1,0 +1,41 @@
+---
+title: TokenStream
+description: Visual representation of tokens flowing through a horizontal lane — streaming indicator.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TokenStreamDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TokenStreamDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TokenStream } from 'nyxis-ui';
+
+<TokenStream active={isStreaming} height={28} spawnEveryMs={90} maxTokens={18} />;
+```
+
+## Anatomy
+
+- Tokens are dots that traverse the lane left-to-right (or right-to-left via `direction`).
+- Each token spawns at a random Y lane and a random speed for organic feel.
+- `spawnEveryMs` controls cadence; `maxTokens` caps simultaneous tokens.
+- Tint via `currentColor` on the wrapper — pair with `text-primary`, `text-violet-500`, etc.
+- Honours `prefers-reduced-motion` — renders an empty lane.
+
+## When to use this
+
+Above a chat composer to indicate the assistant is producing tokens; in a build-progress panel to indicate work is flowing through a queue; in a header to show the agent is ingesting context.

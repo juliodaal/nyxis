@@ -82,3 +82,6 @@ export * from './components/rag/index.js';
 
 // AI · Skills (Phase M)
 export * from './components/skills/index.js';
+
+// AI · Animations (Phase N)
+export * from './components/ai-animations/index.js';

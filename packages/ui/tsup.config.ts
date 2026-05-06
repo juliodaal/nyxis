@@ -14,6 +14,7 @@ const multimodal = (name: string) => `src/components/multimodal/${name}/index.ts
 const prompts = (name: string) => `src/components/prompts/${name}/index.ts`;
 const rag = (name: string) => `src/components/rag/${name}/index.ts`;
 const skills = (name: string) => `src/components/skills/${name}/index.ts`;
+const aiAnim = (name: string) => `src/components/ai-animations/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -178,6 +179,14 @@ export default defineConfig({
     'components/skills/skill-registry/index': skills('skill-registry'),
     'components/skills/skill-invocation-log/index': skills('skill-invocation-log'),
     'components/skills/skill-marketplace/index': skills('skill-marketplace'),
+    // AI Animations (Phase N)
+    'components/ai-animations/index': 'src/components/ai-animations/index.ts',
+    'components/ai-animations/sparkle-field/index': aiAnim('sparkle-field'),
+    'components/ai-animations/ai-halo-border/index': aiAnim('ai-halo-border'),
+    'components/ai-animations/thinking-orb/index': aiAnim('thinking-orb'),
+    'components/ai-animations/neural-background/index': aiAnim('neural-background'),
+    'components/ai-animations/token-stream/index': aiAnim('token-stream'),
+    'components/ai-animations/gradient-aura/index': aiAnim('gradient-aura'),
   },
   format: ['esm'],
   target: 'es2022',

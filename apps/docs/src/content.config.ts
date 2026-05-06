@@ -20,6 +20,7 @@ const baseFrontmatter = z.object({
     'prompts',
     'rag',
     'skills',
+    'ai-animations',
   ]),
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
@@ -112,6 +113,11 @@ const skills = defineCollection({
   schema: baseFrontmatter,
 });
 
+const aiAnimations = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/ai-animations' }),
+  schema: baseFrontmatter,
+});
+
 export const collections = {
   docs,
   components,
@@ -128,4 +134,5 @@ export const collections = {
   prompts,
   rag,
   skills,
+  'ai-animations': aiAnimations,
 };

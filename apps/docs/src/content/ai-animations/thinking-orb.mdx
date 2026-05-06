@@ -1,0 +1,42 @@
+---
+title: ThinkingOrb
+description: Siri-style breathing orb with idle / thinking / speaking / errored states.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { ThinkingOrbDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <ThinkingOrbDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { ThinkingOrb } from 'nyxis-ui';
+
+<ThinkingOrb state={assistant.state} size={120} label="Synthesising response…" />;
+```
+
+## States
+
+| State      | Animation                                                |
+| ---------- | -------------------------------------------------------- |
+| `idle`     | Slow breathe (4.5s loop).                                |
+| `thinking` | Faster pulse + hue shift through primary → violet → sky. |
+| `speaking` | Wave-like distortion (scale + rotation).                 |
+| `errored`  | No animation, destructive tone.                          |
+
+## When to use this
+
+A higher-fidelity replacement for a static spinner during long-running AI operations. Drop in the centre of a hero, a side panel, or a dedicated voice-mode surface. Pure CSS — no canvas, no deps.

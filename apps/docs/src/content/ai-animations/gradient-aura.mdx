@@ -1,0 +1,43 @@
+---
+title: GradientAura
+description: Soft, rotating conic-gradient glow behind any child element — element-scoped backdrop.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { GradientAuraDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <GradientAuraDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { GradientAura } from 'nyxis-ui';
+
+<GradientAura intensity={0.7} speedMs={9000}>
+  <Card>…</Card>
+</GradientAura>;
+```
+
+## Anatomy
+
+- A blurred conic gradient sits behind the child, slowly rotating when `active`.
+- `intensity` (0..1) drives both opacity and blur radius.
+- `colors` accepts a 3-stop array — defaults to primary → violet → sky.
+- Pure CSS — no canvas, no deps. Honours `prefers-reduced-motion`.
+
+## When to use this vs. `<AuroraBackground>`
+
+- `<GradientAura>` — element-scoped (sits behind one card / button / hero block).
+- `<AuroraBackground>` — full-viewport ambient backdrop.
