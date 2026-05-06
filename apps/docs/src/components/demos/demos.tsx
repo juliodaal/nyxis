@@ -144,6 +144,12 @@ import {
   SheetTrigger,
   ShinyText,
   Skeleton,
+  SkillAuthStatus,
+  SkillCard,
+  SkillInvocationLog,
+  SkillMarketplace,
+  SkillPermissions,
+  SkillRegistry,
   SplitText,
   SpotlightCursor,
   StaggerReveal,
@@ -1251,6 +1257,8 @@ import type {
   Prompt,
   RAGStage,
   RetrievedChunk,
+  Skill,
+  SkillInvocation,
   TranscriptSegment,
 } from 'nyxis-ui/ai';
 
@@ -2903,6 +2911,261 @@ export function RAGPipelineDemo() {
   return (
     <div className="w-full max-w-3xl">
       <RAGPipeline stages={RAG_STAGES} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Skills (Phase M)
+// ─────────────────────────────────────────────────────────────────────
+
+const SAMPLE_SKILL: Skill = {
+  id: 'gcal',
+  name: 'Google Calendar',
+  description: 'Read events, schedule meetings, and check availability across calendars.',
+  version: '2.4.0',
+  author: 'nyxis-skills',
+  initials: 'GC',
+  status: 'enabled',
+  authState: 'connected',
+  category: 'productivity',
+  tags: ['calendar', 'meetings', 'scheduling'],
+  scopes: [
+    { kind: 'read', resource: 'calendar' },
+    { kind: 'write', resource: 'calendar' },
+    { kind: 'read', resource: 'contacts' },
+  ],
+  lastUsedAt: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+};
+
+export function SkillCardDemo() {
+  return (
+    <div className="w-full max-w-xl">
+      <SkillCard skill={SAMPLE_SKILL} toggleable onToggle={(id, on) => alert(`${id} → ${on}`)} />
+    </div>
+  );
+}
+
+export function SkillPermissionsDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <SkillPermissions
+        scopes={[
+          { kind: 'read', resource: 'files' },
+          { kind: 'read', resource: 'calendar' },
+          { kind: 'write', resource: 'email' },
+          { kind: 'admin', resource: 'workspace' },
+        ]}
+      />
+      <SkillPermissions
+        compact
+        scopes={[
+          { kind: 'read', resource: 'files' },
+          { kind: 'write', resource: 'email' },
+          { kind: 'admin', resource: 'workspace' },
+        ]}
+      />
+    </div>
+  );
+}
+
+export function SkillAuthStatusDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <SkillAuthStatus state="connected" onDisconnect={() => alert('disconnect')} />
+      <SkillAuthStatus state="expired" onConnect={() => alert('reconnect')} />
+      <SkillAuthStatus state="needs-reauth" onConnect={() => alert('reauth')} />
+      <SkillAuthStatus state="never" onConnect={() => alert('connect')} />
+      <SkillAuthStatus state="errored" onConnect={() => alert('retry')} />
+    </div>
+  );
+}
+
+const SKILL_LIST: Skill[] = [
+  SAMPLE_SKILL,
+  {
+    id: 'github',
+    name: 'GitHub',
+    description: 'Read repos, comment on PRs, open issues.',
+    version: '1.8.2',
+    initials: 'GH',
+    status: 'enabled',
+    authState: 'connected',
+    category: 'dev',
+    scopes: [
+      { kind: 'read', resource: 'repos' },
+      { kind: 'write', resource: 'issues' },
+    ],
+  },
+  {
+    id: 'slack',
+    name: 'Slack',
+    description: 'Send and read messages across channels.',
+    version: '0.9.1',
+    initials: 'SL',
+    status: 'enabled',
+    authState: 'expired',
+    category: 'productivity',
+    scopes: [
+      { kind: 'read', resource: 'messages' },
+      { kind: 'write', resource: 'messages' },
+    ],
+  },
+  {
+    id: 'pg',
+    name: 'Postgres',
+    description: 'Read-only access to the analytics replica.',
+    version: '3.0.0',
+    initials: 'PG',
+    status: 'disabled',
+    authState: 'never',
+    category: 'data',
+    scopes: [{ kind: 'read', resource: 'database' }],
+  },
+];
+
+export function SkillRegistryDemo() {
+  const [active, setActive] = useState<string | undefined>(undefined);
+  return (
+    <div className="w-full max-w-2xl">
+      <SkillRegistry skills={SKILL_LIST} activeId={active} onSelect={setActive} />
+    </div>
+  );
+}
+
+const SKILL_NOW = new Date();
+const skillAgo = (s: number) => new Date(SKILL_NOW.getTime() - s * 1000);
+
+const SKILL_INVOCATIONS: SkillInvocation[] = [
+  {
+    id: '5',
+    skillId: 'gcal',
+    skillName: 'Google Calendar',
+    action: 'createEvent',
+    status: 'running',
+    startedAt: skillAgo(2),
+    input: { title: 'Sync with Maria', start: '2026-05-08T15:00:00Z', durationMin: 30 },
+  },
+  {
+    id: '4',
+    skillId: 'github',
+    skillName: 'GitHub',
+    action: 'commentOnPR',
+    status: 'completed',
+    startedAt: skillAgo(40),
+    durationMs: 312,
+    input: { repo: 'juliodaal/nyxis', pr: 42, body: 'Approved.' },
+    result: { id: 'comment_18271' },
+  },
+  {
+    id: '3',
+    skillId: 'slack',
+    skillName: 'Slack',
+    action: 'sendMessage',
+    status: 'errored',
+    startedAt: skillAgo(120),
+    durationMs: 4_200,
+    error: 'token_expired — please reconnect Slack to continue.',
+  },
+  {
+    id: '2',
+    skillId: 'gcal',
+    skillName: 'Google Calendar',
+    action: 'listEvents',
+    status: 'completed',
+    startedAt: skillAgo(420),
+    durationMs: 180,
+    input: { range: '2026-05-08' },
+    result: { events: 4 },
+  },
+];
+
+export function SkillInvocationLogDemo() {
+  return (
+    <div className="w-full max-w-2xl">
+      <SkillInvocationLog invocations={SKILL_INVOCATIONS} />
+    </div>
+  );
+}
+
+const MARKETPLACE_SKILLS: Skill[] = [
+  {
+    id: 'gcal',
+    name: 'Google Calendar',
+    description: 'Read events, schedule meetings, and check availability across calendars.',
+    version: '2.4.0',
+    author: 'nyxis-skills',
+    initials: 'GC',
+    category: 'productivity',
+    rating: 4.8,
+    ratingCount: 1284,
+    installs: 218_000,
+    installed: true,
+    scopes: [
+      { kind: 'read', resource: 'calendar' },
+      { kind: 'write', resource: 'calendar' },
+    ],
+  },
+  {
+    id: 'github',
+    name: 'GitHub',
+    description: 'Read repos, open issues, comment on PRs, search code.',
+    version: '1.8.2',
+    author: 'nyxis-skills',
+    initials: 'GH',
+    category: 'dev',
+    rating: 4.6,
+    ratingCount: 902,
+    installs: 145_000,
+    scopes: [
+      { kind: 'read', resource: 'repos' },
+      { kind: 'write', resource: 'issues' },
+    ],
+  },
+  {
+    id: 'slack',
+    name: 'Slack',
+    description: 'Send and read messages across channels and DMs.',
+    version: '0.9.1',
+    author: 'community',
+    initials: 'SL',
+    category: 'productivity',
+    rating: 4.2,
+    ratingCount: 412,
+    installs: 38_400,
+    scopes: [
+      { kind: 'read', resource: 'messages' },
+      { kind: 'write', resource: 'messages' },
+    ],
+  },
+  {
+    id: 'pg',
+    name: 'Postgres',
+    description: 'Read-only access to a Postgres database with safe schemas.',
+    version: '3.0.0',
+    author: 'data-team',
+    initials: 'PG',
+    category: 'data',
+    rating: 4.9,
+    ratingCount: 87,
+    installs: 6_200,
+    scopes: [{ kind: 'read', resource: 'database' }],
+  },
+];
+
+export function SkillMarketplaceDemo() {
+  const [installing, setInstalling] = useState<string | undefined>(undefined);
+  return (
+    <div className="w-full max-w-3xl">
+      <SkillMarketplace
+        skills={MARKETPLACE_SKILLS}
+        installingId={installing}
+        onInstall={(id) => {
+          setInstalling(id);
+          setTimeout(() => setInstalling(undefined), 1500);
+        }}
+        onSelect={(id) => alert(`open ${id}`)}
+      />
     </div>
   );
 }

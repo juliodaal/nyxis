@@ -1,0 +1,58 @@
+---
+title: SkillCard
+description: Single skill with icon, name, version, author, description, scopes preview, auth pill, and an enable toggle.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillCard, type Skill } from 'nyxis-ui';
+
+const skill: Skill = {
+  id: 'gcal',
+  name: 'Google Calendar',
+  description: 'Read events, schedule meetings, check availability.',
+  version: '2.4.0',
+  initials: 'GC',
+  status: 'enabled',
+  authState: 'connected',
+  scopes: [
+    { kind: 'read', resource: 'calendar' },
+    { kind: 'write', resource: 'calendar' },
+  ],
+};
+
+<SkillCard skill={skill} toggleable onToggle={(id, on) => save(id, on)} />;
+```
+
+## Anatomy
+
+- Icon (or initials fallback) + name + version chip + auth pill on the title row.
+- Description (line-clamped to 2).
+- Author row with user icon.
+- Scopes preview via `<SkillPermissions limit={5} />`.
+- Tag chips below.
+- Optional enable toggle on the right via `toggleable + onToggle`.
+- Optional selection via `onSelect` (Enter/Space supported).
+
+## When to use this vs. `<SkillRegistry>`
+
+- `<SkillCard>` — when you want to render _one_ skill (e.g. detail header, in-chat reference).
+- `<SkillRegistry>` — when you want a list with search, filters, and toggles for the whole installed set.

@@ -79,3 +79,6 @@ export * from './components/prompts/index.js';
 
 // AI · RAG (Phase L)
 export * from './components/rag/index.js';
+
+// AI · Skills (Phase M)
+export * from './components/skills/index.js';

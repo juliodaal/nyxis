@@ -1,0 +1,53 @@
+---
+title: SkillMarketplace
+description: Discovery grid with category filters, star ratings, install counts, and stateful install button.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillMarketplaceDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillMarketplaceDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillMarketplace, type Skill } from 'nyxis-ui';
+
+const [installing, setInstalling] = useState<string | undefined>(undefined);
+
+<SkillMarketplace
+  skills={catalog}
+  installingId={installing}
+  onInstall={async (id) => {
+    setInstalling(id);
+    await runtime.install(id);
+    setInstalling(undefined);
+  }}
+  onSelect={(id) => router.push(`/marketplace/${id}`)}
+/>;
+```
+
+## Card anatomy
+
+- Icon + name (clickable) + author.
+- Install / Installing… / Installed button on the right.
+- Description (3-line clamp).
+- Compact scopes preview via `<SkillPermissions compact />`.
+- Footer: rating + count, install count, version.
+
+## When to use this vs. `<SkillRegistry>`
+
+- `<SkillMarketplace>` — _discovery_: skills the user can install.
+- `<SkillRegistry>` — _configuration_: skills the user already installed.
