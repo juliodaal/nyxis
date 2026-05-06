@@ -21,7 +21,8 @@ export type Category =
   | 'multimodal'
   | 'prompts'
   | 'rag'
-  | 'skills';
+  | 'skills'
+  | 'ai-animations';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -134,6 +135,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Skill ecosystem — cards, registry, permissions, auth status, invocation log, marketplace.',
     href: '/skills',
+  },
+  {
+    id: 'ai-animations',
+    label: 'AI Animations',
+    description:
+      'AI-specific motion primitives — sparkles, halo borders, breathing orbs, neural backgrounds, token streams, gradient auras.',
+    href: '/ai-animations',
   },
   {
     id: 'domain',
@@ -1070,6 +1078,55 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'skills',
     description:
       'Discovery grid with category filters, star ratings, install counts, and stateful install button.',
+    status: 'stable',
+  },
+
+  // ── AI · Animations (Phase N) ───────────────────────────────────────
+  {
+    slug: 'sparkle-field',
+    name: 'SparkleField',
+    category: 'ai-animations',
+    description:
+      'Twinkling four-point stars at random positions inside a container — the "magic AI" affordance.',
+    status: 'stable',
+  },
+  {
+    slug: 'ai-halo-border',
+    name: 'AIHaloBorder',
+    category: 'ai-animations',
+    description:
+      'Animated conic-gradient border that orbits around an element — indicates "AI-touched" content.',
+    status: 'stable',
+  },
+  {
+    slug: 'thinking-orb',
+    name: 'ThinkingOrb',
+    category: 'ai-animations',
+    description: 'Siri-style breathing orb with idle / thinking / speaking / errored states.',
+    status: 'stable',
+  },
+  {
+    slug: 'neural-background',
+    name: 'NeuralBackground',
+    category: 'ai-animations',
+    description:
+      'Animated network of nodes and edges drifting across a hero — pure canvas, GPU-accelerated.',
+    status: 'stable',
+  },
+  {
+    slug: 'token-stream',
+    name: 'TokenStream',
+    category: 'ai-animations',
+    description:
+      'Visual representation of tokens flowing through a horizontal lane — streaming indicator.',
+    status: 'stable',
+  },
+  {
+    slug: 'gradient-aura',
+    name: 'GradientAura',
+    category: 'ai-animations',
+    description:
+      'Soft, rotating conic-gradient glow behind any child element — element-scoped backdrop.',
     status: 'stable',
   },
 ] as const;

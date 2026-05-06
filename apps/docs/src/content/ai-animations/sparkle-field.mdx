@@ -1,0 +1,43 @@
+---
+title: SparkleField
+description: Twinkling four-point stars at random positions inside a container — the "magic AI" affordance.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SparkleFieldDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SparkleFieldDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SparkleField } from 'nyxis-ui';
+
+<SparkleField className="text-primary inline-block">
+  <button>✨ Improve with AI</button>
+</SparkleField>;
+```
+
+## When to use this
+
+The universally-recognised "AI" affordance — wrap AI buttons, generated content, or any element that should signal "the model touched this." The colour is driven by `currentColor`, so you can tint it via Tailwind classes on the wrapper.
+
+## Anatomy
+
+- Sparkles spawn at random positions inside the container, rotate, twinkle, and fade out.
+- `density` controls how many are alive at once (default 8).
+- `lifeMs` controls how long each sparkle lives (default 1400ms).
+- Honours `prefers-reduced-motion` — renders a few static stars at low opacity.
+- Children render _above_ the sparkle layer (z-index handled internally).

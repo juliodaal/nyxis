@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -445,6 +445,34 @@
     "./skill-marketplace": {
       "types": "./dist/components/skills/skill-marketplace/index.d.ts",
       "import": "./dist/components/skills/skill-marketplace/index.js"
+    },
+    "./ai-animations": {
+      "types": "./dist/components/ai-animations/index.d.ts",
+      "import": "./dist/components/ai-animations/index.js"
+    },
+    "./sparkle-field": {
+      "types": "./dist/components/ai-animations/sparkle-field/index.d.ts",
+      "import": "./dist/components/ai-animations/sparkle-field/index.js"
+    },
+    "./ai-halo-border": {
+      "types": "./dist/components/ai-animations/ai-halo-border/index.d.ts",
+      "import": "./dist/components/ai-animations/ai-halo-border/index.js"
+    },
+    "./thinking-orb": {
+      "types": "./dist/components/ai-animations/thinking-orb/index.d.ts",
+      "import": "./dist/components/ai-animations/thinking-orb/index.js"
+    },
+    "./neural-background": {
+      "types": "./dist/components/ai-animations/neural-background/index.d.ts",
+      "import": "./dist/components/ai-animations/neural-background/index.js"
+    },
+    "./token-stream": {
+      "types": "./dist/components/ai-animations/token-stream/index.d.ts",
+      "import": "./dist/components/ai-animations/token-stream/index.js"
+    },
+    "./gradient-aura": {
+      "types": "./dist/components/ai-animations/gradient-aura/index.d.ts",
+      "import": "./dist/components/ai-animations/gradient-aura/index.js"
     },
     "./package.json": "./package.json"
   },

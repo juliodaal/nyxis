@@ -1097,15 +1097,21 @@ export function ThemeToggleDemo() {
 import { useState } from 'react';
 import {
   AIConfigCard,
+  AIHaloBorder,
   AIProviderSelector,
   APIKeyInput,
   ContextWindowMeter,
   CostMeter,
+  GradientAura,
   MaxTokensInput,
   ModelPicker,
+  NeuralBackground,
   ProviderHealthBadge,
+  SparkleField,
   SystemPromptEditor,
   TemperatureSlider,
+  ThinkingOrb,
+  TokenStream,
   TopPSlider,
 } from 'nyxis-ui';
 import type { AIProviderId } from 'nyxis-ui/ai';
@@ -3167,6 +3173,98 @@ export function SkillMarketplaceDemo() {
         onSelect={(id) => alert(`open ${id}`)}
       />
     </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// AI · Animations (Phase N)
+// ─────────────────────────────────────────────────────────────────────
+
+export function SparkleFieldDemo() {
+  return (
+    <SparkleField className="text-primary inline-block">
+      <button
+        type="button"
+        className="from-primary text-primary-foreground rounded-md bg-gradient-to-br via-violet-500 to-sky-500 px-5 py-2.5 text-sm font-semibold"
+      >
+        ✨ Improve with AI
+      </button>
+    </SparkleField>
+  );
+}
+
+export function AIHaloBorderDemo() {
+  return (
+    <AIHaloBorder>
+      <div className="text-foreground w-[360px] p-5">
+        <p className="text-muted-foreground mb-1 text-[10px] font-semibold uppercase tracking-wider">
+          AI-generated
+        </p>
+        <p className="text-sm leading-relaxed">
+          Nyxis ships adapters as peer dependencies so apps only pay for the providers they actually
+          use.
+        </p>
+      </div>
+    </AIHaloBorder>
+  );
+}
+
+export function ThinkingOrbDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-8">
+      <ThinkingOrb state="idle" label="idle" />
+      <ThinkingOrb state="thinking" label="thinking" />
+      <ThinkingOrb state="speaking" label="speaking" />
+      <ThinkingOrb state="errored" label="errored" />
+    </div>
+  );
+}
+
+export function NeuralBackgroundDemo() {
+  return (
+    <NeuralBackground className="bg-background text-primary border-border grid h-[360px] w-full place-items-center rounded-lg border">
+      <div className="text-center">
+        <h2 className="text-foreground text-3xl font-bold tracking-tight">Nyxis</h2>
+        <p className="text-muted-foreground mt-1 text-sm">
+          A modern React component library for AI products.
+        </p>
+      </div>
+    </NeuralBackground>
+  );
+}
+
+export function TokenStreamDemo() {
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <div className="border-border bg-card text-primary rounded-lg border p-3">
+        <p className="text-muted-foreground mb-1 text-[10px] font-semibold uppercase tracking-wider">
+          Streaming
+        </p>
+        <TokenStream height={28} />
+      </div>
+      <div className="border-border bg-card rounded-lg border p-3 text-violet-500">
+        <p className="text-muted-foreground mb-1 text-[10px] font-semibold uppercase tracking-wider">
+          Direction left
+        </p>
+        <TokenStream direction="left" height={28} />
+      </div>
+    </div>
+  );
+}
+
+export function GradientAuraDemo() {
+  return (
+    <GradientAura intensity={0.65}>
+      <div className="border-border bg-card text-foreground relative w-[360px] rounded-xl border p-6">
+        <p className="text-muted-foreground text-[10px] font-semibold uppercase tracking-wider">
+          Premium
+        </p>
+        <h3 className="mt-1 text-2xl font-bold">Nyxis Pro</h3>
+        <p className="text-muted-foreground mt-2 text-sm">
+          Soft gradient glow behind the card. Pure CSS — no canvas, no deps.
+        </p>
+      </div>
+    </GradientAura>
   );
 }
 

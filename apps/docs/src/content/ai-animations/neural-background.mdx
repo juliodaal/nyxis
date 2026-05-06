@@ -1,0 +1,48 @@
+---
+title: NeuralBackground
+description: Animated network of nodes and edges drifting across a hero — pure canvas, GPU-accelerated.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { NeuralBackgroundDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <NeuralBackgroundDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { NeuralBackground } from 'nyxis-ui';
+
+<NeuralBackground
+  nodeCount={60}
+  edgeRadius={0.2}
+  speed={1}
+  className="text-primary h-screen w-full"
+>
+  <Hero />
+</NeuralBackground>;
+```
+
+## Anatomy
+
+- Pure canvas (no SVG, no DOM nodes per point).
+- Nodes drift slowly, edges fade with distance, brightness pulses with each node's phase.
+- The dot/line colour is taken from `currentColor` — set it via a Tailwind class on the wrapper (`text-primary`, `text-violet-500`, etc.).
+- Honours `prefers-reduced-motion` — paints a static snapshot.
+- Resizes responsively via `ResizeObserver`.
+
+## When to use this
+
+Hero sections, marketing pages, "AI products" landing pages. Pair with `<GradientText>` or `<SplitText>` for the headline.

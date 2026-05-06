@@ -1,0 +1,39 @@
+---
+title: AIHaloBorder
+description: Animated conic-gradient border that orbits around an element — indicates "AI-touched" content.
+category: ai-animations
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AIHaloBorderDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AIHaloBorderDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AIHaloBorder } from 'nyxis-ui';
+
+<AIHaloBorder thickness={2} radius={12} speedMs={4000}>
+  <div className="p-5">AI-generated content lives here.</div>
+</AIHaloBorder>;
+```
+
+## Anatomy
+
+- A conic gradient sits behind the child as a "border", rotating continuously when `active`.
+- `colors` accepts a 3-stop array — defaults to primary → violet → sky.
+- `thickness` is the visible border width in px; the inner card uses `radius - thickness`.
+- `active={false}` holds the gradient at a fixed angle (still pretty).
+- Honours `prefers-reduced-motion` (skips the spin).
