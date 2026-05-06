@@ -15,7 +15,8 @@ export type Category =
   | 'ai-models'
   | 'chat'
   | 'reasoning'
-  | 'tools';
+  | 'tools'
+  | 'mcp';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -86,6 +87,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Visual primitives for function calling — calls, results, parameter forms, registries, logs.',
     href: '/tools',
+  },
+  {
+    id: 'mcp',
+    label: 'MCP',
+    description:
+      'Visual surface for the Model Context Protocol — servers, capabilities, resources, prompts, traffic.',
+    href: '/mcp',
   },
   {
     id: 'domain',
@@ -723,6 +731,63 @@ export const REGISTRY: readonly RegistryEntry[] = [
     name: 'ToolExecutionLog',
     category: 'tools',
     description: 'Stacked timeline of tool invocations with status, args, result, and duration.',
+    status: 'stable',
+  },
+
+  // ── AI · MCP (Phase H) ──────────────────────────────────────────────
+  {
+    slug: 'mcp-server-card',
+    name: 'MCPServerCard',
+    category: 'mcp',
+    description:
+      'Card for a single configured MCP server — transport, status, capabilities, inline actions.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-server-list',
+    name: 'MCPServerList',
+    category: 'mcp',
+    description:
+      'Multi-server view with search, "Add server" affordance, and connect/disconnect handlers.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-capability-badge',
+    name: 'MCPCapabilityBadge',
+    category: 'mcp',
+    description:
+      'Pill per MCP capability (tools, prompts, resources, sampling, roots, logging) with icons.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-connection-status',
+    name: 'MCPConnectionStatus',
+    category: 'mcp',
+    description:
+      'Inline pill describing the MCP connection lifecycle with optional latency readout.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-resource-browser',
+    name: 'MCPResourceBrowser',
+    category: 'mcp',
+    description:
+      'Searchable list of resources exposed by MCP servers, optionally grouped by URI scheme.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-prompt-library',
+    name: 'MCPPromptLibrary',
+    category: 'mcp',
+    description: 'Catalog of MCP prompt templates with collapsible argument lists.',
+    status: 'stable',
+  },
+  {
+    slug: 'mcp-log-stream',
+    name: 'MCPLogStream',
+    category: 'mcp',
+    description:
+      'Real-time JSON-RPC traffic viewer — direction badges, level pills, expandable JSON payloads.',
     status: 'stable',
   },
 ] as const;

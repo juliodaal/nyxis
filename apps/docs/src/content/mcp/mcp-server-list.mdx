@@ -1,0 +1,44 @@
+---
+title: MCPServerList
+description: Multi-server view with search, "Add server" affordance, and connect/disconnect handlers.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPServerListDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPServerListDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPServerList } from 'nyxis-ui';
+
+<MCPServerList
+  servers={servers}
+  onAdd={addServer}
+  onConnect={(id) => client.connect(id)}
+  onDisconnect={(id) => client.disconnect(id)}
+  onRemove={(id) => removeServer(id)}
+/>;
+```
+
+## Anatomy
+
+- Header: title + connected/total counter + optional "Add server" button.
+- Search input filters by name, description, and transport.
+- Each server is rendered through `<MCPServerCard>` — same actions, same callbacks.
+- Empty state (no servers): dashed-border placeholder with custom message support.
+
+Use this as the primary surface inside a settings page or a side rail dedicated to MCP configuration.

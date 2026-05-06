@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, GSAP.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -273,6 +273,38 @@
     "./tool-execution-log": {
       "types": "./dist/components/tools/tool-execution-log/index.d.ts",
       "import": "./dist/components/tools/tool-execution-log/index.js"
+    },
+    "./mcp": {
+      "types": "./dist/components/mcp/index.d.ts",
+      "import": "./dist/components/mcp/index.js"
+    },
+    "./mcp-capability-badge": {
+      "types": "./dist/components/mcp/mcp-capability-badge/index.d.ts",
+      "import": "./dist/components/mcp/mcp-capability-badge/index.js"
+    },
+    "./mcp-connection-status": {
+      "types": "./dist/components/mcp/mcp-connection-status/index.d.ts",
+      "import": "./dist/components/mcp/mcp-connection-status/index.js"
+    },
+    "./mcp-server-card": {
+      "types": "./dist/components/mcp/mcp-server-card/index.d.ts",
+      "import": "./dist/components/mcp/mcp-server-card/index.js"
+    },
+    "./mcp-server-list": {
+      "types": "./dist/components/mcp/mcp-server-list/index.d.ts",
+      "import": "./dist/components/mcp/mcp-server-list/index.js"
+    },
+    "./mcp-resource-browser": {
+      "types": "./dist/components/mcp/mcp-resource-browser/index.d.ts",
+      "import": "./dist/components/mcp/mcp-resource-browser/index.js"
+    },
+    "./mcp-prompt-library": {
+      "types": "./dist/components/mcp/mcp-prompt-library/index.d.ts",
+      "import": "./dist/components/mcp/mcp-prompt-library/index.js"
+    },
+    "./mcp-log-stream": {
+      "types": "./dist/components/mcp/mcp-log-stream/index.d.ts",
+      "import": "./dist/components/mcp/mcp-log-stream/index.js"
     },
     "./package.json": "./package.json"
   },

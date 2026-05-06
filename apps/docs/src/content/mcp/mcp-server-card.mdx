@@ -1,0 +1,53 @@
+---
+title: MCPServerCard
+description: Card for a single configured MCP server — transport, status, capabilities, inline actions.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPServerCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPServerCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPServerCard } from 'nyxis-ui';
+// or:
+// import { MCPServerCard } from 'nyxis-ui/mcp-server-card';
+
+<MCPServerCard
+  server={server}
+  onConnect={(id) => client.connect(id)}
+  onDisconnect={(id) => client.disconnect(id)}
+  onRemove={(id) => removeServer(id)}
+/>;
+```
+
+## Anatomy
+
+- Title row with transport pill (`stdio` / `sse` / `websocket` / `http`), version, and connection status.
+- Capability badges advertised after the handshake.
+- Expandable details with the raw endpoint string.
+- Inline actions: connect, disconnect, remove. Disabled while `connecting`.
+- Error variant: destructive border + inline failure message.
+
+## Props
+
+| Prop                                      | Type           | Default |                                     |
+| ----------------------------------------- | -------------- | ------- | ----------------------------------- |
+| `server`                                  | `MCPServer`    | —       | Configured server to render.        |
+| `defaultOpen`                             | `boolean`      | `false` | Show details (endpoint) by default. |
+| `hideActions`                             | `boolean`      | `false` | Hide connect/disconnect/remove row. |
+| `onConnect` / `onDisconnect` / `onRemove` | `(id) => void` | —       | Lifecycle callbacks.                |

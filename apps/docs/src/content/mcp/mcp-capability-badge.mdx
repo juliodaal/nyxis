@@ -1,0 +1,45 @@
+---
+title: MCPCapabilityBadge
+description: Pill per MCP capability (tools, prompts, resources, sampling, roots, logging) with icons.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPCapabilityBadgeDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPCapabilityBadgeDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPCapabilityBadge } from 'nyxis-ui';
+
+<MCPCapabilityBadge capability="tools" />
+<MCPCapabilityBadge capability="resources" compact />
+```
+
+## Capabilities
+
+Mirrors the MCP spec exactly — pass any of `tools`, `prompts`, `resources`, `sampling`, `roots`, or `logging`. Icons:
+
+| Capability  | Icon          |
+| ----------- | ------------- |
+| `tools`     | gear          |
+| `prompts`   | speech bubble |
+| `resources` | document      |
+| `sampling`  | sparkle       |
+| `roots`     | folder tree   |
+| `logging`   | scroll        |
+
+The `enabled={false}` variant renders muted — useful when surfacing a capability the _server_ advertises but the _client_ has disabled.

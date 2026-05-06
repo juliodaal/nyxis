@@ -1,0 +1,36 @@
+---
+title: MCPPromptLibrary
+description: Catalog of MCP prompt templates with collapsible argument lists.
+category: mcp
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { MCPPromptLibraryDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <MCPPromptLibraryDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { MCPPromptLibrary, type MCPPrompt } from 'nyxis-ui';
+
+<MCPPromptLibrary prompts={prompts} onSelect={(p) => dispatch(p)} />;
+```
+
+## Anatomy
+
+- Each row: prompt name (mono), one-line description, argument count.
+- Click the chevron to expand the declared args inline.
+- Required args get a red asterisk; descriptions render to the right.
+- Click the row body to dispatch — typically you'd then route the user to a `<ParameterForm>` matching the args.
