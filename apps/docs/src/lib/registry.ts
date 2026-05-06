@@ -20,7 +20,8 @@ export type Category =
   | 'agents'
   | 'multimodal'
   | 'prompts'
-  | 'rag';
+  | 'rag'
+  | 'skills';
 
 export type Status = 'stable' | 'beta' | 'planned' | 'in-progress';
 
@@ -126,6 +127,13 @@ export const CATEGORIES: readonly CategoryGroup[] = [
     description:
       'Retrieval-augmented generation — chunks, retrieval results, search input, document chunker, embedding scatter, pipeline.',
     href: '/rag',
+  },
+  {
+    id: 'skills',
+    label: 'Skills',
+    description:
+      'Skill ecosystem — cards, registry, permissions, auth status, invocation log, marketplace.',
+    href: '/skills',
   },
   {
     id: 'domain',
@@ -1012,6 +1020,56 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'rag',
     description:
       'Connected stage chips for embed → retrieve → rerank → generate with status, durations, and counts.',
+    status: 'stable',
+  },
+
+  // ── AI · Skills (Phase M) ───────────────────────────────────────────
+  {
+    slug: 'skill-card',
+    name: 'SkillCard',
+    category: 'skills',
+    description:
+      'Single skill with icon, name, version, author, description, scopes, auth pill, and an enable toggle.',
+    status: 'stable',
+  },
+  {
+    slug: 'skill-permissions',
+    name: 'SkillPermissions',
+    category: 'skills',
+    description:
+      'Pill row of required scopes (read / write / admin × resource) with compact and limited variants.',
+    status: 'stable',
+  },
+  {
+    slug: 'skill-auth-status',
+    name: 'SkillAuthStatus',
+    category: 'skills',
+    description:
+      'Auth lifecycle card — connected / expired / needs-reauth / never / errored — with primary action.',
+    status: 'stable',
+  },
+  {
+    slug: 'skill-registry',
+    name: 'SkillRegistry',
+    category: 'skills',
+    description:
+      'Installed-skills catalog with search, category filters, and per-skill enable toggles.',
+    status: 'stable',
+  },
+  {
+    slug: 'skill-invocation-log',
+    name: 'SkillInvocationLog',
+    category: 'skills',
+    description:
+      'Vertical timeline of skill calls with status, action, duration, and expandable payloads.',
+    status: 'stable',
+  },
+  {
+    slug: 'skill-marketplace',
+    name: 'SkillMarketplace',
+    category: 'skills',
+    description:
+      'Discovery grid with category filters, star ratings, install counts, and stateful install button.',
     status: 'stable',
   },
 ] as const;

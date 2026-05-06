@@ -54,6 +54,14 @@ export type {
   EmbeddingPoint,
   RAGStageStatus,
   RAGStage,
+  // Skills (Phase M)
+  SkillScopeKind,
+  SkillScope,
+  SkillAuthState,
+  SkillStatus,
+  Skill,
+  SkillInvocationStatus,
+  SkillInvocation,
 } from './types.js';
 
 // Event bus

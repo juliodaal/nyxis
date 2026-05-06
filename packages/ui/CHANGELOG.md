@@ -1,5 +1,52 @@
 # nyxis-ui
 
+## 0.13.0
+
+### Phase M — Skills
+
+Visual surface for the skill ecosystem — packaged capabilities the agent can
+invoke (Google Calendar, GitHub, internal Postgres, etc.). Build settings pages,
+OAuth flows, and discovery UIs without rebuilding the chrome from scratch.
+
+### What's new
+
+- **`<SkillCard>`** — single skill with icon, name, version, author,
+  description, scopes preview, auth pill, and an optional enable toggle. Compact
+  and full variants; selection support via `onSelect`.
+- **`<SkillPermissions>`** — pill row of required scopes (read / write / admin ×
+  resource). Compact icon-only mode and `limit` with `+N` overflow.
+- **`<SkillAuthStatus>`** — auth lifecycle card. Five states (`connected` /
+  `expired` / `needs-reauth` / `never` / `errored`) drive distinct tones,
+  descriptions, and primary actions (Connect / Reconnect / Reauthorise / Retry).
+  Compact pill mode for inline display.
+- **`<SkillRegistry>`** — installed-skills catalog with search, category
+  filters, and per-skill toggles. Composes `<SkillCard>` for each row.
+- **`<SkillInvocationLog>`** — vertical timeline of skill calls with status,
+  action name, duration, and expandable input / result / error payloads.
+- **`<SkillMarketplace>`** — discovery grid with category filters, star ratings,
+  install counts, and stateful Install / Installing… / Installed buttons.
+
+### AI core
+
+`nyxis-ui/ai` types extended with `Skill`, `SkillScope`, `SkillScopeKind`,
+`SkillAuthState`, `SkillStatus`, `SkillInvocation`, `SkillInvocationStatus`.
+Provider-agnostic.
+
+### Subpath exports
+
+```ts
+import { SkillCard } from 'nyxis-ui/skill-card';
+import { SkillMarketplace } from 'nyxis-ui/skill-marketplace';
+// or umbrella:
+import { SkillRegistry, SkillInvocationLog } from 'nyxis-ui/skills';
+```
+
+### Docs site
+
+New **Skills** category at `/skills/<slug>` surfaces all six components with
+live previews. Sidebar picks it up automatically through the `CATEGORIES`
+registry.
+
 ## 0.12.0
 
 ### Phase L — RAG (Retrieval-Augmented Generation)

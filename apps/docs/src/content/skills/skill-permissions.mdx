@@ -1,0 +1,49 @@
+---
+title: SkillPermissions
+description: Pill row of required scopes (read / write / admin × resource) with compact and limited variants.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillPermissionsDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillPermissionsDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillPermissions } from 'nyxis-ui';
+
+<SkillPermissions
+  scopes={[
+    { kind: 'read', resource: 'calendar' },
+    { kind: 'write', resource: 'email' },
+    { kind: 'admin', resource: 'workspace' },
+  ]}
+/>;
+```
+
+## Scope kinds
+
+| Kind    | Tone        | Icon   | Use for                                  |
+| ------- | ----------- | ------ | ---------------------------------------- |
+| `read`  | muted       | eye    | Viewing a resource without modifying it. |
+| `write` | amber       | pencil | Modifying / creating in a resource.      |
+| `admin` | destructive | shield | Full administrative access.              |
+
+## Variants
+
+- Default: pill with icon + `kind:resource` label.
+- `compact`: icon-only pill, fixed-size, with hover tooltip.
+- `limit` collapses overflow into a `+N` chip with an aggregated tooltip.

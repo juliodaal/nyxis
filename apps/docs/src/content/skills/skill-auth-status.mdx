@@ -1,0 +1,47 @@
+---
+title: SkillAuthStatus
+description: Auth lifecycle card with primary action — connect / reconnect / reauthorise / retry.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillAuthStatusDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillAuthStatusDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillAuthStatus } from 'nyxis-ui';
+
+<SkillAuthStatus
+  state={skill.authState}
+  onConnect={() => oauth.connect(skill.id)}
+  onDisconnect={() => oauth.disconnect(skill.id)}
+/>;
+```
+
+## States
+
+| State          | Tone        | Primary action                    |
+| -------------- | ----------- | --------------------------------- |
+| `connected`    | success     | (none — `onDisconnect` available) |
+| `expired`      | amber       | Reconnect                         |
+| `needs-reauth` | amber       | Reauthorise                       |
+| `never`        | muted       | Connect                           |
+| `errored`      | destructive | Retry                             |
+
+## Compact variant
+
+Pass `compact` to render an inline pill (icon + state label only). Pair with `<SkillCard>`'s title row for a compact summary.

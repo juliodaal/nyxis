@@ -1,0 +1,41 @@
+---
+title: SkillRegistry
+description: Installed-skills catalog with search, category filters, and per-skill enable toggles.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillRegistryDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillRegistryDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillRegistry, type Skill } from 'nyxis-ui';
+
+<SkillRegistry
+  skills={installed}
+  onChange={(enabledIds) => persist(enabledIds)}
+  onSelect={(id) => router.push(`/skills/${id}`)}
+/>;
+```
+
+## Anatomy
+
+- Header: title + enabled/total counter.
+- Search input filters by name, description, and tags.
+- Category filter pills auto-derived from `skill.category`.
+- Stack of `<SkillCard>` rows with toggle on each.
+- `value` / `defaultValue` / `onChange` work like a controlled checkbox group — the active set is the **enabled** set.

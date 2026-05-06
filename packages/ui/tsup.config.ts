@@ -13,6 +13,7 @@ const agents = (name: string) => `src/components/agents/${name}/index.ts`;
 const multimodal = (name: string) => `src/components/multimodal/${name}/index.ts`;
 const prompts = (name: string) => `src/components/prompts/${name}/index.ts`;
 const rag = (name: string) => `src/components/rag/${name}/index.ts`;
+const skills = (name: string) => `src/components/skills/${name}/index.ts`;
 
 // In watch mode we skip cleaning so previously emitted `.d.ts` files survive
 // (the watch script runs with `--no-dts` to keep memory usage sane). For a
@@ -169,6 +170,14 @@ export default defineConfig({
     'components/rag/document-chunker/index': rag('document-chunker'),
     'components/rag/embedding-scatter/index': rag('embedding-scatter'),
     'components/rag/rag-pipeline/index': rag('rag-pipeline'),
+    // Skills (Phase M)
+    'components/skills/index': 'src/components/skills/index.ts',
+    'components/skills/skill-permissions/index': skills('skill-permissions'),
+    'components/skills/skill-auth-status/index': skills('skill-auth-status'),
+    'components/skills/skill-card/index': skills('skill-card'),
+    'components/skills/skill-registry/index': skills('skill-registry'),
+    'components/skills/skill-invocation-log/index': skills('skill-invocation-log'),
+    'components/skills/skill-marketplace/index': skills('skill-marketplace'),
   },
   format: ['esm'],
   target: 'es2022',

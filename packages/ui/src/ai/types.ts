@@ -521,3 +521,82 @@ export interface RAGStage {
   /** Free-form detail (renders inline). */
   detail?: string;
 }
+
+// ── Skills (Phase M) ───────────────────────────────────────────────────
+
+/** Severity / direction of a permission scope. */
+export type SkillScopeKind = 'read' | 'write' | 'admin';
+
+/** A single permission scope a skill requires. */
+export interface SkillScope {
+  kind: SkillScopeKind;
+  /** Free-form resource label (e.g. `files`, `calendar`, `email`). */
+  resource: string;
+  /** Human-friendly description shown on hover. */
+  description?: string;
+}
+
+/** Lifecycle of a skill's auth / connection. */
+export type SkillAuthState = 'connected' | 'expired' | 'needs-reauth' | 'never' | 'errored';
+
+/** Whether the skill is enabled in the user's runtime. */
+export type SkillStatus = 'enabled' | 'disabled' | 'errored';
+
+/** A skill registered with (or available to) the agent runtime. */
+export interface Skill {
+  id: string;
+  name: string;
+  description?: string;
+  version?: string;
+  /** Author / publisher. */
+  author?: string;
+  /** Optional icon URL. Falls back to `initials`. */
+  iconUrl?: string;
+  /** Two-letter fallback when no `iconUrl`. */
+  initials?: string;
+  /** Permission scopes required. */
+  scopes?: readonly SkillScope[];
+  /** Connection / auth lifecycle. */
+  authState?: SkillAuthState;
+  /** Whether the skill is enabled in the runtime. */
+  status?: SkillStatus;
+  /** Last invocation timestamp (ISO string). */
+  lastUsedAt?: string;
+  /** Free-form tags. */
+  tags?: readonly string[];
+  /** Category for grouping (e.g. `productivity`, `data`, `dev`). */
+  category?: string;
+  /** Whether the skill is installed (drives marketplace UI). */
+  installed?: boolean;
+  /** Total install count (marketplace metric). */
+  installs?: number;
+  /** Average rating 0..5. */
+  rating?: number;
+  /** Number of ratings — drives the "(N reviews)" display. */
+  ratingCount?: number;
+}
+
+/** Lifecycle of a single skill invocation. */
+export type SkillInvocationStatus = 'queued' | 'running' | 'completed' | 'errored';
+
+/** A single recorded skill invocation. */
+export interface SkillInvocation {
+  id: string;
+  /** Owning skill. */
+  skillId: string;
+  /** Resolved skill name for display. */
+  skillName?: string;
+  /** Action / method called on the skill. */
+  action: string;
+  status: SkillInvocationStatus;
+  /** Wall-clock when the invocation started. */
+  startedAt: Date | string;
+  /** Total run time in ms. */
+  durationMs?: number;
+  /** Error message when `status === 'errored'`. */
+  error?: string;
+  /** Optional input snapshot. */
+  input?: unknown;
+  /** Optional result snapshot. */
+  result?: unknown;
+}

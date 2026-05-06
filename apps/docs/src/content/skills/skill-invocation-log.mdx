@@ -1,0 +1,55 @@
+---
+title: SkillInvocationLog
+description: Vertical timeline of skill calls with status, action, duration, and expandable payloads.
+category: skills
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { SkillInvocationLogDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <SkillInvocationLogDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { SkillInvocationLog, type SkillInvocation } from 'nyxis-ui';
+
+<SkillInvocationLog invocations={recent} limit={20} onSelect={(inv) => focusInvocation(inv.id)} />;
+```
+
+## Anatomy
+
+- Each row: status badge · skill name · `action` (mono) · duration · timestamp.
+- Click a row to expand `input`, `result`, and `error` payloads as JSON.
+- `limit` collapses older entries with a `+N earlier invocations` footer.
+
+## Wiring
+
+Drive entries from your runtime's instrumentation. Common pattern:
+
+```ts
+// after every skill.invoke(...) call
+appendInvocation({
+  id: ulid(),
+  skillId,
+  skillName,
+  action,
+  status,
+  startedAt: new Date(),
+  durationMs,
+  input,
+  result,
+  error,
+});
+```
