@@ -1,0 +1,37 @@
+---
+title: AgentRoster
+description: Multi-agent team view with search, status filters, and list/grid layouts.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AgentRosterDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AgentRosterDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AgentRoster, type Agent } from 'nyxis-ui';
+
+<AgentRoster agents={team} activeId={selectedId} onSelect={setSelectedId} layout="list" />;
+```
+
+## Anatomy
+
+- Header: title + total agent count.
+- Search input filters by name, role, and model.
+- Status filters: clicking a `<AgentStatusBadge>` filters to that status only.
+- Layout switch: `list` (compact rows) or `grid` (2-column cards).
+- Active agent highlighted in primary tone.

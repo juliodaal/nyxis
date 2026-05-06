@@ -67,3 +67,6 @@ export * from './components/tools/index.js';
 
 // AI · MCP — Model Context Protocol (Phase H)
 export * from './components/mcp/index.js';
+
+// AI · Agents (Phase I)
+export * from './components/agents/index.js';

@@ -1,0 +1,44 @@
+---
+title: AgentActivityFeed
+description: Vertical timeline of agent activity — thoughts, actions, tool calls, messages, handoffs, errors.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AgentActivityFeedDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AgentActivityFeedDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AgentActivityFeed, type AgentActivity } from 'nyxis-ui';
+
+<AgentActivityFeed activities={activities} limit={20} />;
+```
+
+## Activity kinds
+
+Each row is icon-coded by `kind`:
+
+| Kind        | Icon          | Tone        |
+| ----------- | ------------- | ----------- |
+| `thought`   | brain         | primary     |
+| `action`    | play          | sky         |
+| `tool-call` | wrench        | amber       |
+| `message`   | speech bubble | muted       |
+| `handoff`   | arrow swap    | violet      |
+| `error`     | warning       | destructive |
+
+Rows with a `detail` payload expand inline as JSON. `limit` collapses older entries with a `+N earlier events` footer.

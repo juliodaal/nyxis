@@ -1,0 +1,47 @@
+---
+title: AgentHandoff
+description: Card visualising a handoff between two agents with reason and pending/accepted/rejected state.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AgentHandoffDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AgentHandoffDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AgentHandoff, type HandoffEvent } from 'nyxis-ui';
+
+const event: HandoffEvent = {
+  fromAgentId: 'planner',
+  toAgentId: 'researcher',
+  fromAgentName: 'Planner',
+  toAgentName: 'Researcher',
+  reason: 'Needs to gather facts about peer-dep architecture.',
+  state: 'pending',
+  timestamp: new Date(),
+};
+
+<AgentHandoff handoff={event} />;
+```
+
+## Anatomy
+
+- `from → to` agent names on the title row.
+- Lifecycle pill: `pending` (amber clock), `accepted` (success check), `rejected` (destructive X).
+- Reason rendered inline.
+- Timestamp at the bottom.
+- `compact` variant: title row only, useful when stacking many handoffs in a feed.

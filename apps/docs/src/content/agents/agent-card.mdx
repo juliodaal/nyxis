@@ -1,0 +1,52 @@
+---
+title: AgentCard
+description: Single-agent card with avatar, name, role, model, status, and the tools available to it.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { AgentCardDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <AgentCardDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { AgentCard, type Agent } from 'nyxis-ui';
+
+const agent: Agent = {
+  id: 'researcher',
+  name: 'Researcher',
+  role: 'Gathers facts from the web and corpora.',
+  modelId: 'claude-sonnet-4-5',
+  initials: 'RS',
+  status: 'working',
+  tools: ['search_web', 'fetch_url', 'search_documents'],
+};
+
+<AgentCard agent={agent} onSelect={(id) => focus(id)} />;
+```
+
+## Anatomy
+
+- Avatar (or initials fallback) + name + status pill on the title row.
+- One-line role description.
+- Model id with a bot icon.
+- Tool chips (max 6 visible, `+N` overflow).
+- Optional selection: pass `onSelect` and the card becomes a button; combine with `selected` for the controlled state.
+
+## When to use this vs. `<AgentRoster>`
+
+- `<AgentCard>` — when you want to render _one_ agent inline (e.g. inside a chat message metadata row).
+- `<AgentRoster>` — when you want a multi-agent team picker with search and filters.

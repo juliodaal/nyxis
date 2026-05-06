@@ -228,3 +228,94 @@ export interface MCPLogEntry {
   /** Severity for log-channel events. */
   level?: 'debug' | 'info' | 'warn' | 'error';
 }
+
+// ── Agents (Phase I) ───────────────────────────────────────────────────
+
+/** Lifecycle of an agent. */
+export type AgentStatus = 'idle' | 'thinking' | 'working' | 'blocked' | 'done' | 'errored';
+
+/** A single agent in a multi-agent system. */
+export interface Agent {
+  id: string;
+  /** Display name. */
+  name: string;
+  /** One-line role / persona summary. */
+  role?: string;
+  /** Model id powering this agent (must match a `nyxis-ui/ai` model). */
+  modelId?: string;
+  /** Optional avatar URL. Falls back to `initials`. */
+  avatarUrl?: string;
+  /** Two-letter fallback rendered when no `avatarUrl`. */
+  initials?: string;
+  /** Current lifecycle. */
+  status: AgentStatus;
+  /** Tools the agent has access to (names). */
+  tools?: readonly string[];
+  /** Last activity timestamp. */
+  lastActiveAt?: Date | string;
+  /** Free-form metadata (user-defined). */
+  metadata?: Record<string, unknown>;
+}
+
+/** Kind of activity an agent emits — drives the icon in feeds. */
+export type AgentActivityKind =
+  | 'thought'
+  | 'action'
+  | 'tool-call'
+  | 'message'
+  | 'handoff'
+  | 'error';
+
+/** A single entry in an agent activity feed. */
+export interface AgentActivity {
+  id: string;
+  /** Owning agent. */
+  agentId: string;
+  /** Resolved agent name for display (saves a lookup). */
+  agentName?: string;
+  kind: AgentActivityKind;
+  /** Short summary line (one row). */
+  summary: string;
+  /** Optional longer detail / payload (collapsible). */
+  detail?: string;
+  /** Wall-clock. */
+  timestamp: Date | string;
+}
+
+/** Event when one agent hands off work to another. */
+export interface HandoffEvent {
+  /** Source agent id. */
+  fromAgentId: string;
+  /** Target agent id. */
+  toAgentId: string;
+  /** Resolved names for display. */
+  fromAgentName?: string;
+  toAgentName?: string;
+  /** Why the work is being handed off. */
+  reason?: string;
+  /** Lifecycle of the handoff. */
+  state?: 'pending' | 'accepted' | 'rejected';
+  /** Wall-clock. */
+  timestamp?: Date | string;
+}
+
+/** Status of a delegated task. */
+export type DelegatedTaskStatus = 'pending' | 'in-progress' | 'blocked' | 'done' | 'errored';
+
+/** A task delegated to an agent, possibly with sub-tasks. */
+export interface DelegatedTask {
+  id: string;
+  /** Headline. */
+  title: string;
+  /** Optional one-line description. */
+  description?: string;
+  /** Assigned agent. */
+  agentId?: string;
+  agentName?: string;
+  /** Lifecycle. */
+  status: DelegatedTaskStatus;
+  /** Optional progress 0..1 (rendered as a tiny bar). */
+  progress?: number;
+  /** Sub-tasks — hierarchies render recursively. */
+  children?: readonly DelegatedTask[];
+}

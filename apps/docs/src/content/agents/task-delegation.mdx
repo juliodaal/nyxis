@@ -1,0 +1,51 @@
+---
+title: TaskDelegation
+description: Hierarchical task tree with per-node status, assigned-agent chips, and progress bars.
+category: agents
+status: stable
+---
+
+import Preview from '../../components/docs/Preview.astro';
+import { TaskDelegationDemo } from '../../components/demos/demos';
+
+## Preview
+
+<Preview>
+  <TaskDelegationDemo client:load />
+</Preview>
+
+## Installation
+
+```bash
+pnpm add nyxis-ui
+```
+
+## Usage
+
+```tsx
+import { TaskDelegation, type DelegatedTask } from 'nyxis-ui';
+
+const tasks: DelegatedTask[] = [
+  {
+    id: 'root',
+    title: 'Answer: why peer-dep adapters?',
+    status: 'in-progress',
+    progress: 0.55,
+    children: [
+      { id: 'r', title: 'Research', agentName: 'Researcher', status: 'done' },
+      { id: 'd', title: 'Draft', agentName: 'Writer', status: 'in-progress', progress: 0.4 },
+      { id: 'v', title: 'Review', agentName: 'Critic', status: 'pending' },
+    ],
+  },
+];
+
+<TaskDelegation tasks={tasks} onSelect={(t) => focus(t.id)} />;
+```
+
+## Anatomy
+
+- Each node: status icon · title · `@AgentName` chip · optional one-line description.
+- Status icons: pending circle, in-progress spinner, blocked pause, done check, errored warning.
+- Progress bar (when `0 < progress < 1`) renders as a thin line under the title.
+- Children indent under their parent; chevron toggles visibility.
+- Pass `onSelect` to make rows clickable; `activeId` highlights the current selection.
