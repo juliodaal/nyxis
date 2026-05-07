@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Brain, Check, ChevronDown, Code2, FileImage, Headphones, Mic, Wrench } from 'lucide-react';
 
 import { cn } from '../../../lib/utils.js';
-import { PROVIDERS, PROVIDER_ORDER, findModel } from '../../../ai/adapters/registry.js';
-import type { AIModel, AIModelCapability, AIProviderId } from '../../../ai/types.js';
+import { PROVIDERS, PROVIDER_ORDER, findModel } from '@nyxis/core';
+import type { AIModel, AIModelCapability, AIProviderId } from '@nyxis/core';
 
 export interface ModelPickerProps {
   /** Selected model id (controlled). */

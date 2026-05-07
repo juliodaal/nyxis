@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, Loader2, PlugZap, Power } from 'lucide-react';
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPConnectionState } from '../../../ai/types.js';
+import type { MCPConnectionState } from '@nyxis/core';
 
 export interface MCPConnectionStatusProps extends HTMLAttributes<HTMLSpanElement> {
   state: MCPConnectionState;

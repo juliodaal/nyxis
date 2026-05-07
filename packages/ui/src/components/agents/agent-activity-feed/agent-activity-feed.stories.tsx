@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { AgentActivityFeed } from './agent-activity-feed.js';
-import type { AgentActivity } from '../../../ai/types.js';
+import type { AgentActivity } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Agents/AgentActivityFeed',

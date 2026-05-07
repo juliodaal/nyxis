@@ -20,8 +20,8 @@
 
 import { streamText } from 'ai';
 
-import { createModel } from '../src/ai/adapters/create-model.js';
-import type { AIProviderId } from '../src/ai/types.js';
+import { createModel } from '../src/adapters/create-model.js';
+import type { AIProviderId } from '../src/types.js';
 
 interface ProviderProbe {
   provider: Exclude<AIProviderId, 'custom'>;

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { DatasetTable } from './dataset-table.js';
-import type { EvalRow } from '../../../ai/types.js';
+import type { EvalRow } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Prompts/DatasetTable',

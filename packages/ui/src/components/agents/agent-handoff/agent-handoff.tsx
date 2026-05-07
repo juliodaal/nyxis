@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ArrowRight, Check, Clock, X } from 'lucide-react';
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { HandoffEvent } from '../../../ai/types.js';
+import type { HandoffEvent } from '@nyxis/core';
 
 export interface AgentHandoffProps extends HTMLAttributes<HTMLDivElement> {
   /** Handoff event to render. */

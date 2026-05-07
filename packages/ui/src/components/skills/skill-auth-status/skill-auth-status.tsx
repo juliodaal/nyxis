@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, CircleAlert, Link as LinkIcon, Lock, Plug, PlugZap } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { SkillAuthState } from '../../../ai/types.js';
+import type { SkillAuthState } from '@nyxis/core';
 
 export interface SkillAuthStatusProps extends HTMLAttributes<HTMLDivElement> {
   state: SkillAuthState;

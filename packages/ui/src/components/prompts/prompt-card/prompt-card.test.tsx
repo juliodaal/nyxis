@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { Prompt } from '../../../ai/types.js';
+import type { Prompt } from '@nyxis/core';
 import { PromptCard } from './prompt-card.js';
 
 const BASE: Prompt = {

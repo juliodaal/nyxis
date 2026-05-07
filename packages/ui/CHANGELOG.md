@@ -1,5 +1,44 @@
 # nyxis-ui
 
+## 0.16.0
+
+### Phase 1B.1 — Extract @nyxis/core
+
+**BREAKING.** The AI runtime has moved to a dedicated package, `@nyxis/core`.
+`nyxis-ui` now depends on it internally and no longer exposes those modules from
+its own surface.
+
+### Removed
+
+- `nyxis-ui/ai` subpath export. Use `@nyxis/core` instead.
+- `nyxis-ui/ai/server` subpath export. Use `@nyxis/core/server` instead.
+- AI-SDK peer deps (`ai`, `@ai-sdk/anthropic`, `@ai-sdk/openai`,
+  `@ai-sdk/google`, `@ai-sdk/mistral`, `ollama-ai-provider`). They live on
+  `@nyxis/core` now.
+- `smoke:providers` script (also moved to `@nyxis/core`).
+
+### Migration
+
+Replace any import of these removed paths with `@nyxis/core`:
+
+```diff
+- import { useChat, AIProvider } from 'nyxis-ui/ai';
+- import { createChatHandler } from 'nyxis-ui/ai/server';
++ import { useChat, AIProvider } from '@nyxis/core';
++ import { createChatHandler } from '@nyxis/core/server';
+```
+
+Then add the new dep:
+
+```bash
+pnpm add @nyxis/core
+```
+
+### Internal
+
+- Components, stories and tests in `nyxis-ui` now type-import from `@nyxis/core`
+  directly. No public surface change beyond the removed subpaths.
+
 ## 0.15.0
 
 ### Phase 1 — Re-base toward shadcn registry distribution

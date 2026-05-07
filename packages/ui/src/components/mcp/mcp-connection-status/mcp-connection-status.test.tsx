@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import type { MCPConnectionState } from '../../../ai/types.js';
+import type { MCPConnectionState } from '@nyxis/core';
 import { MCPConnectionStatus } from './mcp-connection-status.js';
 
 const STATES: readonly MCPConnectionState[] = ['disconnected', 'connecting', 'connected', 'error'];

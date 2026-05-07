@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { MCPResource } from '../../../ai/types.js';
+import type { MCPResource } from '@nyxis/core';
 import { MCPResourceBrowser } from './mcp-resource-browser.js';
 
 const RESOURCES: readonly MCPResource[] = [

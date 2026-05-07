@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ArrowLeft, ArrowRight, Bell, ChevronDown, ChevronRight } from 'lucide-react';
 import { useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPLogDirection, MCPLogEntry } from '../../../ai/types.js';
+import type { MCPLogDirection, MCPLogEntry } from '@nyxis/core';
 
 export interface MCPLogStreamProps extends HTMLAttributes<HTMLDivElement> {
   /** Entries, newest first. */

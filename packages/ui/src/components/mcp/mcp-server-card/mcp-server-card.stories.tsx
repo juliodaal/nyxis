@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { MCPServerCard } from './mcp-server-card.js';
-import type { MCPServer } from '../../../ai/types.js';
+import type { MCPServer } from '@nyxis/core';
 
 const meta = {
   title: 'AI · MCP/MCPServerCard',

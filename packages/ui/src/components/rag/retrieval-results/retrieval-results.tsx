@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { RetrievedChunk } from '../../../ai/types.js';
+import type { RetrievedChunk } from '@nyxis/core';
 import { ChunkCard } from '../chunk-card/chunk-card.js';
 
 export interface RetrievalResultsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {

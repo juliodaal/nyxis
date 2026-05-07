@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { RAGStage } from '../../../ai/types.js';
+import type { RAGStage } from '@nyxis/core';
 import { RAGPipeline } from './rag-pipeline.js';
 
 const STAGES: RAGStage[] = [

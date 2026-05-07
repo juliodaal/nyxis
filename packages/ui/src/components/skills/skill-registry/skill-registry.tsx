@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Sparkles } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Skill } from '../../../ai/types.js';
+import type { Skill } from '@nyxis/core';
 import { SkillCard } from '../skill-card/skill-card.js';
 
 export interface SkillRegistryProps extends Omit<

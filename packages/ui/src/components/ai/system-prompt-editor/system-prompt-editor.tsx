@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useId, useMemo, useRef } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import { estimateTokens } from '../../../ai/hooks/use-token-count.js';
+import { estimateTokens } from '@nyxis/core';
 
 export interface SystemPromptEditorProps {
   /** Current value (controlled). */

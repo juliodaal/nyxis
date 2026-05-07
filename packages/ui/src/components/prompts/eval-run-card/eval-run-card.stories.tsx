@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { EvalRunCard } from './eval-run-card.js';
-import type { EvalRun } from '../../../ai/types.js';
+import type { EvalRun } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Prompts/EvalRunCard',

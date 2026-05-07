@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, Download, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MediaGenerationStatus } from '../../../ai/types.js';
+import type { MediaGenerationStatus } from '@nyxis/core';
 
 export interface ImageMessageProps extends HTMLAttributes<HTMLElement> {
   /** Image URL (or data: URI). */

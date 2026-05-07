@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { EvalMetric } from '../../../ai/types.js';
+import type { EvalMetric } from '@nyxis/core';
 
 export interface MetricCardProps extends HTMLAttributes<HTMLDivElement> {
   metric: EvalMetric;

@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import { AgentHandoff } from './agent-handoff.js';
-import type { HandoffEvent } from '../../../ai/types.js';
+import type { HandoffEvent } from '@nyxis/core';
 
 const handoff: HandoffEvent = {
   fromAgentId: 'a1',

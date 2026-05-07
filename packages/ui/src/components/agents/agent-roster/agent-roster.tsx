@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Users } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Agent, AgentStatus } from '../../../ai/types.js';
+import type { Agent, AgentStatus } from '@nyxis/core';
 import { AgentCard } from '../agent-card/agent-card.js';
 import { AgentStatusBadge } from '../agent-status-badge/agent-status-badge.js';
 

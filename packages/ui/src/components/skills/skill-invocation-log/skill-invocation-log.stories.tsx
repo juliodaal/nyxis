@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { SkillInvocationLog } from './skill-invocation-log.js';
-import type { SkillInvocation } from '../../../ai/types.js';
+import type { SkillInvocation } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Skills/SkillInvocationLog',

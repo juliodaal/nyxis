@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle } from 'lucide-react';
 import { useId, useMemo } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import { findModel } from '../../../ai/adapters/registry.js';
+import { findModel } from '@nyxis/core';
 
 export interface MaxTokensInputProps {
   /** Current value (controlled). */

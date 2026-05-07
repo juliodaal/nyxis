@@ -28,6 +28,7 @@
     "react-hook-form": "^7.54.2",
     "shiki": "^3.4.0",
     "astro": "^5.0.5",
+    "@nyxis/core": "workspace:*",
     "nyxis-ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",

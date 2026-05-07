@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {
   ChevronDown,
@@ -12,7 +12,7 @@ import {
 import { useMemo, useState, type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPResource } from '../../../ai/types.js';
+import type { MCPResource } from '@nyxis/core';
 
 export interface MCPResourceBrowserProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Resources exposed by one or more MCP servers. */

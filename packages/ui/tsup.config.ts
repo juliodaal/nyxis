@@ -67,9 +67,6 @@ export default defineConfig({
     'components/domain/email-triage-card/index': domain('email-triage-card'),
     'components/domain/file-dropzone/index': domain('file-dropzone'),
     'components/domain/data-table/index': domain('data-table'),
-    // AI core (Phase C)
-    'ai/index': 'src/ai/index.ts',
-    'ai/server/index': 'src/ai/server/index.ts',
     // AI Models & Providers UI (Phase D)
     'components/ai/index': 'src/components/ai/index.ts',
     'components/ai/api-key-input/index': aiUi('api-key-input'),
@@ -183,12 +180,7 @@ export default defineConfig({
     'react-hook-form',
     'zod',
     '@hookform/resolvers',
-    'ai',
-    '@ai-sdk/anthropic',
-    '@ai-sdk/openai',
-    '@ai-sdk/google',
-    '@ai-sdk/mistral',
-    'ollama-ai-provider',
+    '@nyxis/core',
     'sonner',
     'cmdk',
     'vaul',

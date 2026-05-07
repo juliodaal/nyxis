@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { ImageGallery } from './image-gallery.js';
-import type { MediaAttachment } from '../../../ai/types.js';
+import type { MediaAttachment } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Multimodal/ImageGallery',

@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import type { EvalMetric } from '../../../ai/types.js';
+import type { EvalMetric } from '@nyxis/core';
 import { MetricCard } from './metric-card.js';
 
 describe('MetricCard', () => {

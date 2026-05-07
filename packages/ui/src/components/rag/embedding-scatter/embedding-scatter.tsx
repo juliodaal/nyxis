@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useMemo, useState, type HTMLAttributes, type MouseEvent as ReactMouseEvent } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { EmbeddingPoint } from '../../../ai/types.js';
+import type { EmbeddingPoint } from '@nyxis/core';
 
 export interface EmbeddingScatterProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Pre-projected points (UMAP / t-SNE / PCA — anything 2D). */

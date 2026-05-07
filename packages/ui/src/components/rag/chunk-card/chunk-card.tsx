@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, FileText } from 'lucide-react';
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { RetrievedChunk } from '../../../ai/types.js';
+import type { RetrievedChunk } from '@nyxis/core';
 
 export interface ChunkCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Retrieved chunk to render. */

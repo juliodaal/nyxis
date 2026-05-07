@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Check, ChevronDown, ChevronRight, Search, X } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { EvalRow } from '../../../ai/types.js';
+import type { EvalRow } from '@nyxis/core';
 
 export interface DatasetTableProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Rows to render. */

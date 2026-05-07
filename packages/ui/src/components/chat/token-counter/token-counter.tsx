@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import { useTokenCount } from '../../../ai/hooks/use-token-count.js';
+import { useTokenCount } from '@nyxis/core';
 
 export interface TokenCounterProps extends HTMLAttributes<HTMLSpanElement> {
   /** Text whose token count we estimate. */

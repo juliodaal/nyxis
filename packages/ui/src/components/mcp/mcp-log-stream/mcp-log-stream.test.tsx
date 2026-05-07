@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { MCPLogEntry } from '../../../ai/types.js';
+import type { MCPLogEntry } from '@nyxis/core';
 import { MCPLogStream } from './mcp-log-stream.js';
 
 const NOW = new Date('2024-01-01T12:00:00Z');

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { TaskDelegation } from './task-delegation.js';
-import type { DelegatedTask } from '../../../ai/types.js';
+import type { DelegatedTask } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Agents/TaskDelegation',

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { AgentRoster } from './agent-roster.js';
-import type { Agent } from '../../../ai/types.js';
+import type { Agent } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Agents/AgentRoster',

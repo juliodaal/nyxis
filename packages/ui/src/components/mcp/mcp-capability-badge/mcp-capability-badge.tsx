@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Cog, FileText, FolderTree, MessageSquare, ScrollText, Sparkles } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPCapability } from '../../../ai/types.js';
+import type { MCPCapability } from '@nyxis/core';
 
 export interface MCPCapabilityBadgeProps extends HTMLAttributes<HTMLSpanElement> {
   capability: MCPCapability;

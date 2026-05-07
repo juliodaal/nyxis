@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, Check, ChevronDown, ChevronRight, Loader2, Wrench } from 'lucide-react';
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AIToolCallStatus } from '../../../ai/types.js';
+import type { AIToolCallStatus } from '@nyxis/core';
 
 export interface ToolCallProps extends HTMLAttributes<HTMLDivElement> {
   /** Tool name (e.g. `search_documents`). */

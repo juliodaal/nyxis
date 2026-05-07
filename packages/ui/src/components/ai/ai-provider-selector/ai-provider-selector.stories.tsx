@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { AIProviderSelector } from './ai-provider-selector.js';
-import type { AIProviderId } from '../../../ai/types.js';
+import type { AIProviderId } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Models & Providers/AIProviderSelector',

@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ArrowDown, ArrowRight, ArrowUp, Minus } from 'lucide-react';
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { EvalMetric } from '../../../ai/types.js';
+import type { EvalMetric } from '@nyxis/core';
 
 export interface ABCompareSide {
   /** Display label for this side. */
