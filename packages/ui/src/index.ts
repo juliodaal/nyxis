@@ -2,6 +2,11 @@
  * Public surface of nyxis-ui. Each component re-exports from its folder so
  * consumers can either pull from the barrel (`from 'nyxis-ui'`) or from a
  * subpath (`from 'nyxis-ui/button'`) for stricter tree-shaking.
+ *
+ * Starting in 0.17.0, every AI-first component is distributed via the
+ * shadcn registry (`npx shadcn@latest add @nyxis/<name>`). This package
+ * keeps only the theme system and the base UI primitives that the AI
+ * components compose on top of.
  */
 
 // Utilities
@@ -43,39 +48,3 @@ export * from './components/ui/accordion/index.js';
 export * from './components/ui/command/index.js';
 export * from './components/ui/combobox/index.js';
 export * from './components/ui/toast/index.js';
-
-// Domain patterns
-export * from './components/domain/index.js';
-
-// AI · Models & Providers UI (Phase D)
-export * from './components/ai/index.js';
-
-// AI · Chat 2.0 (Phase E)
-export * from './components/chat/index.js';
-
-// AI · Reasoning (Phase F)
-export * from './components/reasoning/index.js';
-
-// AI · Tools / Function Calling (Phase G)
-export * from './components/tools/index.js';
-
-// AI · MCP — Model Context Protocol (Phase H)
-export * from './components/mcp/index.js';
-
-// AI · Agents (Phase I)
-export * from './components/agents/index.js';
-
-// AI · Multimodal (Phase J)
-export * from './components/multimodal/index.js';
-
-// AI · Prompts / Eval (Phase K)
-export * from './components/prompts/index.js';
-
-// AI · RAG (Phase L)
-export * from './components/rag/index.js';
-
-// AI · Skills (Phase M)
-export * from './components/skills/index.js';
-
-// AI · Animations (Phase N)
-export * from './components/ai-animations/index.js';

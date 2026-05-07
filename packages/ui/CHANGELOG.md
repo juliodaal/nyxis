@@ -1,5 +1,55 @@
 # nyxis-ui
 
+## 0.17.0
+
+### Phase 1B.4 — AI-first components leave the package
+
+**BREAKING.** Every AI-first component is now distributed exclusively through
+the shadcn registry. This package keeps only the theme system and the base UI
+primitives that registry components compose on top of.
+
+### Removed
+
+- **All 83 AI-first components** previously exported from this package (chat,
+  agents, mcp, multimodal, prompts, rag, skills, reasoning, tools, ai-models,
+  ai-animations, domain). Install them with the shadcn CLI instead — see
+  migration below.
+- All subpath exports for the removed components.
+- Dependencies that only powered the AI-first components: `@nyxis/core`,
+  `@tanstack/react-table`, `react-markdown`, `remark-gfm`. These move to the
+  registry's per-component `dependencies` declarations.
+
+### Kept
+
+- The **theme system** (`<ThemeToggle>`, `getThemeScript`, the five theme
+  tokens, design tokens CSS).
+- The **22 base UI primitives** (Button, Input, Textarea, Label, Card, Badge,
+  Avatar, Separator, Skeleton, Dialog, Sheet, Drawer, Popover, Tooltip, Select,
+  Checkbox, Switch, RadioGroup, Form, Tabs, Accordion, Command, Combobox,
+  Toast). The future of these is decided in 0.18.0 — they may move to the
+  registry too, or stay if they prove useful as a packaged baseline.
+
+### Migration
+
+Replace `from 'nyxis-ui'` (for any AI-first symbol) with the shadcn CLI:
+
+```bash
+# Before:
+# import { ChatMessage } from 'nyxis-ui';
+
+# After:
+npx shadcn@latest add https://nyxis.vercel.app/r/chat-message.json
+# then:
+import { ChatMessage } from '@/components/nyxis/chat-message';
+```
+
+For each registry item the CLI installs source files into your repo (e.g.
+`src/components/nyxis/chat-message.tsx`) plus the npm `dependencies` the item
+declares. You own the resulting source.
+
+The runtime types and adapter (`AIMessage`, `useChat`, `createModel`, etc.)
+continue to live in `@nyxis/core`.
+
 ## 0.16.0
 
 ### Phase 1B.1 — Extract @nyxis/core
