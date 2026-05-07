@@ -5,11 +5,14 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
+      "@/lib/utils": ["./registry/lib/utils.ts"],
+      "@/components/nyxis/*": ["./registry/components/*"],
+      "@/components/ui/*": ["../../packages/ui/src/components/ui/*"],
       "@/*": ["./src/*"]
     },
     "verbatimModuleSyntax": true,
     "noUncheckedIndexedAccess": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", ".astro", "registry/components/**", "registry/hooks/**", "registry/lib/**"]
+  "exclude": ["dist", ".astro"]
 }

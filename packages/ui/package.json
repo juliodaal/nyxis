@@ -1,7 +1,7 @@
 {
   "name": "nyxis-ui",
-  "version": "0.16.0",
-  "description": "A modern React component library for AI-powered products. Tailwind CSS v4, Radix UI, framer-motion.",
+  "version": "0.17.0",
+  "description": "Theme system + base UI primitives for the Nyxis ecosystem. AI-first components are distributed via the shadcn registry; install them with `npx shadcn@latest add @nyxis/<name>`.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
   "homepage": "https://nyxis.vercel.app",
@@ -21,11 +21,8 @@
     "radix",
     "design-system",
     "ai",
-    "ai-sdk",
-    "chat",
-    "agents",
-    "rag",
-    "mcp"
+    "theme",
+    "nyxis"
   ],
   "type": "module",
   "sideEffects": [
@@ -144,286 +141,6 @@
       "types": "./dist/components/ui/toast/index.d.ts",
       "import": "./dist/components/ui/toast/index.js"
     },
-    "./chat": {
-      "types": "./dist/components/chat/index.d.ts",
-      "import": "./dist/components/chat/index.js"
-    },
-    "./chat-thread": {
-      "types": "./dist/components/chat/chat-thread/index.d.ts",
-      "import": "./dist/components/chat/chat-thread/index.js"
-    },
-    "./streaming-text": {
-      "types": "./dist/components/chat/streaming-text/index.d.ts",
-      "import": "./dist/components/chat/streaming-text/index.js"
-    },
-    "./streaming-markdown": {
-      "types": "./dist/components/chat/streaming-markdown/index.d.ts",
-      "import": "./dist/components/chat/streaming-markdown/index.js"
-    },
-    "./streaming-code": {
-      "types": "./dist/components/chat/streaming-code/index.d.ts",
-      "import": "./dist/components/chat/streaming-code/index.js"
-    },
-    "./typing-indicator": {
-      "types": "./dist/components/chat/typing-indicator/index.d.ts",
-      "import": "./dist/components/chat/typing-indicator/index.js"
-    },
-    "./message-actions": {
-      "types": "./dist/components/chat/message-actions/index.d.ts",
-      "import": "./dist/components/chat/message-actions/index.js"
-    },
-    "./token-counter": {
-      "types": "./dist/components/chat/token-counter/index.d.ts",
-      "import": "./dist/components/chat/token-counter/index.js"
-    },
-    "./conversation-sidebar": {
-      "types": "./dist/components/chat/conversation-sidebar/index.d.ts",
-      "import": "./dist/components/chat/conversation-sidebar/index.js"
-    },
-    "./conversation-fork": {
-      "types": "./dist/components/chat/conversation-fork/index.d.ts",
-      "import": "./dist/components/chat/conversation-fork/index.js"
-    },
-    "./reasoning": {
-      "types": "./dist/components/reasoning/index.d.ts",
-      "import": "./dist/components/reasoning/index.js"
-    },
-    "./reasoning-trace": {
-      "types": "./dist/components/reasoning/reasoning-trace/index.d.ts",
-      "import": "./dist/components/reasoning/reasoning-trace/index.js"
-    },
-    "./chain-of-thought": {
-      "types": "./dist/components/reasoning/chain-of-thought/index.d.ts",
-      "import": "./dist/components/reasoning/chain-of-thought/index.js"
-    },
-    "./thinking-indicator": {
-      "types": "./dist/components/reasoning/thinking-indicator/index.d.ts",
-      "import": "./dist/components/reasoning/thinking-indicator/index.js"
-    },
-    "./tools": {
-      "types": "./dist/components/tools/index.d.ts",
-      "import": "./dist/components/tools/index.js"
-    },
-    "./tool-call": {
-      "types": "./dist/components/tools/tool-call/index.d.ts",
-      "import": "./dist/components/tools/tool-call/index.js"
-    },
-    "./tool-result": {
-      "types": "./dist/components/tools/tool-result/index.d.ts",
-      "import": "./dist/components/tools/tool-result/index.js"
-    },
-    "./parameter-form": {
-      "types": "./dist/components/tools/parameter-form/index.d.ts",
-      "import": "./dist/components/tools/parameter-form/index.js"
-    },
-    "./tool-registry": {
-      "types": "./dist/components/tools/tool-registry/index.d.ts",
-      "import": "./dist/components/tools/tool-registry/index.js"
-    },
-    "./tool-execution-log": {
-      "types": "./dist/components/tools/tool-execution-log/index.d.ts",
-      "import": "./dist/components/tools/tool-execution-log/index.js"
-    },
-    "./mcp": {
-      "types": "./dist/components/mcp/index.d.ts",
-      "import": "./dist/components/mcp/index.js"
-    },
-    "./mcp-capability-badge": {
-      "types": "./dist/components/mcp/mcp-capability-badge/index.d.ts",
-      "import": "./dist/components/mcp/mcp-capability-badge/index.js"
-    },
-    "./mcp-connection-status": {
-      "types": "./dist/components/mcp/mcp-connection-status/index.d.ts",
-      "import": "./dist/components/mcp/mcp-connection-status/index.js"
-    },
-    "./mcp-server-card": {
-      "types": "./dist/components/mcp/mcp-server-card/index.d.ts",
-      "import": "./dist/components/mcp/mcp-server-card/index.js"
-    },
-    "./mcp-server-list": {
-      "types": "./dist/components/mcp/mcp-server-list/index.d.ts",
-      "import": "./dist/components/mcp/mcp-server-list/index.js"
-    },
-    "./mcp-resource-browser": {
-      "types": "./dist/components/mcp/mcp-resource-browser/index.d.ts",
-      "import": "./dist/components/mcp/mcp-resource-browser/index.js"
-    },
-    "./mcp-prompt-library": {
-      "types": "./dist/components/mcp/mcp-prompt-library/index.d.ts",
-      "import": "./dist/components/mcp/mcp-prompt-library/index.js"
-    },
-    "./mcp-log-stream": {
-      "types": "./dist/components/mcp/mcp-log-stream/index.d.ts",
-      "import": "./dist/components/mcp/mcp-log-stream/index.js"
-    },
-    "./agents": {
-      "types": "./dist/components/agents/index.d.ts",
-      "import": "./dist/components/agents/index.js"
-    },
-    "./agent-status-badge": {
-      "types": "./dist/components/agents/agent-status-badge/index.d.ts",
-      "import": "./dist/components/agents/agent-status-badge/index.js"
-    },
-    "./agent-card": {
-      "types": "./dist/components/agents/agent-card/index.d.ts",
-      "import": "./dist/components/agents/agent-card/index.js"
-    },
-    "./agent-roster": {
-      "types": "./dist/components/agents/agent-roster/index.d.ts",
-      "import": "./dist/components/agents/agent-roster/index.js"
-    },
-    "./agent-activity-feed": {
-      "types": "./dist/components/agents/agent-activity-feed/index.d.ts",
-      "import": "./dist/components/agents/agent-activity-feed/index.js"
-    },
-    "./agent-handoff": {
-      "types": "./dist/components/agents/agent-handoff/index.d.ts",
-      "import": "./dist/components/agents/agent-handoff/index.js"
-    },
-    "./task-delegation": {
-      "types": "./dist/components/agents/task-delegation/index.d.ts",
-      "import": "./dist/components/agents/task-delegation/index.js"
-    },
-    "./multimodal": {
-      "types": "./dist/components/multimodal/index.d.ts",
-      "import": "./dist/components/multimodal/index.js"
-    },
-    "./image-message": {
-      "types": "./dist/components/multimodal/image-message/index.d.ts",
-      "import": "./dist/components/multimodal/image-message/index.js"
-    },
-    "./image-gallery": {
-      "types": "./dist/components/multimodal/image-gallery/index.d.ts",
-      "import": "./dist/components/multimodal/image-gallery/index.js"
-    },
-    "./voice-waveform": {
-      "types": "./dist/components/multimodal/voice-waveform/index.d.ts",
-      "import": "./dist/components/multimodal/voice-waveform/index.js"
-    },
-    "./audio-player": {
-      "types": "./dist/components/multimodal/audio-player/index.d.ts",
-      "import": "./dist/components/multimodal/audio-player/index.js"
-    },
-    "./transcription-view": {
-      "types": "./dist/components/multimodal/transcription-view/index.d.ts",
-      "import": "./dist/components/multimodal/transcription-view/index.js"
-    },
-    "./vision-input": {
-      "types": "./dist/components/multimodal/vision-input/index.d.ts",
-      "import": "./dist/components/multimodal/vision-input/index.js"
-    },
-    "./prompts": {
-      "types": "./dist/components/prompts/index.d.ts",
-      "import": "./dist/components/prompts/index.js"
-    },
-    "./prompt-card": {
-      "types": "./dist/components/prompts/prompt-card/index.d.ts",
-      "import": "./dist/components/prompts/prompt-card/index.js"
-    },
-    "./prompt-variable-form": {
-      "types": "./dist/components/prompts/prompt-variable-form/index.d.ts",
-      "import": "./dist/components/prompts/prompt-variable-form/index.js"
-    },
-    "./metric-card": {
-      "types": "./dist/components/prompts/metric-card/index.d.ts",
-      "import": "./dist/components/prompts/metric-card/index.js"
-    },
-    "./eval-run-card": {
-      "types": "./dist/components/prompts/eval-run-card/index.d.ts",
-      "import": "./dist/components/prompts/eval-run-card/index.js"
-    },
-    "./dataset-table": {
-      "types": "./dist/components/prompts/dataset-table/index.d.ts",
-      "import": "./dist/components/prompts/dataset-table/index.js"
-    },
-    "./ab-compare": {
-      "types": "./dist/components/prompts/ab-compare/index.d.ts",
-      "import": "./dist/components/prompts/ab-compare/index.js"
-    },
-    "./rag": {
-      "types": "./dist/components/rag/index.d.ts",
-      "import": "./dist/components/rag/index.js"
-    },
-    "./chunk-card": {
-      "types": "./dist/components/rag/chunk-card/index.d.ts",
-      "import": "./dist/components/rag/chunk-card/index.js"
-    },
-    "./retrieval-results": {
-      "types": "./dist/components/rag/retrieval-results/index.d.ts",
-      "import": "./dist/components/rag/retrieval-results/index.js"
-    },
-    "./vector-search-input": {
-      "types": "./dist/components/rag/vector-search-input/index.d.ts",
-      "import": "./dist/components/rag/vector-search-input/index.js"
-    },
-    "./document-chunker": {
-      "types": "./dist/components/rag/document-chunker/index.d.ts",
-      "import": "./dist/components/rag/document-chunker/index.js"
-    },
-    "./embedding-scatter": {
-      "types": "./dist/components/rag/embedding-scatter/index.d.ts",
-      "import": "./dist/components/rag/embedding-scatter/index.js"
-    },
-    "./rag-pipeline": {
-      "types": "./dist/components/rag/rag-pipeline/index.d.ts",
-      "import": "./dist/components/rag/rag-pipeline/index.js"
-    },
-    "./skills": {
-      "types": "./dist/components/skills/index.d.ts",
-      "import": "./dist/components/skills/index.js"
-    },
-    "./skill-permissions": {
-      "types": "./dist/components/skills/skill-permissions/index.d.ts",
-      "import": "./dist/components/skills/skill-permissions/index.js"
-    },
-    "./skill-auth-status": {
-      "types": "./dist/components/skills/skill-auth-status/index.d.ts",
-      "import": "./dist/components/skills/skill-auth-status/index.js"
-    },
-    "./skill-card": {
-      "types": "./dist/components/skills/skill-card/index.d.ts",
-      "import": "./dist/components/skills/skill-card/index.js"
-    },
-    "./skill-registry": {
-      "types": "./dist/components/skills/skill-registry/index.d.ts",
-      "import": "./dist/components/skills/skill-registry/index.js"
-    },
-    "./skill-invocation-log": {
-      "types": "./dist/components/skills/skill-invocation-log/index.d.ts",
-      "import": "./dist/components/skills/skill-invocation-log/index.js"
-    },
-    "./skill-marketplace": {
-      "types": "./dist/components/skills/skill-marketplace/index.d.ts",
-      "import": "./dist/components/skills/skill-marketplace/index.js"
-    },
-    "./ai-animations": {
-      "types": "./dist/components/ai-animations/index.d.ts",
-      "import": "./dist/components/ai-animations/index.js"
-    },
-    "./sparkle-field": {
-      "types": "./dist/components/ai-animations/sparkle-field/index.d.ts",
-      "import": "./dist/components/ai-animations/sparkle-field/index.js"
-    },
-    "./ai-halo-border": {
-      "types": "./dist/components/ai-animations/ai-halo-border/index.d.ts",
-      "import": "./dist/components/ai-animations/ai-halo-border/index.js"
-    },
-    "./thinking-orb": {
-      "types": "./dist/components/ai-animations/thinking-orb/index.d.ts",
-      "import": "./dist/components/ai-animations/thinking-orb/index.js"
-    },
-    "./neural-background": {
-      "types": "./dist/components/ai-animations/neural-background/index.d.ts",
-      "import": "./dist/components/ai-animations/neural-background/index.js"
-    },
-    "./token-stream": {
-      "types": "./dist/components/ai-animations/token-stream/index.d.ts",
-      "import": "./dist/components/ai-animations/token-stream/index.js"
-    },
-    "./gradient-aura": {
-      "types": "./dist/components/ai-animations/gradient-aura/index.d.ts",
-      "import": "./dist/components/ai-animations/gradient-aura/index.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -453,18 +170,11 @@
     "attw": "attw --pack ."
   },
   "peerDependencies": {
-    "framer-motion": "^11.0.0 || ^12.0.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "tailwindcss": "^4.0.0"
   },
-  "peerDependenciesMeta": {
-    "framer-motion": {
-      "optional": true
-    }
-  },
   "dependencies": {
-    "@nyxis/core": "workspace:*",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -480,14 +190,11 @@
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.6",
-    "@tanstack/react-table": "^8.20.6",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "cmdk": "^1.0.4",
     "lucide-react": "catalog:",
     "react-hook-form": "^7.54.2",
-    "react-markdown": "^9.0.1",
-    "remark-gfm": "^4.0.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "catalog:",
     "vaul": "^1.1.2",
@@ -495,7 +202,6 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.1",
-    "cross-env": "^7.0.3",
     "@storybook/addon-a11y": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
@@ -512,6 +218,7 @@
     "@testing-library/user-event": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "cross-env": "^7.0.3",
     "jsdom": "catalog:",
     "publint": "^0.3.2",
     "react": "catalog:",
