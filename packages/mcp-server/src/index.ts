@@ -24,12 +24,13 @@ import { RegistryClient } from './lib/registry-fetch.js';
 import { listComponentsHandler, listComponentsSchema } from './tools/list-components.js';
 import { getComponentHandler, getComponentSchema } from './tools/get-component.js';
 import { searchComponentsHandler, searchComponentsSchema } from './tools/search-components.js';
+import { installComponentHandler, installComponentSchema } from './tools/install-component.js';
 
 async function main(): Promise<void> {
   const client = new RegistryClient();
 
   const server = new McpServer(
-    { name: 'nyxis', version: '0.1.0' },
+    { name: 'nyxis', version: '0.2.0' },
     {
       capabilities: { tools: {} },
       instructions:
@@ -61,6 +62,13 @@ async function main(): Promise<void> {
     'Free-text search over the Nyxis registry. Matches against slug, title, description, and category. Returns the top-N matches ranked by relevance.',
     searchComponentsSchema,
     searchComponentsHandler(client),
+  );
+
+  server.tool(
+    'install_component',
+    "Install a Nyxis registry item into the user's project by shelling out to the shadcn CLI (`npx shadcn@latest add <url>`). The CLI resolves cascading registry dependencies, installs the npm packages, and writes the source files into the configured component directory. Requires a `components.json` at the project root — the tool returns a clear error if missing.",
+    installComponentSchema,
+    installComponentHandler(client),
   );
 
   const transport = new StdioServerTransport();
