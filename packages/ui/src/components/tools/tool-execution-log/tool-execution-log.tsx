@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { type OlHTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AIToolCallStatus } from '../../../ai/types.js';
+import type { AIToolCallStatus } from '@nyxis/core';
 import { ToolCall } from '../tool-call/tool-call.js';
 import { ToolResult } from '../tool-result/tool-result.js';
 

@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { EvalRun } from '../../../ai/types.js';
+import type { EvalRun } from '@nyxis/core';
 import { EvalRunCard } from './eval-run-card.js';
 
 const BASE: EvalRun = {

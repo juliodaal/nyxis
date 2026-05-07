@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AgentActivityFeed } from './agent-activity-feed.js';
-import type { AgentActivity } from '../../../ai/types.js';
+import type { AgentActivity } from '@nyxis/core';
 
 const ts = new Date('2025-01-01T12:00:00Z');
 

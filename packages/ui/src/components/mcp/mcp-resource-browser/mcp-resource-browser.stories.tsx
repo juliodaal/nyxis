@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { MCPResourceBrowser } from './mcp-resource-browser.js';
-import type { MCPResource } from '../../../ai/types.js';
+import type { MCPResource } from '@nyxis/core';
 
 const meta = {
   title: 'AI · MCP/MCPResourceBrowser',

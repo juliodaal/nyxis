@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { EmbeddingScatter } from './embedding-scatter.js';
-import type { EmbeddingPoint } from '../../../ai/types.js';
+import type { EmbeddingPoint } from '@nyxis/core';
 
 const meta = {
   title: 'AI · RAG/EmbeddingScatter',

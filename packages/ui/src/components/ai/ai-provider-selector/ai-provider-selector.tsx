@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronDown, Server } from 'lucide-react';
 
 import { cn } from '../../../lib/utils.js';
-import { PROVIDER_ORDER, PROVIDERS } from '../../../ai/adapters/registry.js';
-import type { AIProviderId } from '../../../ai/types.js';
+import { PROVIDER_ORDER, PROVIDERS } from '@nyxis/core';
+import type { AIProviderId } from '@nyxis/core';
 
 export interface AIProviderSelectorProps {
   /** Selected provider (controlled). */

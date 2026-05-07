@@ -870,7 +870,7 @@ import {
   TokenStream,
   TopPSlider,
 } from 'nyxis-ui';
-import type { AIProviderId } from 'nyxis-ui/ai';
+import type { AIProviderId } from '@nyxis/core';
 
 export function AIProviderSelectorDemo() {
   const [provider, setProvider] = useState<AIProviderId>('anthropic');
@@ -993,7 +993,7 @@ export function AIConfigCardDemo() {
 
 import { useEffect } from 'react';
 import { Code2, Globe, Image as ImageIcon, Search } from 'lucide-react';
-import type { AIMessage } from 'nyxis-ui/ai';
+import type { AIMessage } from '@nyxis/core';
 import type {
   ChainStep,
   ConversationItem,
@@ -1022,7 +1022,7 @@ import type {
   Skill,
   SkillInvocation,
   TranscriptSegment,
-} from 'nyxis-ui/ai';
+} from '@nyxis/core';
 
 const STREAMING_SAMPLE =
   'Streaming responses make assistants feel responsive even when generation is slow.';
@@ -1057,7 +1057,7 @@ const MARKDOWN_SAMPLE = `Two reasons we ship adapters as **peer dependencies**:
 2. **Version freedom** — pin the AI SDK version that matches your server.
 
 \`\`\`ts
-import { createChatHandler, createModel } from 'nyxis-ui/ai/server';
+import { createChatHandler, createModel } from '@nyxis/core/server';
 
 export const POST = createChatHandler({
   model: createModel('anthropic', 'claude-sonnet-4-5'),
@@ -1075,7 +1075,7 @@ export function StreamingMarkdownDemo() {
   );
 }
 
-const CODE_SAMPLE = `import { useChat } from 'nyxis-ui/ai';
+const CODE_SAMPLE = `import { useChat } from '@nyxis/core';
 
 export function Chat() {
   const { messages, send, isStreaming } = useChat({

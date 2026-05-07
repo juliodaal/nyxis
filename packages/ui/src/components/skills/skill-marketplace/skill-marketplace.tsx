@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Check, Download, Search, Sparkles, Star, User } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Skill } from '../../../ai/types.js';
+import type { Skill } from '@nyxis/core';
 import { SkillPermissions } from '../skill-permissions/skill-permissions.js';
 
 export interface SkillMarketplaceProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {

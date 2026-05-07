@@ -1,9 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AgentCard } from './agent-card.js';
-import type { Agent } from '../../../ai/types.js';
+import type { Agent } from '@nyxis/core';
 
 const baseAgent: Agent = {
   id: 'agent-1',

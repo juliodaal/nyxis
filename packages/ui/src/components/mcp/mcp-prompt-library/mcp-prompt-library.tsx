@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ChevronDown, ChevronRight, MessageSquare, Search } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPPrompt } from '../../../ai/types.js';
+import type { MCPPrompt } from '@nyxis/core';
 
 export interface MCPPromptLibraryProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Prompts exposed by one or more MCP servers. */

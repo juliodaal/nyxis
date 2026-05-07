@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AgentRoster } from './agent-roster.js';
-import type { Agent } from '../../../ai/types.js';
+import type { Agent } from '@nyxis/core';
 
 const agents: Agent[] = [
   { id: 'a1', name: 'Researcher Rita', role: 'Search', status: 'thinking' },

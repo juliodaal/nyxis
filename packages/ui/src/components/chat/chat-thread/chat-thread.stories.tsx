@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
 import { ChatThread } from './chat-thread.js';
-import type { AIMessage } from '../../../ai/types.js';
+import type { AIMessage } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Chat/ChatThread',

@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, Ban, Check, Clock, Loader2 } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { EvalRun, EvalRunStatus } from '../../../ai/types.js';
+import type { EvalRun, EvalRunStatus } from '@nyxis/core';
 import { MetricCard } from '../metric-card/metric-card.js';
 
 export interface EvalRunCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {

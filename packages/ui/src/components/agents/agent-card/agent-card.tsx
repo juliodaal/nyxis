@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Bot, Wrench } from 'lucide-react';
 import { type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Agent } from '../../../ai/types.js';
+import type { Agent } from '@nyxis/core';
 import { AgentStatusBadge } from '../agent-status-badge/agent-status-badge.js';
 
 export interface AgentCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {

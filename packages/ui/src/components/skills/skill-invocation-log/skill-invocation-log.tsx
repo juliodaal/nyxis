@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {
   AlertTriangle,
@@ -12,7 +12,7 @@ import {
 import { useState, type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { SkillInvocation, SkillInvocationStatus } from '../../../ai/types.js';
+import type { SkillInvocation, SkillInvocationStatus } from '@nyxis/core';
 
 export interface SkillInvocationLogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Invocations, newest first. */

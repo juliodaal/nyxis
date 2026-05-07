@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Eye, Pencil, Shield } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { SkillScope, SkillScopeKind } from '../../../ai/types.js';
+import type { SkillScope, SkillScopeKind } from '@nyxis/core';
 
 export interface SkillPermissionsProps extends HTMLAttributes<HTMLUListElement> {
   /** Required scopes. */

@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react';
 import { useEffect, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MediaAttachment } from '../../../ai/types.js';
+import type { MediaAttachment } from '@nyxis/core';
 
 export interface ImageGalleryProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Images to render (kind === 'image' is assumed). */

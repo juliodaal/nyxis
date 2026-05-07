@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Plus, Search } from 'lucide-react';
 import { useMemo, useState, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPServer } from '../../../ai/types.js';
+import type { MCPServer } from '@nyxis/core';
 import { MCPServerCard } from '../mcp-server-card/mcp-server-card.js';
 
 export interface MCPServerListProps extends HTMLAttributes<HTMLDivElement> {

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { MCPLogStream } from './mcp-log-stream.js';
-import type { MCPLogEntry } from '../../../ai/types.js';
+import type { MCPLogEntry } from '@nyxis/core';
 
 const meta = {
   title: 'AI · MCP/MCPLogStream',

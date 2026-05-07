@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { RetrievedChunk } from '../../../ai/types.js';
+import type { RetrievedChunk } from '@nyxis/core';
 import { ChunkCard } from './chunk-card.js';
 
 const BASE: RetrievedChunk = {

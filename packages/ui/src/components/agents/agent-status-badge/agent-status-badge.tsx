@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, Brain, Check, Circle, Loader2, Pause } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AgentStatus } from '../../../ai/types.js';
+import type { AgentStatus } from '@nyxis/core';
 
 export interface AgentStatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
   status: AgentStatus;

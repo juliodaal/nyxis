@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {
   AlertTriangle,
@@ -12,7 +12,7 @@ import {
 import { useState, type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { DelegatedTask, DelegatedTaskStatus } from '../../../ai/types.js';
+import type { DelegatedTask, DelegatedTaskStatus } from '@nyxis/core';
 
 export interface TaskDelegationProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Root task(s). Pass an array for multiple top-level tasks. */

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { AlertCircle, Check, Eye, EyeOff, Loader2 } from 'lucide-react';
 import {
@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AIProviderId } from '../../../ai/types.js';
+import type { AIProviderId } from '@nyxis/core';
 
 export type APIKeyInputStatus = 'idle' | 'validating' | 'valid' | 'invalid' | 'rate-limited';
 

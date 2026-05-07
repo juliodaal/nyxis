@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { MCPPrompt } from '../../../ai/types.js';
+import type { MCPPrompt } from '@nyxis/core';
 import { MCPPromptLibrary } from './mcp-prompt-library.js';
 
 const PROMPTS: readonly MCPPrompt[] = [

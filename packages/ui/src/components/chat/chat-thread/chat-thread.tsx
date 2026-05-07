@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ArrowDown } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
@@ -7,7 +7,7 @@ import { cn } from '../../../lib/utils.js';
 import { ChatMessage } from '../../domain/chat-message/chat-message.js';
 import { TypingIndicator } from '../typing-indicator/typing-indicator.js';
 import { StreamingMarkdown } from '../streaming-markdown/streaming-markdown.js';
-import type { AIMessage } from '../../../ai/types.js';
+import type { AIMessage } from '@nyxis/core';
 
 export interface ChatThreadProps {
   /** Conversation to render. */

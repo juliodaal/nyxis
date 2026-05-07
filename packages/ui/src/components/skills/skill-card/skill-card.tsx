@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Sparkles, User } from 'lucide-react';
 import { type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Skill } from '../../../ai/types.js';
+import type { Skill } from '@nyxis/core';
 import { SkillAuthStatus } from '../skill-auth-status/skill-auth-status.js';
 import { SkillPermissions } from '../skill-permissions/skill-permissions.js';
 

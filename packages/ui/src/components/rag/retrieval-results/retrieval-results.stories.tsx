@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { RetrievalResults } from './retrieval-results.js';
-import type { RetrievedChunk } from '../../../ai/types.js';
+import type { RetrievedChunk } from '@nyxis/core';
 
 const meta = {
   title: 'AI · RAG/RetrievalResults',

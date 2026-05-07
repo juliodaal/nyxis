@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {
   AlertTriangle,
@@ -13,7 +13,7 @@ import {
 import { useState, type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AgentActivity, AgentActivityKind } from '../../../ai/types.js';
+import type { AgentActivity, AgentActivityKind } from '@nyxis/core';
 
 export interface AgentActivityFeedProps extends HTMLAttributes<HTMLDivElement> {
   /** Activities, newest first. */

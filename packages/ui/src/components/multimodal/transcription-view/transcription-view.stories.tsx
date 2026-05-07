@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState } from 'react';
 import { TranscriptionView } from './transcription-view.js';
-import type { TranscriptSegment } from '../../../ai/types.js';
+import type { TranscriptSegment } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Multimodal/TranscriptionView',

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { RAGPipeline } from './rag-pipeline.js';
-import type { RAGStage } from '../../../ai/types.js';
+import type { RAGStage } from '@nyxis/core';
 
 const meta = {
   title: 'AI · RAG/RAGPipeline',

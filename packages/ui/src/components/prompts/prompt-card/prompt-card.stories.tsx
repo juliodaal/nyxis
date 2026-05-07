@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { PromptCard } from './prompt-card.js';
-import type { Prompt } from '../../../ai/types.js';
+import type { Prompt } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Prompts/PromptCard',

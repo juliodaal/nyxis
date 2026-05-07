@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { EvalRow } from '../../../ai/types.js';
+import type { EvalRow } from '@nyxis/core';
 import { DatasetTable } from './dataset-table.js';
 
 const ROWS: EvalRow[] = [

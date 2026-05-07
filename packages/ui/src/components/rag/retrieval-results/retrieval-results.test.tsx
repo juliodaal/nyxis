@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { RetrievedChunk } from '../../../ai/types.js';
+import type { RetrievedChunk } from '@nyxis/core';
 import { RetrievalResults } from './retrieval-results.js';
 
 const CHUNKS: RetrievedChunk[] = [

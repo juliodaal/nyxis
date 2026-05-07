@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { SkillInvocation } from '../../../ai/types.js';
+import type { SkillInvocation } from '@nyxis/core';
 import { SkillInvocationLog } from './skill-invocation-log.js';
 
 const NOW = new Date('2026-05-06T12:30:00Z');

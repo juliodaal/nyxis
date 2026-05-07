@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { AIProviderId } from '../../../ai/types.js';
-import { PROVIDERS } from '../../../ai/adapters/registry.js';
+import type { AIProviderId } from '@nyxis/core';
+import { PROVIDERS } from '@nyxis/core';
 import { AIProviderSelector } from '../ai-provider-selector/ai-provider-selector.js';
 import { ModelPicker } from '../model-picker/model-picker.js';
 import { APIKeyInput, type APIKeyInputStatus } from '../api-key-input/api-key-input.js';

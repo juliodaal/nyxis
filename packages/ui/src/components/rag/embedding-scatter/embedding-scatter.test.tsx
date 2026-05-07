@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import type { EmbeddingPoint } from '../../../ai/types.js';
+import type { EmbeddingPoint } from '@nyxis/core';
 import { EmbeddingScatter } from './embedding-scatter.js';
 
 const POINTS: EmbeddingPoint[] = [

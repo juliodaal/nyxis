@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { Bot, FileText, Hash, Pencil, Tag } from 'lucide-react';
 import { type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { Prompt } from '../../../ai/types.js';
+import type { Prompt } from '@nyxis/core';
 
 export interface PromptCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Prompt to render. */

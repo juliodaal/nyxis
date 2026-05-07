@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import { Coins } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import { nyxisAIEvents } from '../../../ai/events.js';
-import type { AIUsage } from '../../../ai/types.js';
+import { nyxisAIEvents } from '@nyxis/core';
+import type { AIUsage } from '@nyxis/core';
 
 export interface CostMeterProps {
   /** Override / seed the running cost (USD). When omitted, the meter

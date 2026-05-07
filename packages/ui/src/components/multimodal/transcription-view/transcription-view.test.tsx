@@ -1,9 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TranscriptionView } from './transcription-view.js';
-import type { TranscriptSegment } from '../../../ai/types.js';
+import type { TranscriptSegment } from '@nyxis/core';
 
 const segments: TranscriptSegment[] = [
   { id: 's1', start: 0, end: 5, text: 'Hello there', speaker: 'Alice' },

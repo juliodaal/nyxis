@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useMemo, useRef, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { TranscriptSegment } from '../../../ai/types.js';
+import type { TranscriptSegment } from '@nyxis/core';
 
 export interface TranscriptionViewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Time-anchored transcript segments. */

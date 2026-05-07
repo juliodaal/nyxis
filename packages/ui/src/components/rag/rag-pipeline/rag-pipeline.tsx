@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { AlertTriangle, ArrowDown, ArrowRight, Check, Circle, Loader2 } from 'lucide-react';
 import { type ComponentType, type HTMLAttributes } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { RAGStage, RAGStageStatus } from '../../../ai/types.js';
+import type { RAGStage, RAGStageStatus } from '@nyxis/core';
 
 export interface RAGPipelineProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   /** Ordered stages in the pipeline. */

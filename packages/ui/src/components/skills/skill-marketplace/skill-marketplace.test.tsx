@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { Skill } from '../../../ai/types.js';
+import type { Skill } from '@nyxis/core';
 import { SkillMarketplace } from './skill-marketplace.js';
 
 const SKILLS: Skill[] = [

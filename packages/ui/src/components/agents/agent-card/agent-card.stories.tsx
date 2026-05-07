@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { AgentCard } from './agent-card.js';
-import type { Agent } from '../../../ai/types.js';
+import type { Agent } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Agents/AgentCard',

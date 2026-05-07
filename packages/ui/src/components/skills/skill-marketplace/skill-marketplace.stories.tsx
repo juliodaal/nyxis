@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { SkillMarketplace } from './skill-marketplace.js';
-import type { Skill } from '../../../ai/types.js';
+import type { Skill } from '@nyxis/core';
 
 const meta = {
   title: 'AI · Skills/SkillMarketplace',

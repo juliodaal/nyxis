@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import type { MCPServer } from '../../../ai/types.js';
+import type { MCPServer } from '@nyxis/core';
 import { MCPServerList } from './mcp-server-list.js';
 
 const SERVERS: readonly MCPServer[] = [

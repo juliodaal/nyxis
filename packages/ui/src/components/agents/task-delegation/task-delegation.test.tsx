@@ -1,9 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+﻿import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TaskDelegation } from './task-delegation.js';
-import type { DelegatedTask } from '../../../ai/types.js';
+import type { DelegatedTask } from '@nyxis/core';
 
 const tasks: DelegatedTask[] = [
   {

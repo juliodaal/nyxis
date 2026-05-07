@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import type { MCPCapability } from '../../../ai/types.js';
+import type { MCPCapability } from '@nyxis/core';
 import { MCPCapabilityBadge } from './mcp-capability-badge.js';
 
 const CAPABILITIES: readonly MCPCapability[] = [

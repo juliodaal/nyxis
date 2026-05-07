@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { MCPPromptLibrary } from './mcp-prompt-library.js';
-import type { MCPPrompt } from '../../../ai/types.js';
+import type { MCPPrompt } from '@nyxis/core';
 
 const meta = {
   title: 'AI · MCP/MCPPromptLibrary',

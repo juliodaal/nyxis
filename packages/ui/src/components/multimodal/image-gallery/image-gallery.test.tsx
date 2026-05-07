@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ImageGallery } from './image-gallery.js';
-import type { MediaAttachment } from '../../../ai/types.js';
+import type { MediaAttachment } from '@nyxis/core';
 
 const images: MediaAttachment[] = [
   { id: 'i1', kind: 'image', url: 'https://example.test/1.png', alt: 'first', name: 'First' },

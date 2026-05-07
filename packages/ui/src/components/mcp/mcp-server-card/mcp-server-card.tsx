@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ChevronDown, ChevronRight, Plug, PlugZap, Trash2 } from 'lucide-react';
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
 
 import { cn } from '../../../lib/utils.js';
-import type { MCPServer } from '../../../ai/types.js';
+import type { MCPServer } from '@nyxis/core';
 import { MCPCapabilityBadge } from '../mcp-capability-badge/mcp-capability-badge.js';
 import { MCPConnectionStatus } from '../mcp-connection-status/mcp-connection-status.js';
 
