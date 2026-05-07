@@ -1,8 +1,6 @@
 import { defineConfig } from 'tsup';
 
 const ui = (name: string) => `src/components/ui/${name}/index.ts`;
-const text = (name: string) => `src/components/text/${name}/index.ts`;
-const anim = (name: string) => `src/components/animations/${name}/index.ts`;
 const domain = (name: string) => `src/components/domain/${name}/index.ts`;
 const aiUi = (name: string) => `src/components/ai/${name}/index.ts`;
 const chat = (name: string) => `src/components/chat/${name}/index.ts`;
@@ -55,28 +53,6 @@ export default defineConfig({
     'components/ui/command/index': ui('command'),
     'components/ui/combobox/index': ui('combobox'),
     'components/ui/toast/index': ui('toast'),
-    // Text animations
-    'components/text/index': 'src/components/text/index.ts',
-    'components/text/split-text/index': text('split-text'),
-    'components/text/type-writer/index': text('type-writer'),
-    'components/text/scramble-text/index': text('scramble-text'),
-    'components/text/decrypt-text/index': text('decrypt-text'),
-    'components/text/gradient-text/index': text('gradient-text'),
-    'components/text/shiny-text/index': text('shiny-text'),
-    'components/text/count-up/index': text('count-up'),
-    'components/text/reveal-text/index': text('reveal-text'),
-    'components/text/marquee-text/index': text('marquee-text'),
-    'components/text/rotating-text/index': text('rotating-text'),
-    // Effect animations
-    'components/animations/index': 'src/components/animations/index.ts',
-    'components/animations/magnetic-button/index': anim('magnetic-button'),
-    'components/animations/spotlight-cursor/index': anim('spotlight-cursor'),
-    'components/animations/parallax-container/index': anim('parallax-container'),
-    'components/animations/stagger-reveal/index': anim('stagger-reveal'),
-    'components/animations/tilt-card/index': anim('tilt-card'),
-    'components/animations/aurora-background/index': anim('aurora-background'),
-    'components/animations/dot-grid-background/index': anim('dot-grid-background'),
-    'components/animations/mesh-gradient-background/index': anim('mesh-gradient-background'),
     // Domain
     'components/domain/index': 'src/components/domain/index.ts',
     'components/domain/confidence-badge/index': domain('confidence-badge'),
@@ -203,7 +179,6 @@ export default defineConfig({
     'react',
     'react-dom',
     'react/jsx-runtime',
-    'gsap',
     'framer-motion',
     'react-hook-form',
     'zod',

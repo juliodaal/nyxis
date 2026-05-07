@@ -8,9 +8,7 @@
 
 export type Category =
   | 'getting-started'
-  | 'text-animations'
   | 'components'
-  | 'animations'
   | 'domain'
   | 'ai-models'
   | 'chat'
@@ -47,26 +45,14 @@ export const CATEGORIES: readonly CategoryGroup[] = [
   {
     id: 'getting-started',
     label: 'Getting started',
-    description: 'Install Nyxis, configure theming, security guidance.',
+    description: 'Install Nyxis and configure theming.',
     href: '/docs',
-  },
-  {
-    id: 'text-animations',
-    label: 'Text animations',
-    description: 'GSAP-powered text effects with reduced-motion support.',
-    href: '/text-animations',
   },
   {
     id: 'components',
     label: 'Components',
     description: 'Accessible UI primitives built on Radix UI.',
     href: '/components',
-  },
-  {
-    id: 'animations',
-    label: 'Animations',
-    description: 'Effect components and animated backgrounds.',
-    href: '/animations',
   },
   {
     id: 'ai-models',
@@ -172,88 +158,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     name: 'Theming',
     category: 'getting-started',
     description: 'Five-mode theming, design tokens, and FOUC prevention.',
-    status: 'stable',
-  },
-  {
-    slug: 'security',
-    name: 'Security',
-    category: 'getting-started',
-    description: 'Hardening practices and vulnerability disclosure.',
-    status: 'stable',
-  },
-
-  // ── Text animations (Phase 5) ───────────────────────────────────────
-  {
-    slug: 'split-text',
-    name: 'SplitText',
-    category: 'text-animations',
-    description: 'Animate entry of characters, words, or lines.',
-    status: 'stable',
-    importPath: 'nyxis-ui',
-    dependencies: ['gsap'],
-  },
-  {
-    slug: 'type-writer',
-    name: 'TypeWriter',
-    category: 'text-animations',
-    description: 'Typewriter effect with multi-string support.',
-    status: 'stable',
-    importPath: 'nyxis-ui',
-  },
-  {
-    slug: 'scramble-text',
-    name: 'ScrambleText',
-    category: 'text-animations',
-    description: 'Scrambled cipher resolves into the final text.',
-    status: 'stable',
-  },
-  {
-    slug: 'decrypt-text',
-    name: 'DecryptText',
-    category: 'text-animations',
-    description: 'Matrix-style decryption animation.',
-    status: 'stable',
-  },
-  {
-    slug: 'gradient-text',
-    name: 'GradientText',
-    category: 'text-animations',
-    description: 'Pure-CSS animated gradient text.',
-    status: 'stable',
-  },
-  {
-    slug: 'shiny-text',
-    name: 'ShinyText',
-    category: 'text-animations',
-    description: 'Light sweep across a text label.',
-    status: 'stable',
-  },
-  {
-    slug: 'count-up',
-    name: 'CountUp',
-    category: 'text-animations',
-    description: 'Animate a number with locale-aware formatting.',
-    status: 'stable',
-  },
-  {
-    slug: 'reveal-text',
-    name: 'RevealText',
-    category: 'text-animations',
-    description: 'Reveal text on scroll via ScrollTrigger.',
-    status: 'stable',
-  },
-  {
-    slug: 'marquee-text',
-    name: 'MarqueeText',
-    category: 'text-animations',
-    description: 'Infinite horizontal scrolling text.',
-    status: 'stable',
-  },
-  {
-    slug: 'rotating-text',
-    name: 'RotatingText',
-    category: 'text-animations',
-    description: 'Cycle through words with slide, fade or scramble transitions.',
     status: 'stable',
   },
 
@@ -420,68 +324,6 @@ export const REGISTRY: readonly RegistryEntry[] = [
     category: 'components',
     description: 'react-hook-form + zod wrapper with FormField, FormItem, FormMessage.',
     status: 'stable',
-  },
-
-  // ── Effect animations (Phase 6) ─────────────────────────────────────
-  {
-    slug: 'magnetic-button',
-    name: 'MagneticButton',
-    category: 'animations',
-    description: 'Button that pulls toward the cursor.',
-    status: 'stable',
-    dependencies: ['gsap'],
-  },
-  {
-    slug: 'spotlight-cursor',
-    name: 'SpotlightCursor',
-    category: 'animations',
-    description: 'Radial gradient that follows the cursor.',
-    status: 'stable',
-  },
-  {
-    slug: 'parallax-container',
-    name: 'ParallaxContainer',
-    category: 'animations',
-    description: 'Scroll-triggered layered parallax.',
-    status: 'stable',
-    dependencies: ['gsap'],
-  },
-  {
-    slug: 'stagger-reveal',
-    name: 'StaggerReveal',
-    category: 'animations',
-    description: 'Animate children into view in sequence.',
-    status: 'stable',
-    dependencies: ['gsap'],
-  },
-  {
-    slug: 'tilt-card',
-    name: 'TiltCard',
-    category: 'animations',
-    description: 'Cursor-tracked 3D tilt with optional glare.',
-    status: 'stable',
-  },
-  {
-    slug: 'aurora-background',
-    name: 'AuroraBackground',
-    category: 'animations',
-    description: 'Soft animated aurora backdrop.',
-    status: 'stable',
-  },
-  {
-    slug: 'dot-grid-background',
-    name: 'DotGridBackground',
-    category: 'animations',
-    description: 'Canvas dot grid that reacts to hover.',
-    status: 'stable',
-  },
-  {
-    slug: 'mesh-gradient-background',
-    name: 'MeshGradientBackground',
-    category: 'animations',
-    description: 'Animated SVG mesh gradient.',
-    status: 'stable',
-    dependencies: ['gsap'],
   },
 
   // ── AI patterns ─────────────────────────────────────────────────────

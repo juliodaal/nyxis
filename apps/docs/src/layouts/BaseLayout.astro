@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { getThemeScript } from 'nyxis-ui/theme';
 
 export interface Props {
@@ -41,6 +42,8 @@ const themeScript = getThemeScript();
 
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#A855F7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#7C3AED" />
+
+    <ClientRouter />
   </head>
   <body>
     <slot />

@@ -37,7 +37,8 @@ import { GradientAura } from 'nyxis-ui';
 - `colors` accepts a 3-stop array — defaults to primary → violet → sky.
 - Pure CSS — no canvas, no deps. Honours `prefers-reduced-motion`.
 
-## When to use this vs. `<AuroraBackground>`
+## When to use
 
-- `<GradientAura>` — element-scoped (sits behind one card / button / hero block).
-- `<AuroraBackground>` — full-viewport ambient backdrop.
+Element-scoped — sits behind one card, button, or hero block. For a
+full-viewport ambient backdrop, use a CSS gradient on the page wrapper
+itself instead of a wrapping component.

@@ -3,8 +3,8 @@
  * Generate rich MDX pages for every component in the registry. Each page
  * has frontmatter, a live `<Preview>` showing the actual component, an
  * Installation block, and a Usage code snippet. Always overwrites pages
- * in `components/`, `text-animations/`, `animations/`, and `domain/`;
- * the `docs/` collection is hand-maintained and never touched.
+ * in `components/` and `domain/`; the `docs/` collection is
+ * hand-maintained and never touched.
  *
  *   node scripts/generate-stubs.mjs
  */
@@ -28,38 +28,13 @@ function pascal(slug) {
 const COLLECTION_DIR = {
   'getting-started': 'docs',
   components: 'components',
-  'text-animations': 'text-animations',
-  animations: 'animations',
   domain: 'domain',
   'ai-models': 'ai-models',
 };
 
-const AUTO_GENERATE = new Set([
-  'components',
-  'text-animations',
-  'animations',
-  'domain',
-  'ai-models',
-]);
+const AUTO_GENERATE = new Set(['components', 'domain', 'ai-models']);
 
 const USAGE_SNIPPETS = {
-  'split-text': `<SplitText as="h1" splitBy="words" stagger={0.05}>
-  Document intelligence, automated.
-</SplitText>`,
-  'type-writer': `<TypeWriter
-  text={['document intelligence', 'meeting summaries', 'lead qualification']}
-/>`,
-  'scramble-text': `<ScrambleText>extracting invoice fields...</ScrambleText>`,
-  'decrypt-text': `<DecryptText durationPerChar={80}>classifying inbox queue...</DecryptText>`,
-  'gradient-text': `<GradientText as="h1">AI products that ship.</GradientText>`,
-  'shiny-text': `<ShinyText>Premium · Pro · Enterprise</ShinyText>`,
-  'count-up': `<CountUp to={48210} format="currency" currency="EUR" />`,
-  'reveal-text': `<RevealText>Scroll-triggered reveals are accessible by default.</RevealText>`,
-  'marquee-text': `<MarqueeText speed={28}>
-  {logos.map((logo) => <span key={logo}>{logo}</span>)}
-</MarqueeText>`,
-  'rotating-text': `<RotatingText words={['Sales', 'Operations', 'Finance', 'Support']} />`,
-
   button: `<Button>Click me</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="outline">Outline</Button>
@@ -194,31 +169,6 @@ return (
   </Form>
 );`,
 
-  'magnetic-button': `<MagneticButton strength={0.45} distance={140}>
-  Hover me
-</MagneticButton>`,
-  'spotlight-cursor': `<SpotlightCursor>
-  <section>...your content...</section>
-</SpotlightCursor>`,
-  'parallax-container': `<ParallaxContainer depth={120}>
-  <h2>I move slower than the page.</h2>
-</ParallaxContainer>`,
-  'stagger-reveal': `<StaggerReveal>
-  {items.map((item) => <div key={item.id}>{item.label}</div>)}
-</StaggerReveal>`,
-  'tilt-card': `<TiltCard>
-  <Card>...</Card>
-</TiltCard>`,
-  'aurora-background': `<AuroraBackground>
-  <Hero />
-</AuroraBackground>`,
-  'dot-grid-background': `<DotGridBackground>
-  <Hero />
-</DotGridBackground>`,
-  'mesh-gradient-background': `<MeshGradientBackground>
-  <Hero />
-</MeshGradientBackground>`,
-
   'confidence-badge': `<ConfidenceBadge score={0.97} />
 <ConfidenceBadge score={0.74} />
 <ConfidenceBadge score={0.42} />`,
@@ -329,15 +279,7 @@ return (
 />`,
 };
 
-const PREVIEW_PROPS = {
-  'spotlight-cursor': { fullBleed: true, minHeight: 'lg' },
-  'aurora-background': { fullBleed: true, minHeight: 'lg' },
-  'dot-grid-background': { fullBleed: true, minHeight: 'lg' },
-  'mesh-gradient-background': { fullBleed: true, minHeight: 'lg' },
-  'parallax-container': { minHeight: 'sm' },
-  'reveal-text': { minHeight: 'sm' },
-  'marquee-text': { fullBleed: true, minHeight: 'sm' },
-};
+const PREVIEW_PROPS = {};
 
 async function fileExists(path) {
   try {

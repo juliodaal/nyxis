@@ -36,12 +36,10 @@ export default function CommandPalette({ items }: Props) {
     return acc;
   }, {});
 
-  const groupOrder = ['getting-started', 'components', 'text-animations', 'animations', 'domain'];
+  const groupOrder = ['getting-started', 'components', 'domain'];
   const groupLabels: Record<string, string> = {
     'getting-started': 'Getting started',
     components: 'Components',
-    'text-animations': 'Text animations',
-    animations: 'Animations',
     domain: 'Domain patterns',
   };
 

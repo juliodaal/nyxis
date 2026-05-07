@@ -1,65 +1,45 @@
-# nyxis-ui
+# @nyxis/core
 
-[![npm version](https://img.shields.io/npm/v/nyxis-ui?color=A855F7)](https://www.npmjs.com/package/nyxis-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-A855F7.svg)](https://github.com/juliodaal/nyxis/blob/main/LICENSE)
 
-A modern React component library for AI-powered products. Built with Tailwind
-CSS v4, Radix UI, and GSAP.
+The runtime core of [Nyxis](https://nyxis.vercel.app) — a toolkit for building
+AI products. This package holds the shared types, the `createModel` provider
+adapter, and the event bus consumed by both the frontend components (copy-paste
+via `npx shadcn add @nyxis/<name>`) and the backend recipes.
+
+This package alone does not give you UI. Pair it with the registry:
+
+```bash
+# Add a component (lands as editable source in your repo)
+npx shadcn add @nyxis/chat-message
+
+# Add a backend recipe (lands as editable source in your repo)
+npx shadcn add @nyxis/api-chat
+```
 
 → [Documentation](https://nyxis.vercel.app) ·
 [Storybook](https://nyxis-storybook.vercel.app)
 
-## Installation
+## Install
 
 ```bash
-pnpm add nyxis-ui
-# or: npm install nyxis-ui
+pnpm add @nyxis/core
 ```
 
-You also need `react`, `react-dom`, and (for any animation component) `gsap`:
+## What's inside
 
-```bash
-pnpm add react react-dom gsap
-```
+- **Types** — `AIMessage`, `AIToolCall`, `AICitation`, `AIProviderId`, etc.
+- **`createModel`** — provider-agnostic adapter (Anthropic, OpenAI, Google,
+  Mistral, Ollama out of the box; extensible).
+- **Event bus** — token streaming, cost tracking, usage events.
+- **Hooks** — `useChat`, `useAIStream`, `useToolExecutor`.
 
-## Setup
+## Why a separate package?
 
-Import the stylesheet **once** at the root of your app (e.g. `app/layout.tsx`
-for Next.js or `src/main.tsx` for Vite):
-
-```tsx
-import 'nyxis-ui/styles.css';
-```
-
-Then use components anywhere:
-
-```tsx
-import { Button } from 'nyxis-ui';
-
-export function Hero() {
-  return <Button variant="default">Get started</Button>;
-}
-```
-
-For stricter tree-shaking, import from the subpath:
-
-```tsx
-import { Button } from 'nyxis-ui/button';
-```
-
-## Theming
-
-Nyxis ships five themes: `light`, `dark`, `dim`, `high-contrast`, and `system`.
-Set the active theme by adding `data-theme` to your `<html>`:
-
-```html
-<html data-theme="dark">
-  ...
-</html>
-```
-
-A FOUC-free initialization script and `<ThemeToggle>` component are documented
-in the [theming guide](https://nyxis.vercel.app/docs/theming).
+Components and backend recipes that you `shadcn add` need a stable place to
+import shared types and the provider adapter from. Without a versioned core,
+registry items would drift apart. `@nyxis/core` is intentionally tiny — no UI,
+no CSS, no Tailwind.
 
 ## License
 

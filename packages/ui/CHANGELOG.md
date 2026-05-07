@@ -1,5 +1,47 @@
 # nyxis-ui
 
+## 0.15.0
+
+### Phase 1 — Re-base toward shadcn registry distribution
+
+**BREAKING.** Strategic shift in distribution model. The package now positions
+itself as the runtime core (`@nyxis/core`) of a shadcn-style registry.
+Components and backend recipes will be copy-paste via
+`npx shadcn add @nyxis/<name>` rather than imported from this package.
+
+This release is the cleanup pass:
+
+### Removed
+
+- **GSAP** dependency in full — package, peer dep, optional dep, dev dep,
+  external. The kit is for AI products, not animations.
+- **`text-animations`** category (10 components): SplitText, TypeWriter,
+  ScrambleText, DecryptText, GradientText, ShinyText, CountUp, RevealText,
+  MarqueeText, RotatingText.
+- **`animations`** category (8 components): MagneticButton, SpotlightCursor,
+  ParallaxContainer, StaggerReveal, TiltCard, AuroraBackground,
+  DotGridBackground, MeshGradientBackground.
+- **`lib/gsap/`** helpers (`use-gsap`, `split`).
+- Subpath exports for the above.
+
+### Kept
+
+- **`ai-animations`** (6 components: SparkleField, AIHaloBorder, ThinkingOrb,
+  NeuralBackground, TokenStream, GradientAura). These are AI-specific motion
+  primitives; canvas / CSS / framer-motion only — no GSAP. Differentiator.
+- All AI categories (chat, agents, MCP, RAG, tools, multimodal, prompts,
+  reasoning, skills, ai-models).
+- Domain patterns.
+- The 22 base UI primitives (Button, Card, Form, etc.) — kept here for this
+  release; will be removed in **0.16.0** when components migrate to build on top
+  of shadcn/ui directly.
+
+### Migration
+
+If you depended on a removed component, copy its source from the git history
+(commit before 0.15.0) into your project. None of the removed components had
+AI-specific behaviour; equivalent CSS / framer-motion implementations are short.
+
 ## 0.14.0
 
 ### Phase N — AI Animations
@@ -27,8 +69,7 @@ runtime.
   horizontal lane. Use as a streaming indicator above a chat composer or codegen
   surface.
 - **`<GradientAura>`** — soft, rotating conic-gradient glow behind any child.
-  Element-scoped (use `<AuroraBackground>` for full viewport). Configurable
-  intensity / speed / colour stops.
+  Element-scoped. Configurable intensity / speed / colour stops.
 
 ### Internal
 
