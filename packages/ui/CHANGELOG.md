@@ -1,5 +1,57 @@
 # nyxis-ui
 
+## 0.18.0
+
+### Phase 1B.5 — Theme system only
+
+**BREAKING.** The base UI primitives leave the package. `nyxis-ui` is now a tiny
+theme-only package: design tokens, the `<ThemeToggle>` runtime, and the `cn()`
+helper. Every component (base or AI-first) is distributed via the shadcn
+registry now.
+
+### Removed
+
+- All 22 base UI primitives previously exported here (Button, Input, Textarea,
+  Label, Card, Badge, Avatar, Separator, Skeleton, Dialog, Sheet, Drawer,
+  Popover, Tooltip, Select, Checkbox, Switch, RadioGroup, Form, Tabs, Accordion,
+  Command, Combobox, Toast).
+- All Radix UI peer/runtime deps that powered those primitives.
+- Form and table runtime deps (`@hookform/resolvers`, `react-hook-form`, `cmdk`,
+  `vaul`, `sonner`, `class-variance-authority`, `lucide-react`, `zod`). Each
+  migrated to the relevant registry items' `dependencies` array.
+- Storybook tooling — the registry source files in `apps/docs/registry/` are the
+  new visual reference.
+
+### Kept
+
+- Theme system (`<ThemeToggle>`, `getThemeScript`, design tokens CSS).
+- `cn()` helper at `nyxis-ui/utils`.
+
+### Migration
+
+Replace any import of a base UI primitive with the equivalent shadcn install.
+Example:
+
+```diff
+- import { Button } from 'nyxis-ui';
++ // 1. install Button via the shadcn CLI from the standard registry:
++ //    npx shadcn@latest add button
++ // 2. import from your project:
++ import { Button } from '@/components/ui/button';
+```
+
+If you prefer Nyxis's exact baseline of those primitives (instead of shadcn/ui's
+official ones), copy the source files from this repo's
+`apps/docs/src/components/ui/` directory, which keeps the prior implementations.
+
+The five-mode theme runtime stays where it was:
+
+```ts
+import { ThemeToggle, getThemeScript } from 'nyxis-ui/theme';
+import { cn } from 'nyxis-ui/utils';
+import 'nyxis-ui/styles.css';
+```
+
 ## 0.17.0
 
 ### Phase 1B.4 — AI-first components leave the package

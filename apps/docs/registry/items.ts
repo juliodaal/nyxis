@@ -65,6 +65,8 @@ export interface RegistryItemSpec {
  */
 export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
   // ── Shared lib (auto-installed when any component depends on it) ──
+  // Source is read from the docs site's own `src/lib/utils.ts` so the
+  // file the registry serves is the same one the docs site uses.
   {
     name: 'utils',
     type: 'registry:lib',
@@ -73,11 +75,30 @@ export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
     dependencies: ['clsx', 'tailwind-merge'],
     files: [
       {
-        source: 'lib/utils.ts',
+        source: '../src/lib/utils.ts',
         target: 'lib/utils.ts',
         type: 'registry:lib',
       },
     ],
+  },
+
+  // ── Theme ──────────────────────────────────────────────────────────
+  {
+    name: 'theme-toggle',
+    type: 'registry:ui',
+    title: 'Theme Toggle',
+    description:
+      'Five-mode theme switcher (light/dark/dim/high-contrast/system) backed by Nyxis design tokens.',
+    dependencies: ['lucide-react', '@radix-ui/react-dropdown-menu', 'nyxis-ui'],
+    registryDependencies: ['utils'],
+    files: [
+      {
+        source: 'components/theme-toggle.tsx',
+        target: 'components/nyxis/theme-toggle.tsx',
+        type: 'registry:ui',
+      },
+    ],
+    category: 'getting-started',
   },
 
   // ── Domain patterns ────────────────────────────────────────────────

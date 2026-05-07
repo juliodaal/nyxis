@@ -5,9 +5,7 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/lib/utils": ["./registry/lib/utils.ts"],
       "@/components/nyxis/*": ["./registry/components/*"],
-      "@/components/ui/*": ["../../packages/ui/src/components/ui/*"],
       "@/*": ["./src/*"]
     },
     "verbatimModuleSyntax": true,

@@ -11,6 +11,9 @@
  * import the resulting files from `@/components/nyxis/<name>`.
  */
 
+// ── Theme ──────────────────────────────────────────────────────────────
+export { ThemeToggle } from '@/components/nyxis/theme-toggle';
+
 // ── Domain ─────────────────────────────────────────────────────────────
 export { ConfidenceBadge } from '@/components/nyxis/confidence-badge';
 export { SentimentIndicator } from '@/components/nyxis/sentiment-indicator';

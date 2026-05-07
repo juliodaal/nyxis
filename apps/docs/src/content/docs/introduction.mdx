@@ -5,48 +5,66 @@ category: getting-started
 status: stable
 ---
 
-**Nyxis** is a toolkit for building AI products. It is built on top of
-[shadcn/ui](https://ui.shadcn.com) and distributes components through the
-shadcn CLI: every piece is copy-paste source code that lands in your repo
-and is yours to edit.
+**Nyxis** is a toolkit for building AI products. Chat, agents, RAG,
+MCP, tools, multimodal, prompt tooling, evaluation, skills — the
+patterns the community keeps re-implementing. It's built on top of
+[shadcn/ui](https://ui.shadcn.com) and distributed through the standard
+shadcn CLI: every component is copy-paste source code that lands in
+your repo and is yours to edit.
 
 ## What you get
 
-- **AI-first components** for chat, agents, RAG, MCP, tools, multimodal,
-  prompts, evaluation, and skills — patterns the community keeps
-  re-implementing.
-- **Backend recipes** — route handlers, server helpers, schemas — that
-  give you a working AI server in minutes. Provider-agnostic.
-- **`@nyxis/core`** — a tiny npm package holding shared types, the
-  provider adapter, and the event bus. The only thing that needs to be
-  versioned.
-- **Editable everywhere** — every component is plain Tailwind + Radix.
-  Change a class, add a prop, rip something out. There is no abstraction
-  to fight.
-- **Provider-agnostic** — Anthropic, OpenAI, Google, Mistral, Ollama out
-  of the box. Add your own with a single file.
+- **84+ AI-first components** across chat, agents, RAG, MCP, tools,
+  multimodal, prompts, skills, reasoning, AI animations, and dashboard
+  patterns. All shadcn-style: Tailwind classes, Radix where it
+  matters, no theming abstraction to fight.
+- **`@nyxis/core`** — a tiny npm package holding the shared types,
+  the provider adapter, an event bus, and React hooks. The only piece
+  of Nyxis that needs versioning.
+- **`nyxis-ui`** — a separate tiny npm package with the five-mode
+  theme runtime (`<ThemeToggle>`, `getThemeScript`) and the design
+  tokens stylesheet.
+- **Provider-agnostic.** Anthropic, OpenAI, Google, Mistral, Ollama
+  out of the box; add your own with a single file.
 
 ## Distribution model
 
-Nyxis ships as **three layers**, none subordinate to the others:
+Nyxis distributes through three layers, none subordinate to the
+others:
 
-1. **`@nyxis/core`** — npm package. Types, adapter, event bus.
-2. **Frontend registry** — `npx shadcn add @nyxis/<component>`. UI you own.
-3. **Backend registry** — `npx shadcn add @nyxis/<recipe>`. Servers you own.
+1. **`@nyxis/core`** — npm package. Types, adapter, event bus, hooks.
+2. **`nyxis-ui`** — npm package. Theme tokens + theme runtime.
+3. **Registry** — `npx shadcn@latest add @nyxis/<name>`. UI you own.
 
-You can install only the backend, only the frontend, or both. Future:
-an MCP server exposes the catalog to Claude Code, Cursor, and Windsurf so
-the assistant can scaffold an entire AI app from prompts.
+You can install only the runtime, only the theme, only some
+components, or everything. The shadcn CLI resolves cascading
+dependencies so installing a complex item (say, `agent-roster`) pulls
+its sub-components (`agent-card`, `agent-status-badge`) and the
+`utils` lib in one shot.
+
+The future ([roadmap](#roadmap)) adds backend recipes (route handlers,
+server helpers) to the registry, an MCP server that exposes the
+catalog to Claude Code / Cursor / Windsurf, and parallel registries
+for Vue / Svelte / Angular / Astro / FastAPI.
 
 ## How the docs are organised
 
-- **Getting started** — installation and theming.
-- **Components** — base UI primitives (re-exported from shadcn/ui for
-  convenience).
+- **Getting started** — installation, theming, registry usage.
 - **AI categories** — chat, reasoning, tools, MCP, agents, multimodal,
-  prompts, RAG, skills.
+  prompts/eval, RAG, skills.
 - **AI animations** — motion primitives specific to AI products
   (sparkle fields, halo borders, neural backgrounds).
-- **Domain patterns** — purpose-built components for AI workflows.
+- **Domain patterns** — purpose-built components for AI dashboards
+  and operational workflows.
 
 Use **⌘K** (or **Ctrl K**) at any time to jump to a component.
+
+## Roadmap
+
+| Phase                                                    | Status                         |
+| -------------------------------------------------------- | ------------------------------ |
+| 1 — Frontend registry                                    | **Done.** This is what's live. |
+| 2 — Backend recipes (route handlers, server helpers)     | Planned.                       |
+| 3 — Public provider extension API                        | Planned.                       |
+| 4 — MCP server for IDE assistants                        | Planned.                       |
+| 5+ — Vue / Svelte / Angular / Astro / FastAPI registries | Planned.                       |
