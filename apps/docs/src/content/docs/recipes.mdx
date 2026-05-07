@@ -1,0 +1,119 @@
+---
+title: Backend recipes
+description: Route handlers for chat, completion, tools, and RAG — installed via the shadcn CLI.
+category: getting-started
+status: stable
+---
+
+The same registry that ships UI components also ships **server-side
+recipes**: route handlers and helpers that drop into your project as
+plain TypeScript. They're configured with `@nyxis/core` so the engine
+stays hidden — when we swap the underlying provider SDK, your code
+keeps working without changes.
+
+The four recipes below cover what most AI apps need on day one. Each
+one targets Next.js App Router; ports to Astro, Hono, Express, and
+Sveltekit ship in Phase 2.5.
+
+## `api-chat` — streaming chat
+
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/api-chat.json
+```
+
+Installs:
+
+- `app/api/chat/route.ts` — POST handler, edge runtime, `useChat`-compatible.
+- `lib/ai/system-prompt.ts` — default system prompt, edit at will.
+
+Wire it to the client `<ChatThread>` + `<ChatMessage>` from the
+registry, and to the `useChat` hook from `@nyxis/core`:
+
+```tsx
+'use client';
+import { useChat } from '@nyxis/core';
+import { ChatThread } from '@/components/nyxis/chat-thread';
+import { ChatMessage } from '@/components/nyxis/chat-message';
+
+export function Chat() {
+  const { messages } = useChat({ api: '/api/chat' });
+  return (
+    <ChatThread messages={messages}>
+      {messages.map((m) => (
+        <ChatMessage key={m.id} role={m.role}>
+          {m.content}
+        </ChatMessage>
+      ))}
+    </ChatThread>
+  );
+}
+```
+
+## `api-completion` — single-shot prompts
+
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/api-completion.json
+```
+
+For one-off generations: autocomplete, summary previews, classification.
+Posts `{ prompt }` and streams plain text back. No conversation state.
+
+## `api-tools` — chat with function calling
+
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/api-tools.json
+```
+
+Installs:
+
+- `app/api/chat-tools/route.ts` — chat handler that exposes tools.
+- `lib/ai/tools.ts` — Zod-typed tool definitions (two stubs: `searchWeb`,
+  `calculate`). Replace with your real backends.
+
+Pair the response stream with the registry's `<ToolCall>` and
+`<ToolResult>` components for a polished UX.
+
+## `api-rag` — chat with retrieval
+
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/api-rag.json
+```
+
+Installs:
+
+- `app/api/rag/route.ts` — handler that retrieves chunks and injects
+  them into the system prompt before each turn.
+- `lib/ai/retrieve.ts` — retriever stub (in-memory naive scoring).
+  Replace with your real vector store (pgvector, Pinecone, Weaviate,
+  Qdrant, Chroma, Turbopuffer, etc.).
+
+The retriever returns `RetrievedChunk[]` (the type from `@nyxis/core`),
+so the response can render directly through the registry's
+`<RetrievalResults>`, `<ChunkCard>`, and `<CitationCard>` components.
+
+## Configure providers
+
+Every recipe defaults to Anthropic. Set the env var for the providers
+you actually use:
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-…
+OPENAI_API_KEY=sk-…
+GOOGLE_GENERATIVE_AI_API_KEY=AIza…
+MISTRAL_API_KEY=…
+# Ollama needs no key but expects `ollama serve` on localhost:11434
+```
+
+Switch the default per recipe by editing `defaultProvider` and
+`defaultModel`, or let the client pass them per request — the handler
+honours both.
+
+## Why hidden engine
+
+The recipes call `createChatHandler` and `createCompletionHandler` from
+`@nyxis/core/server`, which lazily resolve a provider via `createModel`.
+You don't import `ai` or `@ai-sdk/<provider>` directly. When the
+underlying SDK changes (or we swap engines), your `route.ts` stays the
+same. When you want full control, copy the body of `createChatHandler`
+into your route and edit it to taste — that's the shadcn-style escape
+hatch.
