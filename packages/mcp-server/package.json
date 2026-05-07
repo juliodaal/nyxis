@@ -1,6 +1,6 @@
 {
   "name": "@nyxis/mcp-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server that exposes the Nyxis registry to AI coding assistants (Claude Code, Cursor, Windsurf, etc.).",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
