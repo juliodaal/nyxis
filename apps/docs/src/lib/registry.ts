@@ -167,6 +167,13 @@ export const REGISTRY: readonly RegistryEntry[] = [
     description: 'How the Nyxis registry works and how to install components.',
     status: 'stable',
   },
+  {
+    slug: 'recipes',
+    name: 'Backend recipes',
+    category: 'getting-started',
+    description: 'Route handlers for chat, completion, tools, and RAG.',
+    status: 'stable',
+  },
 
   // ── Base UI components (Phase 4) ────────────────────────────────────
   {

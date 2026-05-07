@@ -12,5 +12,5 @@
     "noUncheckedIndexedAccess": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", ".astro"]
+  "exclude": ["dist", ".astro", "registry/api/**", "registry/lib/ai/**"]
 }

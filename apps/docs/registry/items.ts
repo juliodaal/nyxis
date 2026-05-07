@@ -82,6 +82,94 @@ export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
     ],
   },
 
+  // ── Backend recipes ────────────────────────────────────────────────
+  // Phase 2 — server-side route handlers and helpers, distributed as
+  // copy-paste source. Each recipe lands as one or more files in the
+  // consumer's repo. Targets assume Next.js App Router conventions
+  // (app/api/<name>/route.ts, lib/ai/<helper>.ts) — adapt as needed.
+  {
+    name: 'api-chat',
+    type: 'registry:file',
+    title: 'POST /api/chat',
+    description:
+      'Streaming chat route handler for Next.js App Router — provider-agnostic, useChat-compatible.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: [],
+    files: [
+      {
+        source: 'api/chat/route.ts',
+        target: 'app/api/chat/route.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/system-prompt.ts',
+        target: 'lib/ai/system-prompt.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-completion',
+    type: 'registry:file',
+    title: 'POST /api/completion',
+    description: 'Single-shot streaming completion endpoint. For autocomplete and one-off prompts.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat'],
+    files: [
+      {
+        source: 'api/completion/route.ts',
+        target: 'app/api/completion/route.ts',
+        type: 'registry:file',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-tools',
+    type: 'registry:file',
+    title: 'POST /api/chat-tools',
+    description:
+      'Streaming chat handler with tool calling — pair with the ToolCall and ToolResult components.',
+    dependencies: ['@nyxis/core', 'ai', 'zod'],
+    registryDependencies: ['api-chat'],
+    files: [
+      {
+        source: 'api/tools/route.ts',
+        target: 'app/api/chat-tools/route.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/tools.ts',
+        target: 'lib/ai/tools.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-rag',
+    type: 'registry:file',
+    title: 'POST /api/rag',
+    description:
+      'RAG-style chat handler — retrieves relevant chunks before each turn and injects them as context.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat'],
+    files: [
+      {
+        source: 'api/rag/route.ts',
+        target: 'app/api/rag/route.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/retrieve.ts',
+        target: 'lib/ai/retrieve.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+
   // ── Theme ──────────────────────────────────────────────────────────
   {
     name: 'theme-toggle',
