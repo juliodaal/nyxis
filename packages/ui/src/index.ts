@@ -44,12 +44,6 @@ export * from './components/ui/command/index.js';
 export * from './components/ui/combobox/index.js';
 export * from './components/ui/toast/index.js';
 
-// Text animations
-export * from './components/text/index.js';
-
-// Effect animations
-export * from './components/animations/index.js';
-
 // Domain patterns
 export * from './components/domain/index.js';
 

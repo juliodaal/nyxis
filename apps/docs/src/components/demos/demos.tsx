@@ -30,7 +30,6 @@ import {
   AgentStatusBadge,
   AudioPlayer,
   AuditLogItem,
-  AuroraBackground,
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -60,10 +59,8 @@ import {
   CommandList,
   CommandShortcut,
   ConfidenceBadge,
-  CountUp,
   DataTable,
   DatasetTable,
-  DecryptText,
   Dialog,
   DialogClose,
   DialogContent,
@@ -72,7 +69,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DotGridBackground,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -93,7 +89,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  GradientText,
   ImageGallery,
   ImageMessage,
   Input,
@@ -101,8 +96,6 @@ import {
   Label,
   MetricCard,
   LeadCard,
-  MagneticButton,
-  MarqueeText,
   MCPCapabilityBadge,
   MCPConnectionStatus,
   MCPLogStream,
@@ -111,9 +104,7 @@ import {
   MCPServerCard,
   MCPServerList,
   MessageActions,
-  MeshGradientBackground,
   ParameterForm,
-  ParallaxContainer,
   Popover,
   PromptCard,
   PromptVariableForm,
@@ -124,9 +115,6 @@ import {
   RAGPipeline,
   ReasoningTrace,
   RetrievalResults,
-  RevealText,
-  RotatingText,
-  ScrambleText,
   Select,
   SelectContent,
   SelectGroup,
@@ -142,7 +130,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  ShinyText,
   Skeleton,
   SkillAuthStatus,
   SkillCard,
@@ -150,9 +137,6 @@ import {
   SkillMarketplace,
   SkillPermissions,
   SkillRegistry,
-  SplitText,
-  SpotlightCursor,
-  StaggerReveal,
   TaskDelegation,
   StreamingCode,
   StreamingMarkdown,
@@ -166,7 +150,6 @@ import {
   ThemeToggle,
   TranscriptionView,
   ThinkingIndicator,
-  TiltCard,
   TokenCounter,
   ToolCall,
   ToolExecutionLog,
@@ -177,135 +160,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  TypeWriter,
   TypingIndicator,
   VectorSearchInput,
   VisionInput,
   VoiceWaveform,
   toast,
 } from 'nyxis-ui';
-
-// ─────────────────────────────────────────────────────────────────────
-// Text animations
-// ─────────────────────────────────────────────────────────────────────
-
-export function SplitTextDemo() {
-  return (
-    <SplitText
-      as="h2"
-      splitBy="words"
-      stagger={0.05}
-      className="text-foreground text-balance text-center text-4xl font-bold tracking-tight"
-    >
-      Document intelligence, automated.
-    </SplitText>
-  );
-}
-
-export function TypeWriterDemo() {
-  return (
-    <TypeWriter
-      as="span"
-      text={[
-        'document intelligence',
-        'meeting summaries',
-        'lead qualification',
-        'support deflection',
-      ]}
-      className="text-primary text-3xl font-bold"
-    />
-  );
-}
-
-export function ScrambleTextDemo() {
-  return (
-    <ScrambleText className="text-primary font-mono text-2xl">
-      extracting invoice fields...
-    </ScrambleText>
-  );
-}
-
-export function DecryptTextDemo() {
-  return (
-    <DecryptText durationPerChar={80} className="text-primary font-mono text-2xl">
-      classifying inbox queue...
-    </DecryptText>
-  );
-}
-
-export function GradientTextDemo() {
-  return (
-    <GradientText as="h2" className="text-center text-5xl font-bold tracking-tight">
-      AI products that ship.
-    </GradientText>
-  );
-}
-
-export function ShinyTextDemo() {
-  return (
-    <ShinyText as="span" className="text-3xl font-semibold">
-      Premium · Pro · Enterprise
-    </ShinyText>
-  );
-}
-
-export function CountUpDemo() {
-  return (
-    <div className="flex flex-col items-center gap-2 text-center">
-      <CountUp
-        to={48210}
-        format="currency"
-        currency="EUR"
-        locale="en-US"
-        className="text-foreground text-5xl font-bold"
-      />
-      <span className="text-muted-foreground text-xs uppercase tracking-wider">
-        MRR · last 30 days
-      </span>
-    </div>
-  );
-}
-
-export function RevealTextDemo() {
-  return (
-    <RevealText className="text-foreground text-center text-3xl font-bold">
-      Scroll-triggered reveals are accessible by default.
-    </RevealText>
-  );
-}
-
-export function MarqueeTextDemo() {
-  const items = [
-    'Document AI',
-    'AI Assistant',
-    'Lead Intelligence',
-    'Support Copilot',
-    'Meeting Intelligence',
-    'Operations Dashboard',
-    'Email Triage',
-  ];
-  return (
-    <MarqueeText speed={28}>
-      {items.map((label) => (
-        <span key={label} className="text-muted-foreground text-2xl font-medium">
-          {label}
-        </span>
-      ))}
-    </MarqueeText>
-  );
-}
-
-export function RotatingTextDemo() {
-  return (
-    <div className="text-foreground flex flex-wrap items-baseline justify-center gap-2 text-3xl font-bold">
-      AI for{' '}
-      <RotatingText
-        words={['Sales', 'Operations', 'Finance', 'Support']}
-        className="text-primary"
-      />
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────────────────────────────
 // Base UI components
@@ -739,110 +599,6 @@ export function FormDemo() {
         <Toaster />
       </form>
     </Form>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// Effect animations
-// ─────────────────────────────────────────────────────────────────────
-
-export function MagneticButtonDemo() {
-  return (
-    <MagneticButton strength={0.45} distance={140}>
-      Hover me
-    </MagneticButton>
-  );
-}
-
-export function SpotlightCursorDemo() {
-  return (
-    <SpotlightCursor className="bg-card grid h-full w-full place-items-center rounded-lg">
-      <div className="flex flex-col items-center gap-3 p-12 text-center">
-        <h2 className="text-foreground text-3xl font-bold">Move your cursor</h2>
-        <p className="text-muted-foreground">A soft spotlight follows you.</p>
-      </div>
-    </SpotlightCursor>
-  );
-}
-
-export function ParallaxContainerDemo() {
-  return (
-    <div className="text-muted-foreground flex flex-col items-center gap-4 text-sm">
-      <p>(Parallax is best seen on a real scrolling page — see the docs landing.)</p>
-      <ParallaxContainer depth={120} className="border-border bg-card rounded-lg border p-6">
-        <h3 className="text-foreground text-xl font-semibold">I move slower than the page.</h3>
-      </ParallaxContainer>
-    </div>
-  );
-}
-
-export function StaggerRevealDemo() {
-  return (
-    <StaggerReveal trigger="mount" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      {[
-        'Document AI',
-        'AI Assistant',
-        'Lead Intelligence',
-        'Support Copilot',
-        'Meeting Intelligence',
-        'Operations Dashboard',
-      ].map((name) => (
-        <div
-          key={name}
-          className="border-border bg-card text-foreground shadow-soft rounded-lg border p-4 text-sm font-medium"
-        >
-          {name}
-        </div>
-      ))}
-    </StaggerReveal>
-  );
-}
-
-export function TiltCardDemo() {
-  return (
-    <TiltCard className="size-72">
-      <div className="border-border bg-card shadow-elevated grid h-full place-items-center rounded-2xl border p-6 text-center">
-        <div>
-          <h3 className="text-foreground text-xl font-semibold">Document AI</h3>
-          <p className="text-muted-foreground mt-2 text-sm">
-            Document intelligence for finance teams.
-          </p>
-        </div>
-      </div>
-    </TiltCard>
-  );
-}
-
-export function AuroraBackgroundDemo() {
-  return (
-    <AuroraBackground className="grid h-full w-full place-items-center rounded-lg">
-      <div className="px-12 py-16 text-center">
-        <h2 className="text-foreground text-4xl font-bold tracking-tight">Nyxis</h2>
-        <p className="text-muted-foreground mt-2">A modern React component library.</p>
-      </div>
-    </AuroraBackground>
-  );
-}
-
-export function DotGridBackgroundDemo() {
-  return (
-    <DotGridBackground className="bg-background grid h-full min-h-[24rem] w-full place-items-center rounded-lg">
-      <div className="text-center">
-        <h2 className="text-foreground text-3xl font-bold tracking-tight">Move the cursor</h2>
-        <p className="text-muted-foreground mt-2">Dots react around the pointer.</p>
-      </div>
-    </DotGridBackground>
-  );
-}
-
-export function MeshGradientBackgroundDemo() {
-  return (
-    <MeshGradientBackground className="grid h-full w-full place-items-center rounded-lg">
-      <div className="px-12 py-16 text-center">
-        <h2 className="text-foreground text-3xl font-bold tracking-tight">Mesh gradient</h2>
-        <p className="text-muted-foreground mt-2">Soft, shifting backdrop.</p>
-      </div>
-    </MeshGradientBackground>
   );
 }
 

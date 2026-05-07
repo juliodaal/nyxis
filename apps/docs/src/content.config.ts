@@ -6,9 +6,7 @@ const baseFrontmatter = z.object({
   description: z.string(),
   category: z.enum([
     'getting-started',
-    'text-animations',
     'components',
-    'animations',
     'domain',
     'ai-models',
     'chat',
@@ -25,7 +23,7 @@ const baseFrontmatter = z.object({
   status: z.enum(['stable', 'beta', 'planned', 'in-progress']).default('planned'),
   /** Slug override; otherwise derived from the file name. */
   slug: z.string().optional(),
-  /** External docs (Radix, GSAP, etc.). */
+  /** External docs (Radix, AI SDK, etc.). */
   references: z
     .array(
       z.object({
@@ -45,16 +43,6 @@ const docs = defineCollection({
 
 const components = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/components' }),
-  schema: baseFrontmatter,
-});
-
-const textAnimations = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/text-animations' }),
-  schema: baseFrontmatter,
-});
-
-const animations = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/animations' }),
   schema: baseFrontmatter,
 });
 
@@ -121,8 +109,6 @@ const aiAnimations = defineCollection({
 export const collections = {
   docs,
   components,
-  'text-animations': textAnimations,
-  animations,
   domain,
   'ai-models': aiModels,
   chat,

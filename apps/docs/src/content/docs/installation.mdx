@@ -7,90 +7,72 @@ status: stable
 
 ## Requirements
 
-Nyxis assumes you are on a modern React stack with **Tailwind CSS v4** and
-**React 18 or 19**. Animations require **GSAP 3.12+**.
+Nyxis is built on top of [shadcn/ui](https://ui.shadcn.com) and uses the
+shadcn CLI to copy components into your project. You need:
+
+- **React 18 or 19**
+- **Tailwind CSS v4**
+- **shadcn/ui CLI** (already in the shadcn ecosystem)
 
 ```bash
-pnpm add nyxis-ui react react-dom tailwindcss
-# Optional, only if you use animation components:
-pnpm add gsap
+pnpm add @nyxis/core
 ```
 
-> **Why the peer requirement on Tailwind?** Nyxis ships its design tokens as
-> a Tailwind v4 source file (`@theme { ... }`). Your Tailwind compiler reads
-> it and generates utilities like `bg-background`, `text-foreground`, and
-> `border-border` so you can use them anywhere in your app.
+`@nyxis/core` is the only npm package — it holds shared types, the AI
+provider adapter, and the event bus. Components and backend recipes are
+copy-paste via the shadcn CLI.
 
 ## 1. Configure Tailwind
 
-In your global CSS (e.g. `app/globals.css` for Next.js, `src/index.css` for
-Vite), pull in Tailwind and the Nyxis tokens:
+In your global CSS (e.g. `app/globals.css` for Next.js, `src/index.css`
+for Vite), pull in Tailwind:
 
 ```css
 @import 'tailwindcss';
-@import 'nyxis-ui/styles.css';
 ```
 
-That's it — no `tailwind.config.js`, no `tailwindcss.preset`. Tailwind v4
-discovers everything from CSS.
+Tailwind v4 discovers everything from CSS — no `tailwind.config.js`
+needed.
 
-## 2. Set the initial theme (FOUC prevention)
+## 2. Install a frontend component
 
-To avoid a flash of the wrong theme on first paint, run a tiny inline script
-**before** anything else in `<head>`:
+```bash
+npx shadcn add @nyxis/chat-message
+```
 
-```tsx title="app/layout.tsx (Next.js)"
-import { getThemeScript } from 'nyxis-ui/theme';
+The file lands in `src/components/nyxis/chat-message.tsx`. You own it —
+edit the markup, the Tailwind classes, the variants. There is no theming
+system to fight.
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: getThemeScript() }} suppressHydrationWarning />
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+## 3. Install a backend recipe
+
+```bash
+npx shadcn add @nyxis/api-chat
+```
+
+The file lands in `src/app/api/chat/route.ts` (Next.js App Router) or the
+equivalent for your framework. It uses the AI SDK under the hood, hidden
+behind `@nyxis/core` so you can swap the engine later.
+
+## 4. Use it
+
+```tsx
+'use client';
+import { ChatMessage } from '@/components/nyxis/chat-message';
+import { useChat } from '@nyxis/core';
+
+export function Chat() {
+  const { messages, append } = useChat({ api: '/api/chat' });
+  return messages.map((m) => (
+    <ChatMessage key={m.id} role={m.role}>
+      {m.content}
+    </ChatMessage>
+  ));
 }
 ```
-
-The script reads `localStorage.nyxis-theme`, falls back to the user's OS
-preference, and writes the resolved theme to `<html data-theme="...">`
-synchronously.
-
-## 3. Use a component
-
-```tsx
-import { Button } from 'nyxis-ui';
-
-export function Hero() {
-  return <Button size="lg">Get started</Button>;
-}
-```
-
-For stricter tree-shaking you can also import from a subpath:
-
-```tsx
-import { Button } from 'nyxis-ui/button';
-```
-
-## 4. Add a theme toggle (optional)
-
-```tsx
-import { ThemeToggle } from 'nyxis-ui/theme';
-
-<header>
-  <ThemeToggle />
-</header>;
-```
-
-`ThemeToggle` works without a surrounding `<ThemeProvider>` — it reads and
-writes the `data-theme` attribute directly and stays in sync with other
-toggles via `localStorage` events.
 
 ## Next steps
 
-- Read the [theming guide](./theming) to learn about all five themes and
-  how to customise the token palette.
-- Read the [security baseline](./security) before you ship.
-- Browse the [components](/components/button) to see what's available.
+- Read the [theming guide](./theming) to learn about the five-mode
+  theming system shared with shadcn.
+- Browse the [components](/components) for the full catalog.

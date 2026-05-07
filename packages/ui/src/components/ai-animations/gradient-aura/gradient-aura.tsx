@@ -19,8 +19,8 @@ export interface GradientAuraProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Soft animated gradient glow that sits behind a child element. Use
- * to give an element a "premium AI" feel without taking over the
- * whole viewport (use `<AuroraBackground>` for that).
+ * to give an element a "premium AI" feel without taking over the whole
+ * viewport.
  *
  * Pure CSS, GPU-accelerated. Honours `prefers-reduced-motion` (the
  * gradient holds a static rotation when reduced).
