@@ -37,22 +37,24 @@ needed.
 ## 2. Install a frontend component
 
 ```bash
-npx shadcn add @nyxis/chat-message
+npx shadcn@latest add https://nyxis.vercel.app/r/confidence-badge.json
 ```
 
-The file lands in `src/components/nyxis/chat-message.tsx`. You own it —
-edit the markup, the Tailwind classes, the variants. There is no theming
-system to fight.
+The file lands in `src/components/nyxis/confidence-badge.tsx` along with
+its registry dependencies (e.g. `lib/utils.ts`). You own it — edit the
+markup, the Tailwind classes, the variants. There is no theming system
+to fight.
+
+See the [Registry guide](./registry) for how the catalog works, how to
+install many components at once, and the URL pattern for every item.
 
 ## 3. Install a backend recipe
 
-```bash
-npx shadcn add @nyxis/api-chat
-```
-
-The file lands in `src/app/api/chat/route.ts` (Next.js App Router) or the
-equivalent for your framework. It uses the AI SDK under the hood, hidden
-behind `@nyxis/core` so you can swap the engine later.
+> Backend recipes ship in **Phase 2** of the roadmap (see
+> [Introduction](./introduction)). Until then, route handlers can be
+> assembled by hand using `@nyxis/core` — `createModel` from
+> `@nyxis/core/server` returns a Vercel-AI-SDK-compatible model that
+> you pass to `streamText`.
 
 ## 4. Use it
 

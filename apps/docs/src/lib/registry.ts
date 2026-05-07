@@ -160,6 +160,13 @@ export const REGISTRY: readonly RegistryEntry[] = [
     description: 'Five-mode theming, design tokens, and FOUC prevention.',
     status: 'stable',
   },
+  {
+    slug: 'registry',
+    name: 'Registry',
+    category: 'getting-started',
+    description: 'How the Nyxis registry works and how to install components.',
+    status: 'stable',
+  },
 
   // ── Base UI components (Phase 4) ────────────────────────────────────
   {

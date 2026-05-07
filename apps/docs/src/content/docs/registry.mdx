@@ -1,0 +1,104 @@
+---
+title: Registry
+description: How the Nyxis registry works and how to install components with the shadcn CLI.
+category: getting-started
+status: stable
+---
+
+Nyxis ships components and backend recipes through a **shadcn-compatible
+registry**: every item is JSON metadata plus inlined source code. The
+`shadcn` CLI fetches that JSON and writes the files into your project.
+You own the result and edit it freely.
+
+## Install a component
+
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/confidence-badge.json
+```
+
+The CLI:
+
+1. Fetches the JSON.
+2. Resolves the registry dependencies (e.g. `utils`).
+3. Installs the npm packages it declares (`clsx`, `tailwind-merge`, etc.).
+4. Writes the source files into your project.
+
+Drop-in result for the example above:
+
+```
+src/
+├── components/nyxis/confidence-badge.tsx   ← the component
+└── lib/utils.ts                             ← the cn() helper
+```
+
+You can now import it like any local module:
+
+```tsx
+import { ConfidenceBadge } from '@/components/nyxis/confidence-badge';
+
+<ConfidenceBadge score={0.93} />;
+```
+
+## Install many at once
+
+```bash
+npx shadcn@latest add \
+  https://nyxis.vercel.app/r/confidence-badge.json \
+  https://nyxis.vercel.app/r/chunk-card.json \
+  https://nyxis.vercel.app/r/agent-card.json
+```
+
+The CLI deduplicates shared registry dependencies (`utils`, base
+shadcn/ui components) so you only pay for them once.
+
+## Browse the catalog
+
+The catalog manifest lives at:
+
+```
+https://nyxis.vercel.app/r/registry.json
+```
+
+Each item has its own JSON at `/r/<name>.json`.
+
+## Editing what you installed
+
+Everything the CLI writes is plain TypeScript, plain Tailwind. There is
+no theming layer to fight. Change the markup, drop a prop, swap a class
+— it is your file now.
+
+```tsx
+// src/components/nyxis/confidence-badge.tsx
+- 'data-[tone=high]:bg-success/15 data-[tone=high]:text-success',
++ 'data-[tone=high]:bg-emerald-100 data-[tone=high]:text-emerald-900',
+```
+
+## Types and adapter
+
+UI components are pure presentation. AI runtime — types like
+`AIMessage`, the `createModel` adapter, hooks like `useChat` — lives in
+[`@nyxis/core`](https://www.npmjs.com/package/@nyxis/core), the only
+piece of Nyxis you import as an npm package:
+
+```bash
+pnpm add @nyxis/core
+```
+
+This split lets us keep components copy-paste editable while the AI
+runtime stays versioned and stable.
+
+## Local development
+
+When you fork this repo and run the docs site locally, the registry is
+served from your dev server:
+
+```bash
+pnpm --filter @nyxis/docs dev
+# Open: http://localhost:4321/r/registry.json
+```
+
+You can install from your local registry while developing:
+
+```bash
+npx shadcn@latest add http://localhost:4321/r/confidence-badge.json
+```
