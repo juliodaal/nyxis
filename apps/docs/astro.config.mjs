@@ -9,7 +9,8 @@ import tailwindcss from '@tailwindcss/vite';
 const SITE_URL = process.env.SITE_URL ?? 'https://nyxis.vercel.app';
 
 const REGISTRY_COMPONENTS = fileURLToPath(new URL('./registry/components', import.meta.url));
-const REGISTRY_UTILS = fileURLToPath(new URL('./registry/lib/utils.ts', import.meta.url));
+const SRC_UTILS = fileURLToPath(new URL('./src/lib/utils.ts', import.meta.url));
+const SRC_UI = fileURLToPath(new URL('./src/components/ui', import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
@@ -46,14 +47,13 @@ export default defineConfig({
       // dogfoods its own registry by resolving these to the source files
       // here; consumers resolve them to their own src/.
       alias: [
-        { find: /^@\/lib\/utils$/, replacement: REGISTRY_UTILS },
+        { find: /^@\/lib\/utils$/, replacement: SRC_UTILS },
         {
           find: /^@\/components\/nyxis\/(.*)$/,
           replacement: `${REGISTRY_COMPONENTS}/$1`,
         },
-        // Base shadcn primitives are still hosted by nyxis-ui until 1B.5;
-        // map @/components/ui/<name> to the nyxis-ui subpath export.
-        { find: /^@\/components\/ui\/(.*)$/, replacement: 'nyxis-ui/$1' },
+        { find: /^@\/components\/ui$/, replacement: `${SRC_UI}/index.ts` },
+        { find: /^@\/components\/ui\/(.*)$/, replacement: `${SRC_UI}/$1` },
       ],
     },
   },

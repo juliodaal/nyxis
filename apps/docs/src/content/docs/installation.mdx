@@ -5,76 +5,129 @@ category: getting-started
 status: stable
 ---
 
-## Requirements
+Nyxis ships through a [shadcn-compatible registry](./registry). You
+install components and recipes with the standard `shadcn` CLI; they
+land as plain TypeScript files in your repo and are yours to edit.
 
-Nyxis is built on top of [shadcn/ui](https://ui.shadcn.com) and uses the
-shadcn CLI to copy components into your project. You need:
+## Requirements
 
 - **React 18 or 19**
 - **Tailwind CSS v4**
-- **shadcn/ui CLI** (already in the shadcn ecosystem)
+- **shadcn CLI** (already in the shadcn ecosystem — installed on demand
+  via `npx`)
+
+## 1. Bootstrap your project with shadcn
+
+If you don't have shadcn yet, run its initialiser. It writes
+`components.json`, `lib/utils.ts`, the design tokens, and the
+TypeScript path alias config Nyxis components rely on:
+
+```bash
+npx shadcn@latest init
+```
+
+## 2. Install the runtime
+
+The only npm package Nyxis ships is **`@nyxis/core`**: shared types,
+the provider adapter, the event bus, and the React hooks. Components
+and backend recipes do not live in npm — they're copy-paste.
 
 ```bash
 pnpm add @nyxis/core
 ```
 
-`@nyxis/core` is the only npm package — it holds shared types, the AI
-provider adapter, and the event bus. Components and backend recipes are
-copy-paste via the shadcn CLI.
+## 3. Install the theme system
 
-## 1. Configure Tailwind
+Nyxis includes a five-mode theme runtime (`light`, `dark`, `dim`,
+`high-contrast`, `system`). It's a tiny separate package so the design
+tokens stay versioned:
 
-In your global CSS (e.g. `app/globals.css` for Next.js, `src/index.css`
-for Vite), pull in Tailwind:
+```bash
+pnpm add nyxis-ui
+```
+
+In your global CSS:
 
 ```css
 @import 'tailwindcss';
+@import 'nyxis-ui/styles.css';
 ```
 
-Tailwind v4 discovers everything from CSS — no `tailwind.config.js`
-needed.
+In your root layout (FOUC-safe inline script):
 
-## 2. Install a frontend component
+```tsx title="app/layout.tsx (Next.js)"
+import { getThemeScript } from 'nyxis-ui/theme';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: getThemeScript() }} suppressHydrationWarning />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+The theme switcher itself is a registry item:
 
 ```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/confidence-badge.json
+npx shadcn@latest add https://nyxis.vercel.app/r/theme-toggle.json
 ```
 
-The file lands in `src/components/nyxis/confidence-badge.tsx` along with
-its registry dependencies (e.g. `lib/utils.ts`). You own it — edit the
-markup, the Tailwind classes, the variants. There is no theming system
-to fight.
+## 4. Install components
 
-See the [Registry guide](./registry) for how the catalog works, how to
-install many components at once, and the URL pattern for every item.
+Pick what you need from the [registry catalog](./registry) and install
+each with the shadcn CLI:
 
-## 3. Install a backend recipe
+```bash
+npx shadcn@latest add https://nyxis.vercel.app/r/chat-message.json
+npx shadcn@latest add https://nyxis.vercel.app/r/agent-roster.json
+npx shadcn@latest add https://nyxis.vercel.app/r/rag-pipeline.json
+```
 
-> Backend recipes ship in **Phase 2** of the roadmap (see
-> [Introduction](./introduction)). Until then, route handlers can be
-> assembled by hand using `@nyxis/core` — `createModel` from
-> `@nyxis/core/server` returns a Vercel-AI-SDK-compatible model that
-> you pass to `streamText`.
+The CLI:
 
-## 4. Use it
+- Resolves cascading registry dependencies (e.g. `agent-roster` pulls
+  `agent-card`, which pulls `agent-status-badge`, which pulls `utils`).
+- Installs the npm `dependencies` declared by each item (`@nyxis/core`,
+  `lucide-react`, `framer-motion`, etc.).
+- Drops source files into `src/components/nyxis/<name>.tsx` and
+  `src/lib/utils.ts`.
+
+Then import them as local modules:
 
 ```tsx
 'use client';
+
 import { ChatMessage } from '@/components/nyxis/chat-message';
+import { ChatThread } from '@/components/nyxis/chat-thread';
 import { useChat } from '@nyxis/core';
 
 export function Chat() {
   const { messages, append } = useChat({ api: '/api/chat' });
-  return messages.map((m) => (
-    <ChatMessage key={m.id} role={m.role}>
-      {m.content}
-    </ChatMessage>
-  ));
+  return (
+    <ChatThread messages={messages}>
+      {messages.map((m) => (
+        <ChatMessage key={m.id} role={m.role}>
+          {m.content}
+        </ChatMessage>
+      ))}
+    </ChatThread>
+  );
 }
 ```
 
+## Editing what you installed
+
+Every file the CLI writes is plain TypeScript and plain Tailwind. There
+is no theming abstraction to fight. Change a class, drop a prop, swap a
+component — it is your file now.
+
 ## Next steps
 
-- Read the [theming guide](./theming) to learn about the five-mode
-  theming system shared with shadcn.
-- Browse the [components](/components) for the full catalog.
+- Read the [Registry guide](./registry) to learn how the catalog is
+  organised and how to install many items at once.
+- Read the [Theming guide](./theming) for the five-mode token system.
+- Browse the catalog from the sidebar.

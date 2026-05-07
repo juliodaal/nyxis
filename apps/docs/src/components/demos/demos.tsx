@@ -16,7 +16,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-// Base UI primitives (still served by nyxis-ui in 0.16.x).
+// Base UI primitives — local copy of the shadcn-style files the
+// registry items expect to find at `@/components/ui/<name>`.
 import {
   Accordion,
   AccordionContent,
@@ -93,14 +94,13 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
-  ThemeToggle,
   Toaster,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
   toast,
-} from 'nyxis-ui';
+} from '@/components/ui';
 
 // AI-first components — installed by consumers via `npx shadcn add`,
 // imported here through the docs-site dogfood barrel.
@@ -160,6 +160,7 @@ import {
   StreamingMarkdown,
   StreamingText,
   TaskDelegation,
+  ThemeToggle,
   ThinkingIndicator,
   TokenCounter,
   ToolCall,
