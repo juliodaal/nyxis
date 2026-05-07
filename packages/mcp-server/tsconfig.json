@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    // The MCP SDK infers tool arg shapes from Zod schemas with `?:`,
+    // which clashes with the workspace-wide exactOptionalPropertyTypes.
+    // Off here so we can pass handlers with idiomatic optional params.
+    "exactOptionalPropertyTypes": false
+  },
+  "include": ["src/**/*", "tsup.config.ts"],
+  "exclude": ["dist", "node_modules"]
+}
