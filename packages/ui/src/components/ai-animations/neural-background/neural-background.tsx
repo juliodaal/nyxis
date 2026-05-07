@@ -174,6 +174,7 @@ export function NeuralBackground({
       {...props}
     >
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0" />
+      {props.children && <div className="relative z-10">{props.children}</div>}
     </div>
   );
 }
