@@ -170,6 +170,336 @@ export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
     category: 'getting-started',
   },
 
+  // ── Backend recipes — Astro ────────────────────────────────────────
+  // File-based routing under src/pages/api/. The `@/lib/ai/*` aliases
+  // resolve via the consumer's tsconfig (Astro's default `@` alias).
+  {
+    name: 'api-chat-astro',
+    type: 'registry:file',
+    title: 'POST /api/chat (Astro)',
+    description: 'Streaming chat endpoint for Astro — useChat-compatible.',
+    dependencies: ['@nyxis/core'],
+    files: [
+      {
+        source: 'api-astro/chat.ts',
+        target: 'src/pages/api/chat.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/system-prompt.ts',
+        target: 'src/lib/ai/system-prompt.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-completion-astro',
+    type: 'registry:file',
+    title: 'POST /api/completion (Astro)',
+    description: 'Single-shot streaming completion for Astro.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat-astro'],
+    files: [
+      {
+        source: 'api-astro/completion.ts',
+        target: 'src/pages/api/completion.ts',
+        type: 'registry:file',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-tools-astro',
+    type: 'registry:file',
+    title: 'POST /api/chat-tools (Astro)',
+    description: 'Tool-calling chat endpoint for Astro.',
+    dependencies: ['@nyxis/core', 'ai', 'zod'],
+    registryDependencies: ['api-chat-astro'],
+    files: [
+      {
+        source: 'api-astro/tools.ts',
+        target: 'src/pages/api/chat-tools.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/tools.ts',
+        target: 'src/lib/ai/tools.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-rag-astro',
+    type: 'registry:file',
+    title: 'POST /api/rag (Astro)',
+    description: 'RAG-style chat endpoint for Astro.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat-astro'],
+    files: [
+      {
+        source: 'api-astro/rag.ts',
+        target: 'src/pages/api/rag.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/retrieve.ts',
+        target: 'src/lib/ai/retrieve.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+
+  // ── Backend recipes — SvelteKit ────────────────────────────────────
+  // File-based routing under src/routes/. The `$lib/*` alias is the
+  // SvelteKit default and resolves to src/lib/.
+  {
+    name: 'api-chat-sveltekit',
+    type: 'registry:file',
+    title: 'POST /api/chat (SvelteKit)',
+    description: 'Streaming chat endpoint for SvelteKit — useChat-compatible.',
+    dependencies: ['@nyxis/core'],
+    files: [
+      {
+        source: 'api-sveltekit/chat/+server.ts',
+        target: 'src/routes/api/chat/+server.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/system-prompt.ts',
+        target: 'src/lib/ai/system-prompt.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-completion-sveltekit',
+    type: 'registry:file',
+    title: 'POST /api/completion (SvelteKit)',
+    description: 'Single-shot streaming completion for SvelteKit.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat-sveltekit'],
+    files: [
+      {
+        source: 'api-sveltekit/completion/+server.ts',
+        target: 'src/routes/api/completion/+server.ts',
+        type: 'registry:file',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-tools-sveltekit',
+    type: 'registry:file',
+    title: 'POST /api/chat-tools (SvelteKit)',
+    description: 'Tool-calling chat endpoint for SvelteKit.',
+    dependencies: ['@nyxis/core', 'ai', 'zod'],
+    registryDependencies: ['api-chat-sveltekit'],
+    files: [
+      {
+        source: 'api-sveltekit/tools/+server.ts',
+        target: 'src/routes/api/chat-tools/+server.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/tools.ts',
+        target: 'src/lib/ai/tools.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-rag-sveltekit',
+    type: 'registry:file',
+    title: 'POST /api/rag (SvelteKit)',
+    description: 'RAG-style chat endpoint for SvelteKit.',
+    dependencies: ['@nyxis/core'],
+    registryDependencies: ['api-chat-sveltekit'],
+    files: [
+      {
+        source: 'api-sveltekit/rag/+server.ts',
+        target: 'src/routes/api/rag/+server.ts',
+        type: 'registry:file',
+      },
+      {
+        source: 'lib/ai/retrieve.ts',
+        target: 'src/lib/ai/retrieve.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+
+  // ── Backend recipes — Hono ─────────────────────────────────────────
+  // Functional routing — each recipe exports a Hono router the user
+  // mounts on their app: `app.route('/api', aiChatRoutes)`.
+  // Recipes target src/lib/ai/ alongside the shared helpers so the
+  // relative `./system-prompt` import works in the consumer's repo.
+  {
+    name: 'api-chat-hono',
+    type: 'registry:file',
+    title: 'POST /chat (Hono)',
+    description: 'Streaming chat router for Hono.',
+    dependencies: ['@nyxis/core', 'hono'],
+    files: [
+      {
+        source: 'api-hono/chat.ts',
+        target: 'src/lib/ai/chat.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/system-prompt.ts',
+        target: 'src/lib/ai/system-prompt.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-completion-hono',
+    type: 'registry:file',
+    title: 'POST /completion (Hono)',
+    description: 'Single-shot streaming completion router for Hono.',
+    dependencies: ['@nyxis/core', 'hono'],
+    registryDependencies: ['api-chat-hono'],
+    files: [
+      {
+        source: 'api-hono/completion.ts',
+        target: 'src/lib/ai/completion.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-tools-hono',
+    type: 'registry:file',
+    title: 'POST /chat-tools (Hono)',
+    description: 'Tool-calling chat router for Hono.',
+    dependencies: ['@nyxis/core', 'hono', 'ai', 'zod'],
+    registryDependencies: ['api-chat-hono'],
+    files: [
+      {
+        source: 'api-hono/tools.ts',
+        target: 'src/lib/ai/tools-route.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/tools.ts',
+        target: 'src/lib/ai/tools.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-rag-hono',
+    type: 'registry:file',
+    title: 'POST /rag (Hono)',
+    description: 'RAG-style chat router for Hono.',
+    dependencies: ['@nyxis/core', 'hono'],
+    registryDependencies: ['api-chat-hono'],
+    files: [
+      {
+        source: 'api-hono/rag.ts',
+        target: 'src/lib/ai/rag.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/retrieve.ts',
+        target: 'src/lib/ai/retrieve.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+
+  // ── Backend recipes — Express ──────────────────────────────────────
+  // Functional routing with Web `Request` ↔ Express `req/res` bridge.
+  // Mount with `app.use('/api', aiChatRouter)`.
+  {
+    name: 'api-chat-express',
+    type: 'registry:file',
+    title: 'POST /chat (Express)',
+    description: 'Streaming chat router for Express.',
+    dependencies: ['@nyxis/core', 'express'],
+    files: [
+      {
+        source: 'api-express/chat.ts',
+        target: 'src/lib/ai/chat.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/system-prompt.ts',
+        target: 'src/lib/ai/system-prompt.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-completion-express',
+    type: 'registry:file',
+    title: 'POST /completion (Express)',
+    description: 'Single-shot streaming completion router for Express.',
+    dependencies: ['@nyxis/core', 'express'],
+    registryDependencies: ['api-chat-express'],
+    files: [
+      {
+        source: 'api-express/completion.ts',
+        target: 'src/lib/ai/completion.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-tools-express',
+    type: 'registry:file',
+    title: 'POST /chat-tools (Express)',
+    description: 'Tool-calling chat router for Express.',
+    dependencies: ['@nyxis/core', 'express', 'ai', 'zod'],
+    registryDependencies: ['api-chat-express'],
+    files: [
+      {
+        source: 'api-express/tools.ts',
+        target: 'src/lib/ai/tools-route.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/tools.ts',
+        target: 'src/lib/ai/tools.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+  {
+    name: 'api-rag-express',
+    type: 'registry:file',
+    title: 'POST /rag (Express)',
+    description: 'RAG-style chat router for Express.',
+    dependencies: ['@nyxis/core', 'express'],
+    registryDependencies: ['api-chat-express'],
+    files: [
+      {
+        source: 'api-express/rag.ts',
+        target: 'src/lib/ai/rag.ts',
+        type: 'registry:lib',
+      },
+      {
+        source: 'lib/ai/retrieve.ts',
+        target: 'src/lib/ai/retrieve.ts',
+        type: 'registry:lib',
+      },
+    ],
+    category: 'getting-started',
+  },
+
   // ── Theme ──────────────────────────────────────────────────────────
   {
     name: 'theme-toggle',

@@ -11,23 +11,76 @@ plain TypeScript. They're configured with `@nyxis/core` so the engine
 stays hidden — when we swap the underlying provider SDK, your code
 keeps working without changes.
 
-The four recipes below cover what most AI apps need on day one. Each
-one targets Next.js App Router; ports to Astro, Hono, Express, and
-Sveltekit ship in Phase 2.5.
+Five frameworks are supported out of the box: **Next.js App Router**
+(default), **Astro**, **SvelteKit**, **Hono**, and **Express**. Each
+recipe targets file-based routing where the framework supports it,
+and a router-export pattern where it doesn't (Hono, Express).
 
-## `api-chat` — streaming chat
+## The four recipes
+
+| Recipe         | Purpose                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| **chat**       | Streaming chat handler, `useChat`-compatible.                                                   |
+| **completion** | Single-shot prompts. For autocomplete / one-off generations.                                    |
+| **tools**      | Chat with function calling. Two stub tools (`searchWeb`, `calculate`) to wire to your backends. |
+| **rag**        | Chat with retrieval. Retrieves chunks, injects them with citation instructions.                 |
+
+## Install matrix
+
+Pick the slug that matches your framework. Each entry is a one-line
+`npx shadcn@latest add` invocation:
+
+| Recipe     | Next.js          | Astro                  | SvelteKit                  | Hono                  | Express                  |
+| ---------- | ---------------- | ---------------------- | -------------------------- | --------------------- | ------------------------ |
+| chat       | `api-chat`       | `api-chat-astro`       | `api-chat-sveltekit`       | `api-chat-hono`       | `api-chat-express`       |
+| completion | `api-completion` | `api-completion-astro` | `api-completion-sveltekit` | `api-completion-hono` | `api-completion-express` |
+| tools      | `api-tools`      | `api-tools-astro`      | `api-tools-sveltekit`      | `api-tools-hono`      | `api-tools-express`      |
+| rag        | `api-rag`        | `api-rag-astro`        | `api-rag-sveltekit`        | `api-rag-hono`        | `api-rag-express`        |
 
 ```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/api-chat.json
+# example: a streaming chat endpoint in your Astro app
+npx shadcn@latest add https://nyxis.vercel.app/r/api-chat-astro.json
 ```
 
-Installs:
+Cascading dependencies cover the shared lib helpers automatically — installing
+`api-tools-hono` pulls `api-chat-hono`, which pulls `system-prompt.ts`. Run
+the chat install first if you want explicit control over what gets written.
 
-- `app/api/chat/route.ts` — POST handler, edge runtime, `useChat`-compatible.
-- `lib/ai/system-prompt.ts` — default system prompt, edit at will.
+## Where each recipe lands
 
-Wire it to the client `<ChatThread>` + `<ChatMessage>` from the
-registry, and to the `useChat` hook from `@nyxis/core`:
+The CLI writes the source files into your project at the canonical path
+for that framework:
+
+```
+Next.js     app/api/<route>/route.ts        + lib/ai/<helper>.ts
+Astro       src/pages/api/<route>.ts        + src/lib/ai/<helper>.ts
+SvelteKit   src/routes/api/<route>/+server.ts + src/lib/ai/<helper>.ts
+Hono        src/lib/ai/<route>.ts           + src/lib/ai/<helper>.ts
+Express     src/lib/ai/<route>.ts           + src/lib/ai/<helper>.ts
+```
+
+For Hono and Express, the recipe exports a router (`aiChatRoutes`,
+`aiChatRouter`, etc.) that you mount on your app:
+
+```ts
+// Hono
+import { Hono } from 'hono';
+import { aiChatRoutes } from './lib/ai/chat';
+
+const app = new Hono();
+app.route('/api', aiChatRoutes); // POST /api/chat
+```
+
+```ts
+// Express
+import express from 'express';
+import { aiChatRouter } from './lib/ai/chat';
+
+const app = express();
+app.use('/api', aiChatRouter); // POST /api/chat
+```
+
+## Wiring to the client (any framework)
 
 ```tsx
 'use client';
@@ -49,48 +102,6 @@ export function Chat() {
 }
 ```
 
-## `api-completion` — single-shot prompts
-
-```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/api-completion.json
-```
-
-For one-off generations: autocomplete, summary previews, classification.
-Posts `{ prompt }` and streams plain text back. No conversation state.
-
-## `api-tools` — chat with function calling
-
-```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/api-tools.json
-```
-
-Installs:
-
-- `app/api/chat-tools/route.ts` — chat handler that exposes tools.
-- `lib/ai/tools.ts` — Zod-typed tool definitions (two stubs: `searchWeb`,
-  `calculate`). Replace with your real backends.
-
-Pair the response stream with the registry's `<ToolCall>` and
-`<ToolResult>` components for a polished UX.
-
-## `api-rag` — chat with retrieval
-
-```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/api-rag.json
-```
-
-Installs:
-
-- `app/api/rag/route.ts` — handler that retrieves chunks and injects
-  them into the system prompt before each turn.
-- `lib/ai/retrieve.ts` — retriever stub (in-memory naive scoring).
-  Replace with your real vector store (pgvector, Pinecone, Weaviate,
-  Qdrant, Chroma, Turbopuffer, etc.).
-
-The retriever returns `RetrievedChunk[]` (the type from `@nyxis/core`),
-so the response can render directly through the registry's
-`<RetrievalResults>`, `<ChunkCard>`, and `<CitationCard>` components.
-
 ## Configure providers
 
 Every recipe defaults to Anthropic. Set the env var for the providers
@@ -110,10 +121,10 @@ honours both.
 
 ## Why hidden engine
 
-The recipes call `createChatHandler` and `createCompletionHandler` from
-`@nyxis/core/server`, which lazily resolve a provider via `createModel`.
-You don't import `ai` or `@ai-sdk/<provider>` directly. When the
-underlying SDK changes (or we swap engines), your `route.ts` stays the
-same. When you want full control, copy the body of `createChatHandler`
-into your route and edit it to taste — that's the shadcn-style escape
-hatch.
+The recipes call `createChatHandler` and `createCompletionHandler`
+from `@nyxis/core/server`, which lazily resolve a provider via
+`createModel`. You don't import `ai` or `@ai-sdk/<provider>` directly.
+When the underlying SDK changes (or we swap engines), your route
+handler stays the same. When you want full control, copy the body of
+`createChatHandler` into your route and edit it to taste — that's the
+shadcn-style escape hatch.
