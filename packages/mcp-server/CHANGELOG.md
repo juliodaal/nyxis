@@ -1,4 +1,4 @@
-# @nyxis/mcp-server
+﻿# @nyxis/mcp-server
 
 ## 0.2.0
 
@@ -59,7 +59,7 @@ Code, Cursor, Windsurf, …) via the Model Context Protocol over stdio.
 ### Configuration
 
 The server reads `NYXIS_REGISTRY_URL` to override the default registry base URL
-(`https://nyxis.vercel.app/r`). In-memory caching keeps repeat calls cheap
+(`https://nyxis-docs.vercel.app/r`). In-memory caching keeps repeat calls cheap
 during a single MCP session.
 
 ### What's coming

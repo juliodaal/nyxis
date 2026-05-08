@@ -1,13 +1,13 @@
-# nyxis-ui
+﻿# nyxis-ui
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-A855F7.svg)](https://github.com/juliodaal/nyxis/blob/main/LICENSE)
 
-The theme system for [Nyxis](https://nyxis.vercel.app) — a toolkit for building
-AI products. This package is intentionally tiny: design tokens, a five-mode
-theme runtime, and the `cn()` helper. Every component lives in the shadcn
-registry.
+The theme system for [Nyxis](https://nyxis-docs.vercel.app) — a toolkit for
+building AI products. This package is intentionally tiny: design tokens, a
+five-mode theme runtime, and the `cn()` helper. Every component lives in the
+shadcn registry.
 
-→ [Documentation](https://nyxis.vercel.app)
+→ [Documentation](https://nyxis-docs.vercel.app)
 
 ## Install
 
@@ -73,14 +73,14 @@ Every Nyxis component is a registry item, installed by the shadcn CLI:
 
 ```bash
 # AI-first
-npx shadcn@latest add https://nyxis.vercel.app/r/chat-message.json
+npx shadcn@latest add https://nyxis-docs.vercel.app/r/chat-message.json
 
 # Base UI primitives — install from shadcn/ui's standard registry
 npx shadcn@latest add button card input
 ```
 
-See the [Registry guide](https://nyxis.vercel.app/docs/registry) for the full
-catalog and how to wire it up.
+See the [Registry guide](https://nyxis-docs.vercel.app/docs/registry) for the
+full catalog and how to wire it up.
 
 ## License
 

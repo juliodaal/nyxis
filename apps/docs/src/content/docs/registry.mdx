@@ -1,4 +1,4 @@
----
+﻿---
 title: Registry
 description: How the Nyxis registry works and how to install components with the shadcn CLI.
 category: getting-started
@@ -13,7 +13,7 @@ You own the result and edit it freely.
 ## Install a component
 
 ```bash
-npx shadcn@latest add https://nyxis.vercel.app/r/confidence-badge.json
+npx shadcn@latest add https://nyxis-docs.vercel.app/r/confidence-badge.json
 ```
 
 The CLI:
@@ -43,9 +43,9 @@ import { ConfidenceBadge } from '@/components/nyxis/confidence-badge';
 
 ```bash
 npx shadcn@latest add \
-  https://nyxis.vercel.app/r/confidence-badge.json \
-  https://nyxis.vercel.app/r/chunk-card.json \
-  https://nyxis.vercel.app/r/agent-card.json
+  https://nyxis-docs.vercel.app/r/confidence-badge.json \
+  https://nyxis-docs.vercel.app/r/chunk-card.json \
+  https://nyxis-docs.vercel.app/r/agent-card.json
 ```
 
 The CLI deduplicates shared registry dependencies (`utils`, base
@@ -56,7 +56,7 @@ shadcn/ui components) so you only pay for them once.
 The catalog manifest lives at:
 
 ```
-https://nyxis.vercel.app/r/registry.json
+https://nyxis-docs.vercel.app/r/registry.json
 ```
 
 Each item has its own JSON at `/r/<name>.json`.
