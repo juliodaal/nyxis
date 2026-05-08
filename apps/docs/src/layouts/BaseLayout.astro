@@ -6,15 +6,19 @@ import { getThemeScript } from 'nyxis-ui/theme';
 export interface Props {
   title: string;
   description?: string;
+  /** Override the social-share image. Path relative to the site origin. */
+  image?: string;
 }
 
-const { title, description = 'A modern React component library for AI-powered products.' } =
-  Astro.props;
+const {
+  title,
+  description = 'The component toolkit for AI products. 105+ copy-paste components, 5 frameworks, 5+ providers — built on shadcn/ui.',
+  image = '/og-image.png',
+} = Astro.props;
 
-const canonical = new URL(
-  Astro.url.pathname,
-  Astro.site ?? 'https://nyxisai.vercel.app',
-).toString();
+const SITE = Astro.site ?? new URL('https://nyxisai.vercel.app');
+const canonical = new URL(Astro.url.pathname, SITE).toString();
+const ogImage = new URL(image, SITE).toString();
 const themeScript = getThemeScript();
 ---
 
@@ -30,21 +34,34 @@ const themeScript = getThemeScript();
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Julio César Daal" />
     <link rel="canonical" href={canonical} />
 
+    {/* Open Graph */}
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nyxis" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nyxis — The component toolkit for AI products" />
 
+    {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Nyxis — The component toolkit for AI products" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#A855F7" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#7C3AED" />
+    {/* Brand color (#5e6ad2 light / #8b95e8 dark) */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#5e6ad2" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#8b95e8" />
 
     <ClientRouter />
   </head>

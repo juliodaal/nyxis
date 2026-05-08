@@ -10,10 +10,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { label: 'AI components', value: '80+', hint: 'chat, agents, RAG, MCP, tools' },
-  { label: 'Providers', value: '5+', hint: 'extensible — add your own' },
-  { label: 'Themes', value: '5', hint: 'light, dark, dim, hi-contrast, system' },
-  { label: 'License', value: 'MIT', hint: 'free for commercial use' },
+  { label: 'Components', value: '105+', hint: 'chat, agents, RAG, MCP, tools, multimodal' },
+  { label: 'Frameworks', value: '5', hint: 'Next.js · Astro · SvelteKit · Hono · Express' },
+  { label: 'Providers', value: '5+', hint: 'Anthropic · OpenAI · Google · Mistral · Ollama' },
+  { label: 'License', value: 'MIT', hint: 'free for commercial use, forever' },
 ];
 
 export default function StatsRow() {

@@ -2,15 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopBar from '../components/docs/TopBar.astro';
 import Hero from '../components/marketing/Hero.tsx';
+import FrameworksRow from '../components/marketing/FrameworksRow.tsx';
 import StatsRow from '../components/marketing/StatsRow.tsx';
-import InstallSnippet from '../components/marketing/InstallSnippet.astro';
+import QuickStart from '../components/marketing/QuickStart.astro';
+import WhatYouCanBuild from '../components/marketing/WhatYouCanBuild.tsx';
+import OpenSource from '../components/marketing/OpenSource.astro';
 import Footer from '../components/marketing/Footer.astro';
 ---
 
-<BaseLayout title="Nyxis — A modern React component library for AI products">
+<BaseLayout title="Nyxis — The component toolkit for AI products">
   <TopBar />
   <Hero />
+  <FrameworksRow />
   <StatsRow />
-  <InstallSnippet />
+  <QuickStart />
+  <WhatYouCanBuild />
+  <OpenSource />
   <Footer />
 </BaseLayout>

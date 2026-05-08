@@ -28,7 +28,9 @@
   --color-popover: oklch(1 0 0);
   --color-popover-foreground: oklch(0.15 0.02 275);
 
-  --color-primary: oklch(0.62 0.22 300);
+  /* Primary is the slate-grounded foreground (Vercel-style monochrome
+     CTAs). Brand accent is reserved for a separate token. */
+  --color-primary: oklch(0.18 0.02 275);
   --color-primary-foreground: oklch(0.99 0 0);
 
   --color-secondary: oklch(0.96 0.01 275);
@@ -37,8 +39,15 @@
   --color-muted: oklch(0.96 0.01 275);
   --color-muted-foreground: oklch(0.5 0.02 275);
 
-  --color-accent: oklch(0.95 0.02 295);
-  --color-accent-foreground: oklch(0.18 0.05 295);
+  --color-accent: oklch(0.95 0.015 280);
+  --color-accent-foreground: oklch(0.18 0.04 280);
+
+  /* Brand — Linear-blue (#5e6ad2). Used sparingly: focus rings, link
+     hovers, the DotWave canvas, the brand gradient on the Hero. Never
+     as a primary surface. */
+  --color-brand: oklch(0.55 0.16 277);
+  --color-brand-foreground: oklch(0.99 0 0);
+  --color-brand-soft: oklch(0.55 0.16 277 / 0.12);
 
   --color-destructive: oklch(0.62 0.24 27);
   --color-destructive-foreground: oklch(0.99 0 0);
@@ -51,7 +60,7 @@
 
   --color-border: oklch(0.92 0.01 275);
   --color-input: oklch(0.92 0.01 275);
-  --color-ring: oklch(0.62 0.22 300);
+  --color-ring: oklch(0.55 0.16 277);
 
   /* ── Typography ─────────────────────────────────────────────────────── */
   --font-sans:
@@ -78,7 +87,7 @@
   /* ── Shadows (light) ────────────────────────────────────────────────── */
   --shadow-soft: 0 1px 2px 0 oklch(0 0 0 / 0.04), 0 4px 12px -2px oklch(0 0 0 / 0.06);
   --shadow-elevated: 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 24px -4px oklch(0 0 0 / 0.08);
-  --shadow-glow: 0 0 32px -4px oklch(0.62 0.22 300 / 0.45);
+  --shadow-glow: 0 0 32px -4px oklch(0.55 0.16 277 / 0.4);
 
   /* ── Animation durations ───────────────────────────────────────────── */
   --duration-fast: 120ms;
@@ -108,8 +117,8 @@
     --color-popover: oklch(0.17 0.014 275);
     --color-popover-foreground: oklch(0.96 0.005 275);
 
-    --color-primary: oklch(0.7 0.22 300);
-    --color-primary-foreground: oklch(0.13 0.04 300);
+    --color-primary: oklch(0.96 0.005 275);
+    --color-primary-foreground: oklch(0.14 0.012 275);
 
     --color-secondary: oklch(0.23 0.015 275);
     --color-secondary-foreground: oklch(0.96 0.005 275);
@@ -117,8 +126,8 @@
     --color-muted: oklch(0.23 0.015 275);
     --color-muted-foreground: oklch(0.65 0.015 275);
 
-    --color-accent: oklch(0.27 0.04 295);
-    --color-accent-foreground: oklch(0.96 0.01 295);
+    --color-accent: oklch(0.27 0.04 277);
+    --color-accent-foreground: oklch(0.96 0.01 277);
 
     --color-destructive: oklch(0.62 0.24 27);
     --color-destructive-foreground: oklch(0.99 0 0);
@@ -131,11 +140,15 @@
 
     --color-border: oklch(0.27 0.015 275);
     --color-input: oklch(0.27 0.015 275);
-    --color-ring: oklch(0.7 0.22 300);
+    --color-ring: oklch(0.65 0.18 277);
+
+    --color-brand: oklch(0.65 0.18 277);
+    --color-brand-foreground: oklch(0.14 0.012 275);
+    --color-brand-soft: oklch(0.65 0.18 277 / 0.18);
 
     --shadow-soft: 0 1px 2px 0 oklch(0 0 0 / 0.4), 0 4px 12px -2px oklch(0 0 0 / 0.5);
     --shadow-elevated: 0 4px 8px -2px oklch(0 0 0 / 0.5), 0 12px 24px -4px oklch(0 0 0 / 0.6);
-    --shadow-glow: 0 0 36px -4px oklch(0.7 0.22 300 / 0.55);
+    --shadow-glow: 0 0 36px -4px oklch(0.65 0.18 277 / 0.45);
   }
 
   /* Dim — softer dark, lower contrast for long reading sessions */
@@ -151,8 +164,8 @@
     --color-popover: oklch(0.23 0.016 270);
     --color-popover-foreground: oklch(0.9 0.008 270);
 
-    --color-primary: oklch(0.68 0.18 300);
-    --color-primary-foreground: oklch(0.16 0.04 300);
+    --color-primary: oklch(0.9 0.008 270);
+    --color-primary-foreground: oklch(0.2 0.014 270);
 
     --color-secondary: oklch(0.27 0.018 270);
     --color-secondary-foreground: oklch(0.9 0.008 270);
@@ -160,15 +173,19 @@
     --color-muted: oklch(0.27 0.018 270);
     --color-muted-foreground: oklch(0.62 0.012 270);
 
-    --color-accent: oklch(0.3 0.04 295);
-    --color-accent-foreground: oklch(0.9 0.01 295);
+    --color-accent: oklch(0.3 0.04 277);
+    --color-accent-foreground: oklch(0.9 0.01 277);
 
     --color-destructive: oklch(0.6 0.2 27);
     --color-destructive-foreground: oklch(0.99 0 0);
 
     --color-border: oklch(0.3 0.018 270);
     --color-input: oklch(0.3 0.018 270);
-    --color-ring: oklch(0.68 0.18 300);
+    --color-ring: oklch(0.62 0.16 277);
+
+    --color-brand: oklch(0.62 0.16 277);
+    --color-brand-foreground: oklch(0.2 0.014 270);
+    --color-brand-soft: oklch(0.62 0.16 277 / 0.16);
   }
 
   /* High contrast — WCAG AAA, pure black/white with strong focus rings */
@@ -184,7 +201,7 @@
     --color-popover: oklch(0.05 0 0);
     --color-popover-foreground: oklch(1 0 0);
 
-    --color-primary: oklch(0.78 0.24 300);
+    --color-primary: oklch(1 0 0);
     --color-primary-foreground: oklch(0 0 0);
 
     --color-secondary: oklch(0.15 0 0);
@@ -193,7 +210,7 @@
     --color-muted: oklch(0.15 0 0);
     --color-muted-foreground: oklch(0.85 0 0);
 
-    --color-accent: oklch(0.2 0.04 300);
+    --color-accent: oklch(0.22 0.06 277);
     --color-accent-foreground: oklch(1 0 0);
 
     --color-destructive: oklch(0.7 0.26 27);
@@ -207,7 +224,11 @@
 
     --color-border: oklch(0.5 0 0);
     --color-input: oklch(0.5 0 0);
-    --color-ring: oklch(0.78 0.24 300);
+    --color-ring: oklch(0.78 0.22 277);
+
+    --color-brand: oklch(0.78 0.22 277);
+    --color-brand-foreground: oklch(0 0 0);
+    --color-brand-soft: oklch(0.78 0.22 277 / 0.22);
   }
 
   /* Apply tokens to the document */

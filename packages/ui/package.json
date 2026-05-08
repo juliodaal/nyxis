@@ -1,6 +1,6 @@
 {
   "name": "nyxis-ui",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Theme system for the Nyxis ecosystem. Components are distributed via the shadcn registry; install them with `npx shadcn@latest add @nyxis/<name>`.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
