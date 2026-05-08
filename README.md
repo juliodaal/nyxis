@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # Nyxis
 
@@ -12,7 +12,7 @@ types, provider adapter, and React hooks.
 [![License: MIT](https://img.shields.io/badge/License-MIT-A855F7.svg)](./LICENSE)
 [![CI](https://github.com/juliodaal/nyxis/actions/workflows/ci.yml/badge.svg)](https://github.com/juliodaal/nyxis/actions/workflows/ci.yml)
 
-[Documentation](https://nyxis.vercel.app) ·
+[Documentation](https://nyxis-docs.vercel.app) ·
 [Changelog](./packages/ui/CHANGELOG.md)
 
 </div>
@@ -33,9 +33,9 @@ pnpm add @nyxis/core
 pnpm add nyxis-ui
 
 # 4. Add components from the catalog
-npx shadcn@latest add https://nyxis.vercel.app/r/chat-message.json
-npx shadcn@latest add https://nyxis.vercel.app/r/agent-roster.json
-npx shadcn@latest add https://nyxis.vercel.app/r/rag-pipeline.json
+npx shadcn@latest add https://nyxis-docs.vercel.app/r/chat-message.json
+npx shadcn@latest add https://nyxis-docs.vercel.app/r/agent-roster.json
+npx shadcn@latest add https://nyxis-docs.vercel.app/r/rag-pipeline.json
 
 # Or — let your AI assistant install for you. Add to ~/.claude.json,
 # ~/.cursor/mcp.json, or your editor's equivalent:
