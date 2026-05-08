@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 
 import { AIContext, type AIContextValue } from './ai-context.js';
 import { nyxisAIEvents } from './events.js';
-import { PROVIDERS } from './adapters/registry.js';
+import { getProviderInfo } from './adapters/registry.js';
 import type { AIProviderId, AITool } from './types.js';
 
 export interface AIProviderProps {
@@ -78,7 +78,8 @@ export function AIProvider({
 }: AIProviderProps) {
   const persisted = useMemo(() => readPersisted(persistKey), [persistKey]);
   const initialProvider = persisted?.provider ?? defaultProvider;
-  const initialModel = persisted?.model ?? defaultModel ?? PROVIDERS[initialProvider].defaultModel;
+  const initialModel =
+    persisted?.model ?? defaultModel ?? getProviderInfo(initialProvider)?.defaultModel ?? '';
 
   const [provider, setProviderState] = useState<AIProviderId>(initialProvider);
   const [model, setModelState] = useState<string>(initialModel);
@@ -93,8 +94,10 @@ export function AIProvider({
     (next: AIProviderId) => {
       setProviderState(next);
       // When the provider changes the previous model id is rarely valid;
-      // fall back to the new provider's recommended default.
-      const info = PROVIDERS[next];
+      // fall back to the new provider's recommended default. Custom
+      // providers without curated metadata simply keep the model id
+      // the caller already had — the consumer owns model lifecycle.
+      const info = getProviderInfo(next);
       if (info && !info.models.some((m) => m.id === model)) {
         setModelState(info.defaultModel);
       }

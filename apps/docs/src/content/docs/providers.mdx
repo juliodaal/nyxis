@@ -1,0 +1,171 @@
+---
+title: Custom providers
+description: Register any AI provider with @nyxis/core — Cohere, Groq, Together, AWS Bedrock, internal proxies.
+category: getting-started
+status: stable
+---
+
+`@nyxis/core` ships with five providers built in — Anthropic, OpenAI,
+Google, Mistral, and Ollama — registered automatically when you import
+the package. For anything else (Cohere, Groq, Together, AWS Bedrock,
+Replicate, an internal proxy, a self-hosted gateway), use the
+**custom-provider API** to plug in at runtime without forking Nyxis.
+
+## The three pieces
+
+```ts
+import { registerProvider, createModel, listProviders } from '@nyxis/core';
+```
+
+| Function                               | Purpose                                                   |
+| -------------------------------------- | --------------------------------------------------------- |
+| `registerProvider(id, registration)`   | Add (or replace) a provider adapter.                      |
+| `createModel({ provider: id, model })` | Build a `LanguageModel` for that provider.                |
+| `listProviders()`                      | Inspect every registered provider id (built-in + custom). |
+
+A `registration` is just an object with a `loadModel` function:
+
+```ts
+interface ProviderRegistration {
+  loadModel: (opts: CreateModelOptions) => unknown | Promise<unknown>;
+  label?: string; // optional, for UI pickers
+  docsUrl?: string;
+}
+```
+
+`loadModel` receives the full `CreateModelOptions` (provider, model,
+apiKey, baseURL, settings) and returns a Vercel AI SDK `LanguageModel`.
+Sync or async, your choice.
+
+## Register Cohere
+
+```ts title="src/lib/ai/register-providers.ts"
+import { registerProvider } from '@nyxis/core';
+import { createCohere } from '@ai-sdk/cohere';
+
+registerProvider('cohere', {
+  label: 'Cohere',
+  docsUrl: 'https://docs.cohere.com',
+  loadModel: ({ apiKey, model }) => createCohere({ apiKey })(model),
+});
+```
+
+Import this file once at the top of your server entry point (e.g. an
+`instrumentation.ts` in Next.js, or the first line of your Hono / Express
+app). After that, anywhere in your code:
+
+```ts
+import { createModel } from '@nyxis/core';
+
+const model = await createModel({
+  provider: 'cohere',
+  model: 'command-r-plus',
+  apiKey: process.env.COHERE_API_KEY,
+});
+```
+
+The Nyxis backend recipes (`api-chat`, `api-tools`, `api-rag`) honour
+custom providers automatically — they just call `createModel` under the
+hood.
+
+## Register Groq
+
+```ts
+import { registerProvider } from '@nyxis/core';
+import { createGroq } from '@ai-sdk/groq';
+
+registerProvider('groq', {
+  label: 'Groq',
+  loadModel: ({ apiKey, model, baseURL }) => createGroq({ apiKey, baseURL })(model),
+});
+```
+
+## Register Together
+
+```ts
+import { registerProvider } from '@nyxis/core';
+import { createTogetherAI } from '@ai-sdk/togetherai';
+
+registerProvider('together', {
+  label: 'Together',
+  loadModel: ({ apiKey, model }) => createTogetherAI({ apiKey })(model),
+});
+```
+
+## Register an internal proxy
+
+You don't have to depend on a real `@ai-sdk/<x>` package — anything that
+returns a `LanguageModel` works. The OpenAI SDK with a custom `baseURL`
+is a common pattern for OpenAI-compatible proxies:
+
+```ts
+import { registerProvider } from '@nyxis/core';
+import { createOpenAI } from '@ai-sdk/openai';
+
+registerProvider('internal-proxy', {
+  label: 'Internal AI gateway',
+  loadModel: ({ apiKey, model }) =>
+    createOpenAI({
+      apiKey,
+      baseURL: 'https://ai.internal.acme.corp/v1',
+    })(model),
+});
+```
+
+## Replacing a built-in
+
+Re-registering an existing id replaces the loader without warning. This
+is how you'd wrap Anthropic with a custom logger, retry policy, or
+header injection:
+
+```ts
+import { registerProvider } from '@nyxis/core';
+import { createAnthropic } from '@ai-sdk/anthropic';
+
+registerProvider('anthropic', {
+  label: 'Anthropic (logged)',
+  loadModel: ({ apiKey, model }) => {
+    const provider = createAnthropic({
+      apiKey,
+      headers: { 'x-internal-trace': crypto.randomUUID() },
+    });
+    return provider(model);
+  },
+});
+```
+
+## Tests
+
+For test isolation between specs, use `resetProviderRegistry`:
+
+```ts
+import { afterEach } from 'vitest';
+import { resetProviderRegistry } from '@nyxis/core';
+
+afterEach(() => {
+  resetProviderRegistry();
+});
+```
+
+This wipes everything and re-registers the five built-ins, leaving each
+test file in a known state.
+
+## Type safety
+
+`AIProviderId` is a string union with autocomplete: the five built-ins
+appear in IDE suggestions, and `(string & {})` widens the type so any
+slug compiles without complaint:
+
+```ts
+const providerId: AIProviderId = 'anthropic'; // ✓ autocomplete
+const providerId: AIProviderId = 'cohere'; // ✓ no complaint
+const providerId: AIProviderId = 'gibberish'; // ✓ technically valid
+```
+
+If you want stricter typing for your app, narrow it yourself:
+
+```ts
+import type { AIProviderId } from '@nyxis/core';
+
+type AppProviderId = Extract<AIProviderId, 'anthropic' | 'openai'> | 'cohere';
+```

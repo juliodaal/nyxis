@@ -4,8 +4,15 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronDown, Server } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { PROVIDER_ORDER, PROVIDERS } from '@nyxis/core';
-import type { AIProviderId } from '@nyxis/core';
+import { getProviderInfo, PROVIDER_ORDER } from '@nyxis/core';
+import type { AIProviderId, ProviderInfo } from '@nyxis/core';
+
+const FALLBACK_INFO: ProviderInfo = {
+  id: 'anthropic',
+  label: 'Custom provider',
+  defaultModel: '',
+  models: [],
+};
 
 export interface AIProviderSelectorProps {
   /** Selected provider (controlled). */
@@ -47,7 +54,7 @@ export function AIProviderSelector({
   className,
 }: AIProviderSelectorProps) {
   const current = value ?? defaultValue;
-  const info = PROVIDERS[current];
+  const info = getProviderInfo(current) ?? { ...FALLBACK_INFO, id: current, label: current };
 
   return (
     <DropdownMenu.Root>
@@ -81,7 +88,8 @@ export function AIProviderSelector({
             Choose a provider
           </DropdownMenu.Label>
           {providers.map((id) => {
-            const provider = PROVIDERS[id];
+            const provider =
+              getProviderInfo(id) ?? ({ ...FALLBACK_INFO, id, label: id } as ProviderInfo);
             const active = id === current;
             return (
               <DropdownMenu.Item

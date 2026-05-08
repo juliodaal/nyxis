@@ -1,6 +1,6 @@
 {
   "name": "@nyxis/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Runtime core for Nyxis — types, provider adapter, event bus, and React hooks for AI products.",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
