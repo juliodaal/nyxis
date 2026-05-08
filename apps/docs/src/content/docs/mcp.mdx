@@ -1,0 +1,152 @@
+---
+title: MCP server
+description: Connect Nyxis to Claude Code, Cursor, Windsurf and any other MCP-aware assistant.
+category: getting-started
+status: stable
+---
+
+The **Nyxis MCP server** exposes the registry to AI coding assistants
+over the [Model Context Protocol](https://modelcontextprotocol.io).
+Once configured in your editor, the assistant can browse the catalog,
+read the full source of any item, and install components into your
+project — all without leaving the chat.
+
+## What it gives the assistant
+
+Four tools over stdio:
+
+| Tool                | What it does                                                                      |
+| ------------------- | --------------------------------------------------------------------------------- |
+| `list_components`   | Browse the catalog. Optional `category` and `type` filters.                       |
+| `search_components` | Free-text search ranked by relevance.                                             |
+| `get_component`     | Full source of a single registry item, with inlined files.                        |
+| `install_component` | Shell out to the canonical shadcn CLI to install an item into the user's project. |
+
+Crucially, `install_component` doesn't replicate shadcn — it shells
+out to `npx -y shadcn@latest add <url>`. Cascading
+`registryDependencies`, npm-package installs via the right package
+manager, Tailwind / design-token wiring, alias resolution: all
+inherited from the official CLI.
+
+## Configure your assistant
+
+The server speaks MCP over stdio. Add it to your assistant's MCP
+config; it will be launched on demand.
+
+### Claude Code
+
+```json title="~/.claude.json"
+{
+  "mcpServers": {
+    "nyxis": {
+      "command": "npx",
+      "args": ["-y", "@nyxis/mcp-server"]
+    }
+  }
+}
+```
+
+Or scope it to a single project by dropping a `.mcp.json` at the repo
+root with the same shape.
+
+### Cursor
+
+```json title="~/.cursor/mcp.json"
+{
+  "mcpServers": {
+    "nyxis": {
+      "command": "npx",
+      "args": ["-y", "@nyxis/mcp-server"]
+    }
+  }
+}
+```
+
+### Windsurf
+
+```json title="~/.codeium/windsurf/mcp_config.json"
+{
+  "mcpServers": {
+    "nyxis": {
+      "command": "npx",
+      "args": ["-y", "@nyxis/mcp-server"]
+    }
+  }
+}
+```
+
+After saving the config, restart the assistant so it picks up the new
+server. You should see `nyxis` appear in the assistant's MCP indicator
+with four tools available.
+
+## Try it
+
+Ask the assistant in natural language:
+
+> "Build me a chat surface using Nyxis. Use the streaming markdown
+> renderer and the typing indicator."
+
+The assistant will:
+
+1. Call `search_components` with `query: "chat streaming markdown typing"`.
+2. Call `get_component` on each match to read the source.
+3. Tell you what it's about to install.
+4. Call `install_component` for each item — the shadcn CLI writes the
+   files into your repo and installs the npm packages.
+5. Wire them up in your codebase.
+
+You own every file the CLI writes; edit them however you like.
+
+## Pre-requisites
+
+The `install_component` tool requires shadcn to be initialised in your
+project. If it isn't, the tool returns a clear error and the
+assistant will tell you to run:
+
+```bash
+npx shadcn@latest init
+```
+
+That writes `components.json`, `lib/utils.ts`, sets up the `@/` alias,
+and patches your CSS / Tailwind config. Once that's done,
+`install_component` works for any registry item.
+
+## Local development
+
+If you've cloned this repo and want to point an assistant at your own
+local build of the server (e.g. while testing changes), use the
+absolute path to the built file:
+
+```json title=".mcp.json (project-scoped)"
+{
+  "mcpServers": {
+    "nyxis-local": {
+      "command": "node",
+      "args": ["/absolute/path/to/nyxis/packages/mcp-server/dist/index.js"],
+      "env": {
+        "NYXIS_REGISTRY_URL": "http://localhost:4321/r"
+      }
+    }
+  }
+}
+```
+
+Then run `pnpm --filter @nyxis/mcp-server build` after each change
+and restart the assistant.
+
+`NYXIS_REGISTRY_URL` overrides the registry base URL — useful when
+iterating on registry items locally with the docs site running.
+
+## Troubleshooting
+
+- **Server doesn't appear after restart.** Check the assistant's MCP
+  log for spawn errors. Most common cause: `npx` not on PATH in the
+  environment that hosts the assistant. Try the local-development
+  config (`command: node`) and a fully-qualified path.
+- **`install_component` always says no `components.json`.** The tool
+  uses the MCP server's `cwd`, which is normally the assistant's
+  active workspace. If the assistant is launched with a different
+  cwd, pass `cwd` explicitly when calling the tool.
+- **Tool calls time out.** `install_component` can take 5–15 seconds
+  on the first run because npm needs to resolve the registry item and
+  install dependencies. Subsequent calls are faster.
