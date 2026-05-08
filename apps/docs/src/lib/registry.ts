@@ -174,6 +174,14 @@ export const REGISTRY: readonly RegistryEntry[] = [
     description: 'Route handlers for chat, completion, tools, and RAG.',
     status: 'stable',
   },
+  {
+    slug: 'mcp',
+    name: 'MCP server',
+    category: 'getting-started',
+    description:
+      'Expose the registry to Claude Code, Cursor, Windsurf, and any MCP-aware assistant.',
+    status: 'stable',
+  },
 
   // ── Base UI components (Phase 4) ────────────────────────────────────
   {
