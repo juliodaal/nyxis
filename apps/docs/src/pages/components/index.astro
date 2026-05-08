@@ -1,15 +1,25 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CategoryIndex from '../../components/docs/CategoryIndex.astro';
+import CatalogGrid from '../../components/catalog/CatalogGrid.tsx';
+import { REGISTRY } from '../../lib/registry';
+
+const totalComponents = REGISTRY.filter((entry) => entry.category !== 'getting-started').length;
 ---
 
 <DocsLayout
   title="Components"
-  description="Accessible UI primitives built on Radix UI and Tailwind CSS v4."
+  description={`Browse all ${totalComponents}+ components in the Nyxis registry.`}
 >
-  <CategoryIndex
-    category="components"
-    title="Components"
-    description="Accessible UI primitives built on Radix UI and Tailwind CSS v4."
-  />
+  <header class="prose-docs mb-10 flex flex-col gap-2">
+    <span class="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
+      Catalog
+    </span>
+    <h1 class="!mb-0">All components</h1>
+    <p class="!text-muted-foreground !mb-0 text-base">
+      {totalComponents}+ components across chat, agents, RAG, MCP, tools, multimodal, prompts,
+      skills, and base UI. Every entry is copy-paste source you install with the shadcn CLI.
+    </p>
+  </header>
+
+  <CatalogGrid client:load />
 </DocsLayout>

@@ -18,29 +18,77 @@ land as plain TypeScript files in your repo and are yours to edit.
 
 ## 1. Bootstrap your project with shadcn
 
-If you don't have shadcn yet, run its initialiser. It writes
-`components.json`, `lib/utils.ts`, the design tokens, and the
-TypeScript path alias config Nyxis components rely on:
+Start from any modern React-capable project. Then run shadcn's
+initialiser — it writes `components.json`, `lib/utils.ts`, the design
+tokens, and the TypeScript path alias config Nyxis components rely on:
 
 ```bash
+# Pick the framework starter you prefer:
+npx create-next-app@latest      # Next.js (App Router)
+npm create astro@latest         # Astro 5 + React + Tailwind
+npx sv create                   # SvelteKit
+npm create vite@latest          # Vite + React
+
+# Then, inside the project:
 npx shadcn@latest init
 ```
 
-## 2. Install the runtime
+shadcn detects the framework automatically and writes the config in the
+right place. If detection fails (e.g. Astro without React enabled),
+shadcn prints what's missing — usually a Tailwind config or the React
+integration.
 
-The only npm package Nyxis ships is **`@nyxis/core`**: shared types,
-the provider adapter, the event bus, and the React hooks. Components
-and backend recipes do not live in npm — they're copy-paste.
+> **Astro gotcha — path aliases.** Astro's default `tsconfig.json`
+> doesn't ship with `compilerOptions.paths`, so `shadcn init` fails
+> with `Could not find valid path aliases`. Add this once and re-run:
+>
+> ```json title="tsconfig.json"
+> {
+>   "extends": "astro/tsconfigs/strict",
+>   "compilerOptions": {
+>     "baseUrl": ".",
+>     "paths": {
+>       "@/*": ["./src/*"]
+>     }
+>   }
+> }
+> ```
+
+## 2. Install your first component
+
+You don't need to install anything else by hand. Pick a component and the
+shadcn CLI will install **everything it needs** — including `@nyxis/core`
+when applicable — in one go:
 
 ```bash
-pnpm add @nyxis/core
+npx shadcn@latest add https://nyxisai.vercel.app/r/chat-thread.json
 ```
 
-## 3. Install the theme system
+What this single command does, in order:
 
-Nyxis includes a five-mode theme runtime (`light`, `dark`, `dim`,
-`high-contrast`, `system`). It's a tiny separate package so the design
-tokens stay versioned:
+1. Resolves the cascading registry dependencies (`chat-thread` pulls
+   `chat-message`, which pulls `utils`).
+2. Installs every npm dependency declared by those items
+   (`@nyxis/core`, `lucide-react`, etc.).
+3. Drops the source files into `src/components/nyxis/<name>.tsx` and
+   `src/lib/utils.ts`.
+
+Stateless components (e.g. `chat-message`) don't need `@nyxis/core` and
+won't pull it. Stateful ones (`chat-thread`, `agent-roster`) declare it
+in their manifest, so the CLI installs it for you. **You never `pnpm
+add @nyxis/core` manually unless you want it without any component.**
+
+## 3. (Optional) Install the theme system
+
+`nyxis-ui` is a separate, tiny npm package that ships:
+
+- The design tokens stylesheet (`nyxis-ui/styles.css`).
+- The five-mode theme runtime (`light`, `dark`, `dim`, `high-contrast`,
+  `system`) and the FOUC-safe inline script.
+
+Components render fine on shadcn's default tokens, so `nyxis-ui` is
+**optional**. Install it when you want the Nyxis brand color, the dim
+and high-contrast themes, or the cross-tab theme switcher:
 
 ```bash
 pnpm add nyxis-ui
@@ -53,9 +101,11 @@ In your global CSS:
 @import 'nyxis-ui/styles.css';
 ```
 
-In your root layout (FOUC-safe inline script):
+The theme runtime needs a tiny inline script to run **before** any markup paints, otherwise users see a flash of the wrong theme. Pick the snippet for your framework:
 
-```tsx title="app/layout.tsx (Next.js)"
+### Next.js (App Router)
+
+```tsx title="app/layout.tsx"
 import { getThemeScript } from 'nyxis-ui/theme';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -70,33 +120,81 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+### Astro
+
+```astro title="src/layouts/Layout.astro"
+---
+import { getThemeScript } from 'nyxis-ui/theme';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <script is:inline set:html={getThemeScript()} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+`is:inline` is required so Astro doesn't bundle the script — it has to run synchronously before the body paints.
+
+### SvelteKit
+
+```svelte title="src/app.html"
+<!-- Replace %sveltekit.head% wrapper with: -->
+<script>%nyxis.theme%</script>
+%sveltekit.head%
+```
+
+```ts title="src/hooks.server.ts"
+import { getThemeScript } from 'nyxis-ui/theme';
+
+export async function handle({ event, resolve }) {
+  return resolve(event, {
+    transformPageChunk: ({ html }) => html.replace('%nyxis.theme%', getThemeScript()),
+  });
+}
+```
+
+### Vite (plain React)
+
+```tsx title="src/main.tsx"
+import { getThemeScript } from 'nyxis-ui/theme';
+
+const s = document.createElement('script');
+s.textContent = getThemeScript();
+document.head.prepend(s);
+
+// then the usual createRoot(...).render(<App />)
+```
+
 The theme switcher itself is a registry item:
 
 ```bash
 npx shadcn@latest add https://nyxisai.vercel.app/r/theme-toggle.json
 ```
 
-## 4. Install components
+## 4. Add more components
 
-Pick what you need from the [registry catalog](./registry) and install
-each with the shadcn CLI:
+Pick anything else you need from the [registry catalog](./registry):
 
 ```bash
-npx shadcn@latest add https://nyxisai.vercel.app/r/chat-message.json
 npx shadcn@latest add https://nyxisai.vercel.app/r/agent-roster.json
 npx shadcn@latest add https://nyxisai.vercel.app/r/rag-pipeline.json
 ```
 
-The CLI:
+Same flow as step 2 — the CLI:
 
 - Resolves cascading registry dependencies (e.g. `agent-roster` pulls
   `agent-card`, which pulls `agent-status-badge`, which pulls `utils`).
-- Installs the npm `dependencies` declared by each item (`@nyxis/core`,
+- Installs npm `dependencies` declared by each item (`@nyxis/core`,
   `lucide-react`, `framer-motion`, etc.).
 - Drops source files into `src/components/nyxis/<name>.tsx` and
   `src/lib/utils.ts`.
 
-Then import them as local modules:
+Then import them as local modules. **Next.js / SvelteKit / Vite** treat them as ordinary client components:
 
 ```tsx
 'use client';
@@ -118,6 +216,18 @@ export function Chat() {
   );
 }
 ```
+
+**Astro** ships zero JS by default, so interactive Nyxis components must be hydrated as islands. Pick the directive that matches your need (`client:load` for above-the-fold, `client:visible` for below):
+
+```astro title="src/pages/index.astro"
+---
+import { Chat } from '../components/Chat';
+---
+
+<Chat client:load />
+```
+
+This site itself is built on Astro and dogfoods every component it documents — see the live demos on the components pages.
 
 ## Editing what you installed
 

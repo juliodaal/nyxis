@@ -1,0 +1,67 @@
+---
+/**
+ * Quick start. Two commands — that's the entire install path.
+ *
+ * The block intentionally mirrors what a user copies from a real
+ * terminal session: comments call out what each command does,
+ * the rest is paste-ready.
+ */
+import { Code } from 'astro:components';
+
+const snippet = `# 1. Bootstrap shadcn in any React-capable project
+npx shadcn@latest init
+
+# 2. Install a component — @nyxis/core comes along for free
+npx shadcn@latest add https://nyxisai.vercel.app/r/chat-thread.json
+
+# That's it. Edit src/components/nyxis/chat-thread.tsx to taste.`;
+---
+
+<section class="border-border/40 border-b">
+  <div class="mx-auto max-w-5xl px-6 py-24 sm:py-28">
+    <header class="flex flex-col items-center gap-3 text-center">
+      <span class="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
+        Quick start
+      </span>
+      <h2
+        class="text-foreground max-w-xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Two commands, your component is in your repo.
+      </h2>
+      <p class="text-muted-foreground mt-2 max-w-xl text-base">
+        No package to wrap, no theme provider to configure, no abstraction layer. Source files land
+        in your project and they belong to you.
+      </p>
+    </header>
+
+    <div
+      class="border-border bg-card/60 mt-12 overflow-hidden rounded-xl border shadow-sm backdrop-blur"
+    >
+      <div
+        class="border-border bg-muted/30 text-muted-foreground flex items-center justify-between border-b px-4 py-2 font-mono text-xs"
+      >
+        <span class="flex items-center gap-2">
+          <span class="bg-muted-foreground/40 inline-block size-2 rounded-full"></span>
+          <span class="bg-muted-foreground/40 inline-block size-2 rounded-full"></span>
+          <span class="bg-muted-foreground/40 inline-block size-2 rounded-full"></span>
+          <span class="ml-2">terminal</span>
+        </span>
+        <span class="text-muted-foreground/70">~/your-app</span>
+      </div>
+      <div class="px-4 py-4">
+        <Code code={snippet} lang="bash" themes={{ light: 'github-light', dark: 'github-dark' }} />
+      </div>
+    </div>
+
+    <p class="text-muted-foreground mt-6 text-center text-sm">
+      Need the theme runtime, brand color, or extra modes?
+      <a
+        href="/docs/installation#3-optional-install-the-theme-system"
+        class="text-foreground hover:text-brand underline-offset-4 transition-colors hover:underline"
+      >
+        Install nyxis-ui (optional)
+      </a>
+      .
+    </p>
+  </div>
+</section>

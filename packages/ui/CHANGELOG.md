@@ -1,5 +1,33 @@
 # nyxis-ui
 
+## 0.19.0
+
+### Brand refresh — Linear-blue accent, monochrome primary
+
+Visual refresh aligned with the docs site's serious, Vercel-leaning tone.
+
+### Changed
+
+- `--color-primary` is now slate monochrome (`oklch(0.18 0.02 275)` light /
+  `oklch(0.96 0.005 275)` dark), not the previous purple. Primary surfaces stay
+  out of the brand color so the brand keeps its accent role.
+- `--color-ring`, `--color-accent`, `--shadow-glow` re-aligned to hue 277 across
+  all four themes (light, dark, dim, high-contrast) for visual consistency.
+
+### Added
+
+- `--color-brand`, `--color-brand-foreground`, `--color-brand-soft` tokens
+  (Linear-blue `#5e6ad2` mapped to `oklch(0.55 0.16 277)` light /
+  `oklch(0.65 0.18 277)` dark). Use these for accent-only spots — focus rings,
+  link hovers, the dot-grid background. **Never** as a primary surface.
+
+### Migration
+
+If you depended on `bg-primary` looking purple, you now want `bg-brand` for that
+role. Most consumers won't need to change anything: the new tokens map cleanly
+to the same Tailwind utilities, and the brand color follows the same hue family
+as before.
+
 ## 0.18.0
 
 ### Phase 1B.5 — Theme system only
