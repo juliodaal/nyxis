@@ -1,4 +1,4 @@
-﻿import { fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const SITE_URL = process.env.SITE_URL ?? 'https://nyxis-docs.vercel.app';
+const SITE_URL = process.env.SITE_URL ?? 'https://nyxisai.vercel.app';
 
 const REGISTRY_COMPONENTS = fileURLToPath(new URL('./registry/components', import.meta.url));
 const SRC_UTILS = fileURLToPath(new URL('./src/lib/utils.ts', import.meta.url));

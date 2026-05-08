@@ -1,10 +1,10 @@
-﻿# @nyxis/core
+# @nyxis/core
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-A855F7.svg)](https://github.com/juliodaal/nyxis/blob/main/LICENSE)
 
-The runtime core of [Nyxis](https://nyxis-docs.vercel.app) — a toolkit for
-building AI products. Tiny by design: shared types, the `createModel` provider
-adapter, an event bus, and a handful of React hooks.
+The runtime core of [Nyxis](https://nyxisai.vercel.app) — a toolkit for building
+AI products. Tiny by design: shared types, the `createModel` provider adapter,
+an event bus, and a handful of React hooks.
 
 This package is the only thing the rest of Nyxis (the frontend components and
 backend recipes you copy-paste with `npx shadcn add`) imports from. There is no

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Tiny registry client. Fetches the manifesto and per-item JSON from the
  * Nyxis registry over HTTPS, with an in-memory cache so repeat tool calls
  * inside a single MCP session don't re-hit the network.
@@ -36,7 +36,7 @@ export interface RegistryItem extends ManifestItem {
   }[];
 }
 
-const DEFAULT_BASE_URL = 'https://nyxis-docs.vercel.app/r';
+const DEFAULT_BASE_URL = 'https://nyxisai.vercel.app/r';
 
 export class RegistryClient {
   readonly baseUrl: string;

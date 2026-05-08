@@ -1,14 +1,14 @@
-﻿# @nyxis/mcp-server
+# @nyxis/mcp-server
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-A855F7.svg)](https://github.com/juliodaal/nyxis/blob/main/LICENSE)
 
 MCP server that exposes the
-[Nyxis registry](https://nyxis-docs.vercel.app/docs/registry) to AI coding
+[Nyxis registry](https://nyxisai.vercel.app/docs/registry) to AI coding
 assistants. Once configured in your editor, the assistant can browse the Nyxis
 catalog, read the full source of any component or backend recipe, and suggest
 the right `npx shadcn@latest add` command — all without leaving the chat.
 
-→ [Documentation](https://nyxis-docs.vercel.app)
+→ [Documentation](https://nyxisai.vercel.app)
 
 ## Tools exposed
 

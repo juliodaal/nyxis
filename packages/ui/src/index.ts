@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Public surface of nyxis-ui.
  *
  * As of 0.18.0, this package is the **theme system** for the Nyxis
@@ -6,7 +6,7 @@
  * etc.) and AI-first components (ChatMessage, AgentCard, etc.) — are
  * distributed via the shadcn registry and copy-paste installed:
  *
- *   npx shadcn@latest add https://nyxis-docs.vercel.app/r/<name>.json
+ *   npx shadcn@latest add https://nyxisai.vercel.app/r/<name>.json
  *
  * What this package gives you:
  *   - The five-mode theme runtime (`<ThemeToggle>`, `getThemeScript`).
