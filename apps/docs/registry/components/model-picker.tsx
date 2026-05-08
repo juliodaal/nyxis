@@ -4,7 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Brain, Check, ChevronDown, Code2, FileImage, Headphones, Mic, Wrench } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { PROVIDERS, PROVIDER_ORDER, findModel } from '@nyxis/core';
+import { PROVIDER_ORDER, findModel, getProviderInfo } from '@nyxis/core';
 import type { AIModel, AIModelCapability, AIProviderId } from '@nyxis/core';
 
 export interface ModelPickerProps {
@@ -48,7 +48,7 @@ export function ModelPicker({
   const current = value ?? defaultValue ?? '';
   const currentModel = current ? findModel(current) : undefined;
 
-  const providers = provider ? [provider] : PROVIDER_ORDER.filter((id) => id !== 'custom');
+  const providers: readonly AIProviderId[] = provider ? [provider] : PROVIDER_ORDER;
 
   return (
     <DropdownMenu.Root>
@@ -87,15 +87,21 @@ export function ModelPicker({
           className="border-border bg-popover text-popover-foreground shadow-elevated z-50 max-h-[28rem] min-w-[24rem] overflow-y-auto rounded-md border p-1"
         >
           {providers.map((providerId) => {
-            const info = PROVIDERS[providerId];
-            const filtered = info.models.filter((m) => modelMatches(m, requireCapabilities));
+            const info = getProviderInfo(providerId);
+            // Custom providers registered via registerProvider don't ship
+            // curated model metadata in @nyxis/core, so skip them here —
+            // surface those models through your own picker.
+            if (!info) return null;
+            const filtered = info.models.filter((m: AIModel) =>
+              modelMatches(m, requireCapabilities),
+            );
             if (filtered.length === 0) return null;
             return (
               <DropdownMenu.Group key={providerId}>
                 <DropdownMenu.Label className="text-muted-foreground px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider">
                   {info.label}
                 </DropdownMenu.Label>
-                {filtered.map((model) => {
+                {filtered.map((model: AIModel) => {
                   const active = model.id === current;
                   return (
                     <DropdownMenu.Item

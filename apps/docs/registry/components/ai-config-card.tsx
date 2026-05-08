@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import type { AIProviderId } from '@nyxis/core';
-import { PROVIDERS } from '@nyxis/core';
+import { getProviderInfo } from '@nyxis/core';
+import type { AIModel } from '@nyxis/core';
 import { AIProviderSelector } from '@/components/nyxis/ai-provider-selector';
 import { ModelPicker } from '@/components/nyxis/model-picker';
 import { APIKeyInput, type APIKeyInputStatus } from '@/components/nyxis/api-key-input';
@@ -91,12 +92,15 @@ export function AIConfigCard({
           value={value.provider}
           onValueChange={(provider) => {
             // When the provider changes, the previous model id is rarely valid;
-            // reset to the new provider's recommended default.
-            const info = PROVIDERS[provider];
-            const valid = info.models.some((m) => m.id === value.model);
+            // reset to the new provider's recommended default. Custom
+            // providers registered at runtime carry no curated metadata,
+            // so we keep the existing model id and let the consumer
+            // decide what's valid.
+            const info = getProviderInfo(provider);
+            const valid = info ? info.models.some((m: AIModel) => m.id === value.model) : true;
             update({
               provider,
-              ...(valid ? {} : { model: info.defaultModel }),
+              ...(valid || !info ? {} : { model: info.defaultModel }),
             });
           }}
         />

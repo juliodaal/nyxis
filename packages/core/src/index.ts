@@ -9,6 +9,7 @@
 // Types
 export type {
   AIProviderId,
+  BuiltInAIProviderId,
   AIRole,
   AIMessage,
   AIToolCall,
@@ -77,6 +78,19 @@ export {
   modelsByCapability,
   type ProviderInfo,
 } from './adapters/registry.js';
+
+// Custom-provider registry (Phase 3). Built-ins (anthropic, openai,
+// google, mistral, ollama) self-register on import; consumers can
+// register their own at runtime.
+export {
+  registerProvider,
+  unregisterProvider,
+  getRegisteredProvider,
+  listProviders,
+  resetProviderRegistry,
+  BUILT_IN_PROVIDER_IDS,
+  type ProviderRegistration,
+} from './adapters/provider-registry.js';
 
 // Provider component + context hook
 export { AIProvider, type AIProviderProps } from './ai-provider.js';

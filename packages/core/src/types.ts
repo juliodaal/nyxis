@@ -5,7 +5,16 @@
  * SDK's vocabulary so values flow without translation.
  */
 
-export type AIProviderId = 'anthropic' | 'openai' | 'google' | 'mistral' | 'ollama' | 'custom';
+/**
+ * Built-in providers ship with adapters in `@nyxis/core` and can be
+ * used out of the box. The string-union part keeps autocomplete for
+ * those, while the `(string & {})` widens the type so consumers can
+ * register custom providers via `registerProvider('cohere', { … })`
+ * without TypeScript complaints.
+ */
+export type BuiltInAIProviderId = 'anthropic' | 'openai' | 'google' | 'mistral' | 'ollama';
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export type AIProviderId = BuiltInAIProviderId | (string & {});
 
 export type AIRole = 'system' | 'user' | 'assistant' | 'tool';
 

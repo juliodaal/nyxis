@@ -5,7 +5,7 @@
  * are loaded on-demand so consumers only pay for the providers they use.
  */
 
-import type { AIModel, AIProviderId } from '../types.js';
+import type { AIModel, AIProviderId, BuiltInAIProviderId } from '../types.js';
 
 export interface ProviderInfo {
   id: AIProviderId;
@@ -25,7 +25,16 @@ export interface ProviderInfo {
   models: readonly AIModel[];
 }
 
-export const PROVIDERS: Record<AIProviderId, ProviderInfo> = {
+/**
+ * Curated metadata for the providers Nyxis ships with. UI components
+ * read from this map to render pickers and capability badges.
+ *
+ * Custom providers registered via `registerProvider` do not appear
+ * here — UI components that want to surface them must look them up
+ * through `listProviders()` from the provider-registry module and
+ * provide their own labels.
+ */
+export const PROVIDERS: Record<BuiltInAIProviderId, ProviderInfo> = {
   anthropic: {
     id: 'anthropic',
     label: 'Anthropic',
@@ -214,31 +223,28 @@ export const PROVIDERS: Record<AIProviderId, ProviderInfo> = {
       },
     ],
   },
-
-  custom: {
-    id: 'custom',
-    label: 'Custom',
-    tagline: 'Bring your own provider via the AI SDK.',
-    defaultModel: '',
-    models: [],
-  },
 };
 
-export const PROVIDER_ORDER: readonly AIProviderId[] = [
+export const PROVIDER_ORDER: readonly BuiltInAIProviderId[] = [
   'anthropic',
   'openai',
   'google',
   'mistral',
   'ollama',
-  'custom',
 ];
 
 export function listAllModels(): readonly AIModel[] {
   return PROVIDER_ORDER.flatMap((id) => PROVIDERS[id].models);
 }
 
-export function getProviderInfo(id: AIProviderId): ProviderInfo {
-  return PROVIDERS[id];
+/**
+ * Look up a built-in provider's metadata. Returns undefined for
+ * provider ids that aren't built-in — custom providers registered
+ * via `registerProvider` don't carry curated metadata, so callers
+ * should fall back to the registration's `label` / `docsUrl`.
+ */
+export function getProviderInfo(id: AIProviderId): ProviderInfo | undefined {
+  return (PROVIDERS as Record<string, ProviderInfo | undefined>)[id];
 }
 
 export function findModel(modelId: string): AIModel | undefined {

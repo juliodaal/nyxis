@@ -182,6 +182,13 @@ export const REGISTRY: readonly RegistryEntry[] = [
       'Expose the registry to Claude Code, Cursor, Windsurf, and any MCP-aware assistant.',
     status: 'stable',
   },
+  {
+    slug: 'providers',
+    name: 'Custom providers',
+    category: 'getting-started',
+    description: 'Register Cohere, Groq, Together, AWS Bedrock, or any internal AI gateway.',
+    status: 'stable',
+  },
 
   // ── Base UI components (Phase 4) ────────────────────────────────────
   {

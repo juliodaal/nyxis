@@ -8,19 +8,12 @@ import {
 } from './registry.js';
 
 describe('provider registry', () => {
-  it('exposes the five core providers in order', () => {
-    expect(PROVIDER_ORDER.slice(0, 5)).toEqual([
-      'anthropic',
-      'openai',
-      'google',
-      'mistral',
-      'ollama',
-    ]);
+  it('exposes the five built-in providers in order', () => {
+    expect(PROVIDER_ORDER).toEqual(['anthropic', 'openai', 'google', 'mistral', 'ollama']);
   });
 
-  it('every provider has at least one model except `custom`', () => {
+  it('every built-in provider ships at least one model', () => {
     for (const id of PROVIDER_ORDER) {
-      if (id === 'custom') continue;
       expect(PROVIDERS[id].models.length).toBeGreaterThan(0);
     }
   });
