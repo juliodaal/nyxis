@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Retrieval helper for the `/api/rag` endpoint. Replace the in-memory
  * stub with your real vector store (pgvector, Pinecone, Weaviate, Qdrant,
  * Chroma, Turbopuffer, etc.).
@@ -24,7 +24,7 @@ const STUB_CORPUS: ReadonlyArray<{ id: string; source: string; text: string }> =
   {
     id: 'doc-2',
     source: 'README.md#install',
-    text: 'Install components with `npx shadcn@latest add https://nyxis-docs.vercel.app/r/<name>.json`. Each item declares its npm and registry dependencies.',
+    text: 'Install components with `npx shadcn@latest add https://nyxisai.vercel.app/r/<name>.json`. Each item declares its npm and registry dependencies.',
   },
   {
     id: 'doc-3',

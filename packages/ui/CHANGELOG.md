@@ -1,4 +1,4 @@
-﻿# nyxis-ui
+# nyxis-ui
 
 ## 0.18.0
 
@@ -90,7 +90,7 @@ Replace `from 'nyxis-ui'` (for any AI-first symbol) with the shadcn CLI:
 # import { ChatMessage } from 'nyxis-ui';
 
 # After:
-npx shadcn@latest add https://nyxis-docs.vercel.app/r/chat-message.json
+npx shadcn@latest add https://nyxisai.vercel.app/r/chat-message.json
 # then:
 import { ChatMessage } from '@/components/nyxis/chat-message';
 ```
