@@ -1,0 +1,52 @@
+{
+  "name": "create-nyxis",
+  "version": "0.1.0",
+  "description": "Scaffold a new Nyxis project — framework starter + shadcn init + Nyxis runtime, in one command.",
+  "license": "MIT",
+  "author": "Julio César Daal <juliocesar.daal@gmail.com>",
+  "homepage": "https://nyxisai.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliodaal/nyxis.git",
+    "directory": "packages/create-nyxis"
+  },
+  "bugs": {
+    "url": "https://github.com/juliodaal/nyxis/issues"
+  },
+  "keywords": [
+    "create-nyxis",
+    "nyxis",
+    "ai",
+    "scaffold",
+    "shadcn"
+  ],
+  "type": "module",
+  "bin": {
+    "create-nyxis": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "execa": "^9.5.2",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:"
+  }
+}

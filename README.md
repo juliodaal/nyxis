@@ -22,20 +22,22 @@ types, provider adapter, and React hooks.
 ## Quick start
 
 ```bash
+# Scaffold a new project with the CLI — picks the framework, runs
+# shadcn init, optionally installs nyxis-ui and your first components.
+npm create nyxis@latest my-app
+```
+
+Or do it by hand on an existing project:
+
+```bash
 # 1. Bootstrap your project with shadcn (creates components.json, lib/utils.ts, etc.)
 npx shadcn@latest init
 
-# 2. Install the AI runtime
-pnpm add @nyxis/core
+# 2. Install your first component — @nyxis/core comes along automatically
+npx shadcn@latest add https://nyxisai.vercel.app/r/chat-thread.json
 
-# 3. Install the theme system (optional — required only if you want the
-#    five-mode theme runtime; you can stick with shadcn's default theming)
+# 3. (Optional) the theme system — five-mode runtime + brand color tokens
 pnpm add nyxis-ui
-
-# 4. Add components from the catalog
-npx shadcn@latest add https://nyxisai.vercel.app/r/chat-message.json
-npx shadcn@latest add https://nyxisai.vercel.app/r/agent-roster.json
-npx shadcn@latest add https://nyxisai.vercel.app/r/rag-pipeline.json
 
 # Or — let your AI assistant install for you. Add to ~/.claude.json,
 # ~/.cursor/mcp.json, or your editor's equivalent:
@@ -64,14 +66,15 @@ export function Chat() {
 
 ## Architecture
 
-Four layers, none subordinate to the others:
+Five layers, none subordinate to the others:
 
 | Layer                   | Distributed as    | What's inside                                                                                                                                                                            |
 | ----------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`@nyxis/core`**       | npm package       | Types (`AIMessage`, `AIToolCall`, ...), provider adapter (`createModel`), event bus, hooks (`useChat`, `useToolExecutor`), server helpers (`createChatHandler`).                         |
 | **`nyxis-ui`**          | npm package       | Five-mode theme runtime (`getThemeScript`), design tokens stylesheet, `cn()` helper.                                                                                                     |
-| **Registry**            | `npx shadcn add`  | 84+ AI-first components + 4 backend recipes (chat, completion, tools, RAG). Source you own.                                                                                              |
+| **Registry**            | `npx shadcn add`  | 105+ AI-first components + 20 backend recipes (chat, completion, tools, RAG × 5 frameworks). Source you own.                                                                             |
 | **`@nyxis/mcp-server`** | npm package (CLI) | MCP server that exposes the registry to Claude Code, Cursor, Windsurf, and any MCP-aware assistant — so the assistant can search, read, and install components without leaving the chat. |
+| **`create-nyxis`**      | `npm create` flow | Project scaffolder: picks the framework, runs shadcn init, optionally installs `nyxis-ui` and starter components. One command for a working baseline.                                    |
 
 You can install only the runtime, only the theme, only some components, or
 everything. The shadcn CLI resolves cascading dependencies automatically; the
@@ -92,16 +95,20 @@ MCP server delegates installs back to that same CLI.
 
 ## Roadmap
 
-- **Phase 1 — Frontend registry.** **Done.** 84+ components live.
+- **Phase 1 — Frontend registry.** **Done.** 105+ components live.
 - **Phase 2 — Backend recipes.** **Done.** chat / completion / tools / RAG route
   handlers for Next.js App Router.
+- **Phase 2.5 — Multi-framework recipes.** **Done.** Astro, SvelteKit, Hono,
+  Express variants of every backend recipe.
+- **Phase 3 — Public custom-provider API.** **Done.** `registerProvider` plus
+  `BUILT_IN_PROVIDER_IDS` from `@nyxis/core`.
 - **Phase 4 — MCP server.** **Done.** `@nyxis/mcp-server` exposes the registry
   to Claude Code, Cursor, Windsurf with four tools (`list`, `search`, `get`,
   `install`).
-- **Phase 2.5 — Recipes for Astro / Hono / Express / Sveltekit.** Planned.
-- **Phase 3 — Public API for custom providers.** Planned.
-- **Phase 5+ — Multi-framework registries.** Vue, Svelte, Angular, Astro,
-  Python/FastAPI. Planned.
+- **Phase 5 — Adoption.** **Started.** `create-nyxis` CLI live; telemetry opt-in
+  and custom domain queued.
+- **Phase 6 — Multi-framework registries.** Planned. Headless `@nyxis/core`
+  - Vue / Svelte / Web Components renderers.
 
 ## Repository layout
 
@@ -110,10 +117,12 @@ nyxis/
 ├── packages/
 │   ├── core/             → @nyxis/core (npm — types, adapter, hooks)
 │   ├── ui/               → nyxis-ui (npm — theme runtime + cn)
-│   └── mcp-server/       → @nyxis/mcp-server (npm, CLI bin: nyxis-mcp)
+│   ├── mcp-server/       → @nyxis/mcp-server (npm, CLI bin: nyxis-mcp)
+│   └── create-nyxis/     → create-nyxis (npm, scaffolder for npm create)
 ├── apps/
 │   └── docs/             → Astro docs site + registry endpoints
 │       ├── registry/     → Source files served by /r/<name>.json
+│       ├── tests/e2e/    → Playwright smoke tests
 │       └── src/
 │           ├── components/ui/  → shadcn-style base UI for the docs
 │           └── lib/utils.ts    → cn() helper

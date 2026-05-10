@@ -22,6 +22,7 @@ export default tseslint.config(
       // bootstrap). Flat ESLint can't typed-lint these without a project
       // entry — exclude rather than fight the toolchain for one-off scripts.
       '**/*.config.{js,mjs,cjs,ts}',
+      '.size-limit.cjs',
       '**/vitest.setup.ts',
       'scripts/**',
       'apps/docs/scripts/**',
