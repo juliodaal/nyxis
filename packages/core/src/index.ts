@@ -106,3 +106,16 @@ export {
 } from './hooks/use-completion.js';
 export { useTokenCount, estimateTokens } from './hooks/use-token-count.js';
 export { useToolExecutor } from './hooks/use-tool-executor.js';
+export { useChatInput, type UseChatInputReturn } from './hooks/use-chat-input.js';
+
+// Headless controllers — framework-agnostic state machines.
+// Use these directly when porting Nyxis to Vue / Svelte / Web Components,
+// or when you need the logic without React.
+export {
+  createChatInputController,
+  type ChatInputController,
+  type ChatInputDerived,
+  type ChatInputOptions,
+  type ChatInputState,
+  type KeyboardLike,
+} from './headless/chat-input.js';

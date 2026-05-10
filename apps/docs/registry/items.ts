@@ -635,8 +635,9 @@ export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
     name: 'chat-input',
     type: 'registry:ui',
     title: 'Chat Input',
-    description: 'Auto-resizing composer with attachments for chat and agent interfaces.',
-    dependencies: ['lucide-react'],
+    description:
+      'Auto-resizing composer with attachments for chat and agent interfaces. Headless-first via `useChatInput` from `@nyxis/core`.',
+    dependencies: ['lucide-react', '@nyxis/core'],
     registryDependencies: ['utils'],
     files: [
       {

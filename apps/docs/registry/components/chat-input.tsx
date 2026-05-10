@@ -1,15 +1,9 @@
 'use client';
 
+import { useChatInput } from '@nyxis/core';
 import { ArrowUp, Paperclip } from 'lucide-react';
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-  type FormEvent,
-  type KeyboardEvent,
-} from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, type FormEvent } from 'react';
+
 import { cn } from '@/lib/utils';
 
 export interface ChatInputProps {
@@ -33,8 +27,13 @@ export interface ChatInputProps {
 }
 
 /**
- * Auto-resizing chat composer with Enter-to-send and Shift+Enter newline.
- * For AI assistants, support copilots, and agent interfaces.
+ * Auto-resizing chat composer with Enter-to-send and Shift+Enter
+ * newline. For AI assistants, support copilots, and agent interfaces.
+ *
+ * Powered by `useChatInput` from `@nyxis/core` — the state, derived
+ * values, and keyboard handling live in a framework-agnostic
+ * controller. Vue / Svelte / WC ports of this component reuse the
+ * same controller via `createChatInputController`.
  */
 export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatInput(
   {
@@ -52,9 +51,26 @@ export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(functio
 ) {
   const innerRef = useRef<HTMLTextAreaElement>(null);
   useImperativeHandle(forwardedRef, () => innerRef.current as HTMLTextAreaElement, []);
-  const [internal, setInternal] = useState(defaultValue);
-  const value = controlledValue ?? internal;
 
+  const isControlled = controlledValue !== undefined;
+
+  const headless = useChatInput({
+    initialValue: defaultValue,
+    disabled,
+    onValueChange,
+    onSubmit,
+  });
+
+  // Mirror controlled prop into the headless state so external resets work.
+  useEffect(() => {
+    if (isControlled && controlledValue !== headless.value) {
+      headless.setValue(controlledValue);
+    }
+  }, [controlledValue, isControlled, headless]);
+
+  const renderedValue = isControlled ? controlledValue : headless.value;
+
+  // Auto-resize: framework-specific DOM access, not part of headless core.
   useEffect(() => {
     const el = innerRef.current;
     if (!el) return;
@@ -62,31 +78,16 @@ export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(functio
     const lineHeight = parseFloat(getComputedStyle(el).lineHeight || '20');
     const max = lineHeight * maxRows;
     el.style.height = `${Math.min(el.scrollHeight, max)}px`;
-  }, [value, maxRows]);
+  }, [renderedValue, maxRows]);
 
-  const submit = () => {
-    const trimmed = value.trim();
-    if (!trimmed || disabled) return;
-    onSubmit?.(trimmed);
-    if (controlledValue === undefined) setInternal('');
-    else onValueChange?.('');
-  };
-
-  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      submit();
-    }
-  };
-
-  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    submit();
+    headless.submit();
   };
 
   return (
     <form
-      onSubmit={onFormSubmit}
+      onSubmit={handleFormSubmit}
       className={cn(
         'border-input bg-background shadow-soft flex items-end gap-2 rounded-xl border p-2',
         'focus-within:ring-ring focus-within:ring-offset-background focus-within:ring-2 focus-within:ring-offset-2',
@@ -106,12 +107,9 @@ export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(functio
       <textarea
         ref={innerRef}
         rows={1}
-        value={value}
-        onChange={(e) => {
-          if (controlledValue === undefined) setInternal(e.target.value);
-          onValueChange?.(e.target.value);
-        }}
-        onKeyDown={onKeyDown}
+        value={renderedValue}
+        onChange={(e) => headless.setValue(e.target.value)}
+        onKeyDown={headless.handleKeyDown}
         placeholder={placeholder}
         disabled={disabled}
         className="text-foreground placeholder:text-muted-foreground flex-1 resize-none bg-transparent px-2 py-1.5 text-sm outline-none disabled:opacity-50"
@@ -119,7 +117,7 @@ export const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(functio
       <button
         type="submit"
         aria-label="Send message"
-        disabled={disabled || value.trim().length === 0}
+        disabled={!headless.canSubmit}
         className="bg-primary text-primary-foreground grid size-9 shrink-0 place-items-center rounded-md transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         <ArrowUp className="size-4" aria-hidden="true" />
