@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useId, useMemo, useState, type FormEvent, type HTMLAttributes } from 'react';
+import { usePromptVariableForm } from '@nyxis/core';
+import { useId, type FormEvent, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
-
-const VARIABLE_RE = /\{\{\s*([a-zA-Z_][\w.]*)\s*\}\}/g;
 
 export interface PromptVariableFormProps extends Omit<
   HTMLAttributes<HTMLFormElement>,
@@ -31,9 +30,11 @@ export interface PromptVariableFormProps extends Omit<
 }
 
 /**
- * Auto-detects `{{variables}}` from a prompt template and renders a
- * field per variable. Pair with `<PromptCard>` (selection) and the
- * resulting bound values can be passed to your model call directly.
+ * Auto-detects `{{variables}}` from a prompt template and renders one
+ * field per variable. Powered by `usePromptVariableForm` from
+ * `@nyxis/core` — the extraction, value map, rendered preview, and
+ * fill-progress all live in a framework-agnostic controller so Vue /
+ * Svelte ports get them for free.
  */
 export function PromptVariableForm({
   template,
@@ -48,48 +49,25 @@ export function PromptVariableForm({
   className,
   ...props
 }: PromptVariableFormProps) {
-  const variables = useMemo(() => {
-    const found = new Set<string>();
-    for (const match of template.matchAll(VARIABLE_RE)) {
-      if (match[1]) found.add(match[1]);
-    }
-    return [...found];
-  }, [template]);
+  const form = usePromptVariableForm({
+    initialTemplate: template,
+    initialValues: controlledValue ?? defaultValue,
+    onValueChange,
+    onSubmit,
+  });
 
-  const [internal, setInternal] = useState<Record<string, string>>(
-    () => controlledValue ?? defaultValue ?? {},
-  );
-  const value = controlledValue ?? internal;
+  // Mirror controlled values into the controller.
+  // (`useEffect`-free here because the headless setValues short-circuits when equal.)
+  const renderedValues = controlledValue ?? form.values;
 
-  // When the template variables change, drop stale keys from internal
-  // so we don't keep unrelated values around.
-  useEffect(() => {
-    if (controlledValue) return;
-    setInternal((prev) => {
-      const next: Record<string, string> = {};
-      for (const v of variables) next[v] = prev[v] ?? '';
-      return next;
-    });
-  }, [variables, controlledValue]);
-
-  const update = (name: string, next: string) => {
-    const merged = { ...value, [name]: next };
-    setInternal(merged);
-    onValueChange?.(merged);
+  const handleChange = (name: string, next: string): void => {
+    form.setValue(name, next);
   };
 
-  const rendered = useMemo(
-    () =>
-      template.replace(VARIABLE_RE, (_, key: string) => (value[key] ? value[key]! : `{{${key}}}`)),
-    [template, value],
-  );
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onSubmit?.(value, { template, rendered });
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    form.submit();
   };
-
-  const allFilled = variables.every((v) => value[v]?.trim());
 
   return (
     <form
@@ -98,20 +76,20 @@ export function PromptVariableForm({
       className={cn('flex flex-col gap-3', className)}
       {...props}
     >
-      {variables.length === 0 ? (
+      {form.variables.length === 0 ? (
         <p className="text-muted-foreground rounded-md border border-dashed py-3 text-center text-[11px]">
           This template has no variables.
         </p>
       ) : (
         <ul className="flex flex-col gap-2.5">
-          {variables.map((name) => (
+          {form.variables.map((name) => (
             <Field
               key={name}
               name={name}
-              value={value[name] ?? ''}
-              onChange={(v) => update(name, v)}
+              value={renderedValues[name] ?? ''}
+              onChange={(v) => handleChange(name, v)}
               disabled={disabled}
-              multiline={(value[name] ?? '').length > multilineThreshold}
+              multiline={(renderedValues[name] ?? '').length > multilineThreshold}
             />
           ))}
         </ul>
@@ -123,7 +101,7 @@ export function PromptVariableForm({
             Preview
           </p>
           <pre className="text-foreground/90 whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
-            {rendered}
+            {form.rendered}
           </pre>
         </div>
       )}
@@ -131,11 +109,11 @@ export function PromptVariableForm({
       {submitLabel && (
         <div className="flex items-center justify-between gap-2">
           <span className="text-muted-foreground text-[10px] font-medium">
-            {variables.filter((v) => value[v]?.trim()).length} / {variables.length} filled
+            {form.filledCount} / {form.variables.length} filled
           </span>
           <button
             type="submit"
-            disabled={disabled || !allFilled}
+            disabled={disabled || !form.allFilled}
             className={cn(
               'bg-primary text-primary-foreground hover:bg-primary/90',
               'inline-flex h-8 items-center justify-center rounded-md px-3 text-xs font-medium',

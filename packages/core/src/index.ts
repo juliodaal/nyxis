@@ -107,6 +107,12 @@ export {
 export { useTokenCount, estimateTokens } from './hooks/use-token-count.js';
 export { useToolExecutor } from './hooks/use-tool-executor.js';
 export { useChatInput, type UseChatInputReturn } from './hooks/use-chat-input.js';
+export { useTokenCounter } from './hooks/use-token-counter.js';
+export {
+  usePromptVariableForm,
+  type UsePromptVariableFormReturn,
+} from './hooks/use-prompt-variable-form.js';
+export { useChatThread, type UseChatThreadReturn } from './hooks/use-chat-thread.js';
 
 // Headless controllers — framework-agnostic state machines.
 // Use these directly when porting Nyxis to Vue / Svelte / Web Components,
@@ -119,3 +125,23 @@ export {
   type ChatInputState,
   type KeyboardLike,
 } from './headless/chat-input.js';
+export {
+  computeTokenCounter,
+  type TokenCounterDerived,
+  type TokenCounterTone,
+} from './headless/token-counter.js';
+export {
+  createPromptVariableFormController,
+  type PromptVariableFormController,
+  type PromptVariableFormDerived,
+  type PromptVariableFormOptions,
+  type PromptVariableFormState,
+} from './headless/prompt-variable-form.js';
+export {
+  createChatThreadController,
+  type ChatThreadController,
+  type ChatThreadDerived,
+  type ChatThreadOptions,
+  type ChatThreadState,
+  type ScrollMetrics,
+} from './headless/chat-thread.js';

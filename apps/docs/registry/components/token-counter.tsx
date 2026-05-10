@@ -1,9 +1,9 @@
 'use client';
 
+import { useTokenCounter } from '@nyxis/core';
 import { type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
-import { useTokenCount } from '@nyxis/core';
 
 export interface TokenCounterProps extends HTMLAttributes<HTMLSpanElement> {
   /** Text whose token count we estimate. */
@@ -17,9 +17,10 @@ export interface TokenCounterProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
- * Inline token counter for chat composers and prompt editors. Pairs with
- * `useTokenCount` and the model catalog so the percentage of context
- * window consumed is shown automatically.
+ * Inline token counter for chat composers and prompt editors. Headless-
+ * first: the tokens / contextPct / tone derivation lives in
+ * `computeTokenCounter` from `@nyxis/core`. The React component owns
+ * only the markup.
  */
 export function TokenCounter({
   text,
@@ -29,8 +30,7 @@ export function TokenCounter({
   className,
   ...props
 }: TokenCounterProps) {
-  const { tokens, contextPct } = useTokenCount(text, modelId);
-  const tone = contextPct < 0.7 ? 'safe' : contextPct < 0.9 ? 'warn' : 'crit';
+  const { tokens, contextPct, tone } = useTokenCounter(text, modelId);
 
   return (
     <span

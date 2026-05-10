@@ -1,13 +1,13 @@
 'use client';
 
+import { useChatThread, type AIMessage } from '@nyxis/core';
 import { ArrowDown } from 'lucide-react';
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
 import { ChatMessage } from '@/components/nyxis/chat-message';
-import { TypingIndicator } from '@/components/nyxis/typing-indicator';
 import { StreamingMarkdown } from '@/components/nyxis/streaming-markdown';
-import type { AIMessage } from '@nyxis/core';
+import { TypingIndicator } from '@/components/nyxis/typing-indicator';
+import { cn } from '@/lib/utils';
 
 export interface ChatThreadProps {
   /** Conversation to render. */
@@ -28,10 +28,11 @@ export interface ChatThreadProps {
 }
 
 /**
- * Scrollable conversation surface. Renders `<ChatMessage>` for each entry,
- * keeps the latest message in view while the user is "at the bottom",
- * and exposes a "scroll to latest" floating button when the user has
- * scrolled away from it.
+ * Scrollable conversation surface. The decision logic for "stuck to
+ * bottom" / "show scroll-to-latest button" lives in
+ * `useChatThread` from `@nyxis/core`. The component still owns the
+ * DOM refs and the actual `scrollIntoView` call — those are
+ * framework-specific.
  */
 export function ChatThread({
   messages,
@@ -45,24 +46,23 @@ export function ChatThread({
 }: ChatThreadProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
-  const [stickToBottom, setStickToBottom] = useState(true);
-  const [showScrollButton, setShowScrollButton] = useState(false);
+  const { stickToBottom, showScrollButton, recordScroll, pinToBottom } = useChatThread();
 
-  // Track whether the user is at the bottom.
-  const onScroll = () => {
+  const handleScroll = (): void => {
     const el = containerRef.current;
     if (!el) return;
-    const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    const atBottom = distanceFromBottom < 24;
-    setStickToBottom(atBottom);
-    setShowScrollButton(!atBottom);
+    recordScroll({
+      scrollTop: el.scrollTop,
+      scrollHeight: el.scrollHeight,
+      clientHeight: el.clientHeight,
+    });
   };
 
   // When new messages arrive AND the user is at the bottom, follow them.
   useLayoutEffect(() => {
     if (!autoScroll || !stickToBottom) return;
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: depend on length / streaming, not stickToBottom (closure)
   }, [messages.length, streaming]);
 
   // Force-scroll on first mount.
@@ -76,7 +76,7 @@ export function ChatThread({
     <div className={cn('relative flex h-full min-h-0 flex-col', className)}>
       <div
         ref={containerRef}
-        onScroll={onScroll}
+        onScroll={handleScroll}
         className="min-h-0 flex-1 overflow-y-auto px-4 py-6"
       >
         {header}
@@ -120,7 +120,7 @@ export function ChatThread({
           type="button"
           onClick={() => {
             endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-            setStickToBottom(true);
+            pinToBottom();
           }}
           aria-label="Scroll to latest"
           className="border-border bg-popover text-popover-foreground shadow-elevated hover:bg-muted absolute bottom-4 left-1/2 grid size-9 -translate-x-1/2 place-items-center rounded-full border transition-colors"

@@ -1641,7 +1641,8 @@ export const REGISTRY_ITEMS: readonly RegistryItemSpec[] = [
     type: 'registry:ui',
     title: 'Prompt Variable Form',
     description:
-      'Auto-form for `{{variables}}` extracted from a prompt template, with live preview.',
+      'Auto-form for `{{variables}}` extracted from a prompt template, with live preview. Headless-first via `usePromptVariableForm` from `@nyxis/core`.',
+    dependencies: ['@nyxis/core'],
     registryDependencies: ['utils'],
     files: [
       {
