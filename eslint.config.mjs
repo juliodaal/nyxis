@@ -29,6 +29,11 @@ export default tseslint.config(
       'apps/docs/registry/**',
       'packages/ui/scripts/**',
       'packages/core/scripts/**',
+      // Vue package tests live in `test/` (not `src/`); the eslint
+      // project service can't find them via the package tsconfig.
+      // Vitest runs them and `tsc --noEmit` type-checks them — the
+      // duplicate eslint sweep adds nothing here.
+      'packages/vue/test/**',
     ],
   },
   js.configs.recommended,

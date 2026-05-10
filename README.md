@@ -107,8 +107,11 @@ MCP server delegates installs back to that same CLI.
   `install`).
 - **Phase 5 — Adoption.** **Started.** `create-nyxis` CLI live; telemetry opt-in
   and custom domain queued.
-- **Phase 6 — Multi-framework registries.** Planned. Headless `@nyxis/core`
-  - Vue / Svelte / Web Components renderers.
+- **Phase 6 — Multi-framework registries.** **Started.** Headless controllers in
+  `@nyxis/core` power four pilot components (`chat-input`, `chat-thread`,
+  `prompt-variable-form`, `token-counter`). `@nyxis/vue` is the first non-React
+  adapter — 16 passing tests, same controllers as React. Svelte / Web Components
+  adapters and full registry port queued.
 
 ## Repository layout
 

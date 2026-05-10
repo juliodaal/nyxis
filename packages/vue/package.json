@@ -1,0 +1,48 @@
+{
+  "name": "@nyxis/vue",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vue 3 adapters over Nyxis's framework-agnostic controllers. Validates that @nyxis/core ports to non-React frameworks without rewriting state.",
+  "license": "MIT",
+  "author": "Julio César Daal <juliocesar.daal@gmail.com>",
+  "homepage": "https://nyxisai.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliodaal/nyxis.git",
+    "directory": "packages/vue"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "@nyxis/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^2.4.6",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "vue": "^3.5.13"
+  }
+}
