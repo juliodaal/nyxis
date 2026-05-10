@@ -28,7 +28,23 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      # Gracefully skip when NPM_TOKEN is not configured — the workflow
+      # stays green so consumers don't see a permanent red badge.
+      # When you're ready to publish: add NPM_TOKEN to repo secrets and
+      # the next push runs this step.
+      - name: Check NPM_TOKEN availability
+        id: token
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::NPM_TOKEN is not set — skipping publish. Add it under Settings → Secrets and variables → Actions to enable."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Create release PR or publish to npm
+        if: steps.token.outputs.configured == 'true'
         uses: changesets/action@v1
         with:
           publish: pnpm release
