@@ -51,7 +51,7 @@
     "react-hook-form": "^7.54.2",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "shiki": "^3.4.0",
+    "shiki": "^4.0.2",
     "sonner": "^1.7.1",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
