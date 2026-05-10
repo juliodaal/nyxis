@@ -9,7 +9,6 @@ concurrency: release-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 jobs:
   release:
@@ -28,30 +27,16 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      # Gracefully skip when NPM_TOKEN is not configured — the workflow
-      # stays green so consumers don't see a permanent red badge.
-      # When you're ready to publish: add NPM_TOKEN to repo secrets and
-      # the next push runs this step.
-      - name: Check NPM_TOKEN availability
-        id: token
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          if [ -n "$NPM_TOKEN" ]; then
-            echo "configured=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "::warning::NPM_TOKEN is not set — skipping publish. Add it under Settings → Secrets and variables → Actions to enable."
-            echo "configured=false" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Create release PR or publish to npm
-        if: steps.token.outputs.configured == 'true'
+      # changesets/action only OPENS a "Version Packages" PR when
+      # there are pending changesets. It never publishes to npm here
+      # — publishing is done manually from a local terminal where the
+      # maintainer's `npm whoami` credentials and 2FA are handled
+      # correctly. See CONTRIBUTING.md for the release flow.
+      - name: Create "Version Packages" PR
         uses: changesets/action@v1
         with:
-          publish: pnpm release
           version: pnpm version
           commit: 'chore: release packages'
           title: 'chore: release packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'

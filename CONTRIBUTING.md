@@ -104,6 +104,36 @@ When you bump a package, follow [VERSIONING.md](./VERSIONING.md) — it describe
 what counts as a breaking change in `0.x`, the deprecation flow, and the road to
 v1.0.
 
+## Releasing
+
+CI **does not publish to npm**. We publish manually so the maintainer's
+`npm whoami` session and 2FA are handled correctly.
+
+The release flow:
+
+1. While working on a change, run `pnpm changeset` and pick the affected
+   packages + bump type (patch / minor / major). The changeset markdown lands in
+   `.changeset/` and is committed with the PR.
+2. When the PR merges to `main`, the **Release** workflow opens a
+   `chore: release packages` PR that bumps every package's `version` field per
+   the pending changesets. Review it.
+3. Merge the version PR. This commit is the "release point" on `main`.
+4. Pull `main` locally and publish:
+   ```bash
+   git pull origin main
+   pnpm install --frozen-lockfile
+   pnpm -r --filter=./packages/* build
+   pnpm changeset publish
+   ```
+   `changeset publish` reads each package's local version vs npm, and publishes
+   only what's behind. It uses your local `npm whoami` session (`npm login`
+   first if needed) so 2FA prompts work normally.
+
+If you need to enable CI publishing later: add an `NPM_TOKEN` repo secret with
+publish permissions for every package, then put the `publish:` field back in
+`.github/workflows/release.yml` step `changesets/action@v1`. Provenance via OIDC
+also requires the `id-token: write` permission.
+
 ## Reporting Bugs
 
 Open a GitHub Issue using the bug template. Include:
