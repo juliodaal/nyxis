@@ -21,10 +21,10 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 import { RegistryClient } from './lib/registry-fetch.js';
-import { listComponentsHandler, listComponentsSchema } from './tools/list-components.js';
 import { getComponentHandler, getComponentSchema } from './tools/get-component.js';
-import { searchComponentsHandler, searchComponentsSchema } from './tools/search-components.js';
 import { installComponentHandler, installComponentSchema } from './tools/install-component.js';
+import { listComponentsHandler, listComponentsSchema } from './tools/list-components.js';
+import { searchComponentsHandler, searchComponentsSchema } from './tools/search-components.js';
 
 async function main(): Promise<void> {
   const client = new RegistryClient();
@@ -82,7 +82,7 @@ async function main(): Promise<void> {
 main().catch((err: unknown) => {
   // Send fatal errors to stderr so they don't pollute the MCP stream
   // on stdout. The parent assistant can surface them in its UI.
-  // eslint-disable-next-line no-console
+
   console.error(`[nyxis-mcp] fatal: ${(err as Error).message}`);
   process.exit(1);
 });

@@ -11,9 +11,10 @@
  */
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { Bell, Github, MoreHorizontal, Settings } from 'lucide-react';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Bell, Github, MoreHorizontal, Settings } from 'lucide-react';
 import { z } from 'zod';
 
 // Base UI primitives — local copy of the shadcn-style files the
@@ -858,6 +859,7 @@ export function ThemeToggleDemo() {
 // ─────────────────────────────────────────────────────────────────────
 
 import { useState } from 'react';
+
 import {
   AIConfigCard,
   AIHaloBorder,
@@ -877,6 +879,7 @@ import {
   TokenStream,
   TopPSlider,
 } from '@/lib/nyxis-registry';
+
 import type { AIProviderId } from '@nyxis/core';
 
 export function AIProviderSelectorDemo() {
@@ -998,16 +1001,17 @@ export function AIConfigCardDemo() {
 // AI · Chat 2.0 (Phase E)
 // ─────────────────────────────────────────────────────────────────────
 
-import { useEffect } from 'react';
 import { Code2, Globe, Image as ImageIcon, Search } from 'lucide-react';
-import type { AIMessage } from '@nyxis/core';
+import { useEffect } from 'react';
+
 import type { ChainStep } from '@/components/nyxis/chain-of-thought';
+import type { ForkNode } from '@/components/nyxis/conversation-fork';
 import type { ConversationItem } from '@/components/nyxis/conversation-sidebar';
 import type { DocumentChunk } from '@/components/nyxis/document-chunker';
-import type { ForkNode } from '@/components/nyxis/conversation-fork';
 import type { ParameterField } from '@/components/nyxis/parameter-form';
-import type { RegisteredTool } from '@/components/nyxis/tool-registry';
 import type { ToolExecution } from '@/components/nyxis/tool-execution-log';
+import type { RegisteredTool } from '@/components/nyxis/tool-registry';
+import type { AIMessage } from '@nyxis/core';
 import type {
   Agent,
   AgentActivity,

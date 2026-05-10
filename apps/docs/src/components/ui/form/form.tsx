@@ -1,6 +1,5 @@
 ﻿'use client';
 
-import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import {
   createContext,
@@ -19,8 +18,12 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import { cn } from '@/lib/utils';
+
 import { Label } from '../label/label';
+
+import type * as LabelPrimitive from '@radix-ui/react-label';
+
+import { cn } from '@/lib/utils';
 
 /**
  * Re-export of react-hook-form's `FormProvider`. Wrap your form with this

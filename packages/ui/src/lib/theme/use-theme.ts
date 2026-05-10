@@ -10,6 +10,7 @@ import {
   resolveTheme,
   subscribeToTheme,
 } from './theme-store.js';
+
 import type { ResolvedTheme, Theme } from './theme-types.js';
 
 interface UseThemeReturn {
@@ -71,6 +72,7 @@ function useStandaloneTheme(active: boolean): UseThemeReturn {
   const theme = useSyncExternalStore(
     subscribeToTheme,
     () => readStoredTheme(),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- needed: useSyncExternalStore widens to `string` without explicit narrowing
     () => 'system' as Theme,
   );
   const resolvedTheme = resolveTheme(theme);

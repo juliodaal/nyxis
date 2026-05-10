@@ -2,7 +2,7 @@
 
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+
 import { Button } from '../button/button';
 import {
   Command,
@@ -13,6 +13,8 @@ import {
   CommandList,
 } from '../command/command';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover/popover';
+
+import { cn } from '@/lib/utils';
 
 export interface ComboboxOption {
   value: string;

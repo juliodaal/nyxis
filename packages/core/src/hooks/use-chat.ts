@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useAI } from './use-ai.js';
 import { nyxisAIEvents } from '../events.js';
+
+import { useAI } from './use-ai.js';
+
 import type {
   AIChatOptions,
   AIChatReturn,

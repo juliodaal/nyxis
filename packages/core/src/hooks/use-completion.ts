@@ -2,8 +2,9 @@
 
 import { useCallback, useRef, useState } from 'react';
 
-import { useAI } from './use-ai.js';
 import { nyxisAIEvents } from '../events.js';
+
+import { useAI } from './use-ai.js';
 
 export interface UseCompletionOptions {
   /** API endpoint. Defaults to the value configured in `<AIProvider>`. */

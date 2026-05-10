@@ -1,6 +1,7 @@
 import { ArrowRight, Github } from 'lucide-react';
-// eslint-disable-next-line import/no-relative-packages
+
 import nyxisPkg from '../../../../../packages/ui/package.json';
+
 import { DotWave } from './DotWave';
 
 const version = nyxisPkg.version;

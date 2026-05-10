@@ -2,9 +2,9 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import type { APIRoute, GetStaticPaths } from 'astro';
-
 import { REGISTRY_ITEMS } from '../../../registry/items';
+
+import type { APIRoute, GetStaticPaths } from 'astro';
 
 /**
  * Per-item registry endpoint, shadcn-CLI compatible. Returns the JSON

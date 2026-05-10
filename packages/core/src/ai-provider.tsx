@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 
+import { getProviderInfo } from './adapters/registry.js';
 import { AIContext, type AIContextValue } from './ai-context.js';
 import { nyxisAIEvents } from './events.js';
-import { getProviderInfo } from './adapters/registry.js';
+
 import type { AIProviderId, AITool } from './types.js';
 
 export interface AIProviderProps {

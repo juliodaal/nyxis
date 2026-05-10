@@ -59,11 +59,22 @@ export default function CommandPalette({ items }: Props) {
       </button>
 
       {open ? (
+        // Modal dialog backdrop. Click outside / Escape close it; the
+        // `Command.Input` inside owns focus on open. Adding a role+aria
+        // here is the standard accessible-modal pattern.
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command palette"
           className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
           onClick={() => setOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setOpen(false);
+          }}
         >
           <div
+            role="presentation"
             className="mx-auto mt-[14vh] w-full max-w-xl px-4"
             onClick={(e) => e.stopPropagation()}
           >
@@ -75,6 +86,8 @@ export default function CommandPalette({ items }: Props) {
               <div className="border-border flex items-center gap-3 border-b px-4">
                 <Search className="text-muted-foreground size-4" aria-hidden="true" />
                 <Command.Input
+                  // autoFocus is appropriate inside a modal dialog for keyboard-first UX
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
                   value={query}
                   onValueChange={setQuery}

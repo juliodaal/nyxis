@@ -1,6 +1,7 @@
 'use client';
 
 import { THEME_ATTRIBUTE, THEME_STORAGE_KEY, THEMES } from './theme-types.js';
+
 import type { ResolvedTheme, Theme } from './theme-types.js';
 
 const SAME_TAB_EVENT = 'nyxis-theme-change';

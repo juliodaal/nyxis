@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-
 import { REGISTRY_ITEMS } from '../../../registry/items';
+
+import type { APIRoute } from 'astro';
 
 /**
  * The Nyxis registry manifesto. Lists every item without inlining file

@@ -33,8 +33,6 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,astro,mdx,md,json,css,yml,yaml}\"",
     "test": "pnpm -r --parallel test",
     "test:e2e": "pnpm --filter ./apps/docs test:e2e",
-    "storybook": "pnpm --filter nyxis-ui storybook",
-    "build-storybook": "pnpm --filter nyxis-ui build-storybook",
     "changeset": "changeset",
     "version": "changeset version && pnpm install --lockfile-only",
     "release": "pnpm build && changeset publish",
@@ -81,6 +79,9 @@
       "@swc/core",
       "esbuild",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "fast-uri@<3.1.2": "^3.1.2"
+    }
   }
 }

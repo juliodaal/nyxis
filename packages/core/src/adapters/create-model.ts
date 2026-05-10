@@ -28,8 +28,9 @@
  * ```
  */
 
-import type { AIProviderId } from '../types.js';
 import { getRegisteredProvider, listProviders } from './provider-registry.js';
+
+import type { AIProviderId } from '../types.js';
 
 export interface CreateModelOptions {
   provider: AIProviderId;

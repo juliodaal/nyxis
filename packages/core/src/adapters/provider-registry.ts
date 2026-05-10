@@ -115,9 +115,7 @@ function registerBuiltIns(): void {
       const mod = await import('@ai-sdk/anthropic');
       const settings = compactSettings(opts);
       const factory =
-        Object.keys(settings).length > 0
-          ? mod.createAnthropic(settings as Parameters<typeof mod.createAnthropic>[0])
-          : mod.anthropic;
+        Object.keys(settings).length > 0 ? mod.createAnthropic(settings) : mod.anthropic;
       return factory(opts.model);
     },
   });
@@ -128,10 +126,7 @@ function registerBuiltIns(): void {
     async loadModel(opts) {
       const mod = await import('@ai-sdk/openai');
       const settings = compactSettings(opts);
-      const factory =
-        Object.keys(settings).length > 0
-          ? mod.createOpenAI(settings as Parameters<typeof mod.createOpenAI>[0])
-          : mod.openai;
+      const factory = Object.keys(settings).length > 0 ? mod.createOpenAI(settings) : mod.openai;
       return factory(opts.model);
     },
   });
@@ -143,11 +138,7 @@ function registerBuiltIns(): void {
       const mod = await import('@ai-sdk/google');
       const settings = compactSettings(opts);
       const factory =
-        Object.keys(settings).length > 0
-          ? mod.createGoogleGenerativeAI(
-              settings as Parameters<typeof mod.createGoogleGenerativeAI>[0],
-            )
-          : mod.google;
+        Object.keys(settings).length > 0 ? mod.createGoogleGenerativeAI(settings) : mod.google;
       return factory(opts.model);
     },
   });
@@ -158,10 +149,7 @@ function registerBuiltIns(): void {
     async loadModel(opts) {
       const mod = await import('@ai-sdk/mistral');
       const settings = compactSettings(opts);
-      const factory =
-        Object.keys(settings).length > 0
-          ? mod.createMistral(settings as Parameters<typeof mod.createMistral>[0])
-          : mod.mistral;
+      const factory = Object.keys(settings).length > 0 ? mod.createMistral(settings) : mod.mistral;
       return factory(opts.model);
     },
   });

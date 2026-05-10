@@ -21,6 +21,7 @@
 import { streamText } from 'ai';
 
 import { createModel } from '../src/adapters/create-model.js';
+
 import type { AIProviderId } from '../src/types.js';
 
 interface ProviderProbe {

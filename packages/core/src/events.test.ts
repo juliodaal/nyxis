@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+
 import { nyxisAIEvents } from './events.js';
 
 describe('nyxisAIEvents', () => {

@@ -1,11 +1,13 @@
-import { describe, expect, it } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import type { ReactNode } from 'react';
+import { describe, expect, it } from 'vitest';
 
 import { AIProvider } from '../ai-provider.js';
+
 import { useAI } from './use-ai.js';
 import { useToolExecutor } from './use-tool-executor.js';
+
 import type { AITool } from '../types.js';
+import type { ReactNode } from 'react';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
   <AIProvider persistKey="">{children}</AIProvider>

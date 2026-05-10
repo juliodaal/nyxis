@@ -1,7 +1,8 @@
 'use client';
 
-import { useDeferredValue, useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
+import { useDeferredValue, useMemo, useState } from 'react';
+
 import {
   CATEGORIES,
   REGISTRY,
@@ -108,7 +109,7 @@ export default function CatalogGrid() {
         {filtered.length} {filtered.length === 1 ? 'component' : 'components'}
         {query && (
           <span className="text-muted-foreground/70 ml-2 normal-case tracking-normal">
-            matching "{query}"
+            matching &ldquo;{query}&rdquo;
           </span>
         )}
       </p>
@@ -122,7 +123,7 @@ export default function CatalogGrid() {
         </div>
       ) : (
         <div className="border-border bg-card text-muted-foreground flex flex-col items-center gap-2 rounded-lg border border-dashed py-16 text-center text-sm">
-          <p>No components match "{query}".</p>
+          <p>No components match &ldquo;{query}&rdquo;.</p>
           <button
             type="button"
             onClick={() => {

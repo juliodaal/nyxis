@@ -9,8 +9,9 @@
  * the SDK packages they actually use.
  */
 
-import type { AIProviderId } from '../types.js';
 import { createModel } from '../adapters/create-model.js';
+
+import type { AIProviderId } from '../types.js';
 
 interface ChatRequestBody {
   messages: { role: string; content: string }[];

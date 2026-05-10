@@ -13,7 +13,7 @@
  * without TypeScript complaints.
  */
 export type BuiltInAIProviderId = 'anthropic' | 'openai' | 'google' | 'mistral' | 'ollama';
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+
 export type AIProviderId = BuiltInAIProviderId | (string & {});
 
 export type AIRole = 'system' | 'user' | 'assistant' | 'tool';

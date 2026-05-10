@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from './theme-types.js';
 import { applyTheme, persistTheme, readStoredTheme, resolveTheme } from './theme-store.js';
+import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from './theme-types.js';
 
 describe('theme-store', () => {
   beforeEach(() => {

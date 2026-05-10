@@ -1,6 +1,7 @@
 'use client';
 
 import { Toaster as SonnerToaster, toast } from 'sonner';
+
 import type { ComponentProps } from 'react';
 
 export type ToasterProps = ComponentProps<typeof SonnerToaster>;
