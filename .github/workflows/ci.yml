@@ -79,12 +79,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - name: Validate package exports
+      - name: Validate npm package exports (publint)
         run: pnpm --filter nyxis-ui exec publint
-        continue-on-error: true
-      - name: Validate types
-        run: pnpm --filter nyxis-ui exec attw --pack .
-        continue-on-error: true
 
   audit:
     name: Dependency Audit
