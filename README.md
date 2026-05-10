@@ -134,6 +134,11 @@ nyxis/
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for local setup, conventions, and the
 registry-item authoring checklist.
 
+## Versioning
+
+See [VERSIONING.md](./VERSIONING.md) for how we apply SemVer in 0.x, what counts
+as a breaking change, and the road to v1.0.
+
 ## Security
 
 See [SECURITY.md](./SECURITY.md) for vulnerability disclosure and our hardening

@@ -98,6 +98,12 @@ When you add a new component to `apps/docs/registry/`:
   comment.
 - Conventional Commits (enforced by commitlint).
 
+## Versioning
+
+When you bump a package, follow [VERSIONING.md](./VERSIONING.md) — it describes
+what counts as a breaking change in `0.x`, the deprecation flow, and the road to
+v1.0.
+
 ## Reporting Bugs
 
 Open a GitHub Issue using the bug template. Include:
