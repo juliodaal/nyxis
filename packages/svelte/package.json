@@ -1,0 +1,47 @@
+{
+  "name": "@nyxis/svelte",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Svelte adapters over Nyxis's framework-agnostic controllers. Validates that @nyxis/core ports to Svelte without rewriting state.",
+  "license": "MIT",
+  "author": "Julio César Daal <juliocesar.daal@gmail.com>",
+  "homepage": "https://nyxisai.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliodaal/nyxis.git",
+    "directory": "packages/svelte"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "svelte": "^4.2.0 || ^5.0.0"
+  },
+  "dependencies": {
+    "@nyxis/core": "workspace:*"
+  },
+  "devDependencies": {
+    "svelte": "^5.16.0",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

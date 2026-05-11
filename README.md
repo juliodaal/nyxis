@@ -109,9 +109,9 @@ MCP server delegates installs back to that same CLI.
   and custom domain queued.
 - **Phase 6 — Multi-framework registries.** **Started.** Headless controllers in
   `@nyxis/core` power four pilot components (`chat-input`, `chat-thread`,
-  `prompt-variable-form`, `token-counter`). `@nyxis/vue` is the first non-React
-  adapter — 16 passing tests, same controllers as React. Svelte / Web Components
-  adapters and full registry port queued.
+  `prompt-variable-form`, `token-counter`) across three frameworks: React (via
+  `@nyxis/core`), Vue (`@nyxis/vue`, 16 tests), Svelte (`@nyxis/svelte`, 17
+  tests). Web Components adapter and full registry port queued.
 
 ## Repository layout
 

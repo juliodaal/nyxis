@@ -34,6 +34,7 @@ export default tseslint.config(
       // Vitest runs them and `tsc --noEmit` type-checks them — the
       // duplicate eslint sweep adds nothing here.
       'packages/vue/test/**',
+      'packages/svelte/test/**',
     ],
   },
   js.configs.recommended,
