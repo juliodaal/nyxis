@@ -8,11 +8,13 @@
  */
 import { Code } from 'astro:components';
 
+import { registryItemUrl } from '../../lib/site';
+
 const snippet = `# 1. Bootstrap shadcn in any React-capable project
 npx shadcn@latest init
 
 # 2. Install a component — @nyxis/core comes along for free
-npx shadcn@latest add https://nyxisai.vercel.app/r/chat-thread.json
+npx shadcn@latest add ${registryItemUrl('chat-thread')}
 
 # That's it. Edit src/components/nyxis/chat-thread.tsx to taste.`;
 ---

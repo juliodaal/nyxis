@@ -3,6 +3,20 @@
   "buildCommand": "cd ../.. && pnpm build",
   "outputDirectory": "dist",
   "framework": "astro",
+  "_comment_redirects": "Uncomment when migrating to a custom domain. Set the new domain as primary in Vercel → Domains, then enable this block so nyxisai.vercel.app issues 308 to the new origin. The 308 preserves the path so /r/<name>.json keeps resolving for existing installs.",
+  "_redirects_template": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "nyxisai.vercel.app"
+        }
+      ],
+      "destination": "https://YOUR-NEW-DOMAIN/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

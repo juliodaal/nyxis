@@ -21,6 +21,14 @@ const OUT = resolve(ROOT, 'public/og-image.png');
 const pkg = JSON.parse(readFileSync(resolve(ROOT, '../../packages/ui/package.json'), 'utf8'));
 const VERSION = pkg.version;
 
+// Canonical host. Override via env so the OG image regenerates correctly
+// after a domain migration (e.g. SITE_URL=https://nyxis.dev).
+const SITE_HOST = (process.env.SITE_URL ?? 'https://nyxisai.vercel.app').replace(
+  /^https?:\/\//,
+  '',
+);
+const INSTALL_CMD = `npx shadcn@latest add ${SITE_HOST}/r/chat-thread.json`;
+
 // Brand color: oklch(0.55 0.16 277) ≈ srgb(94, 106, 210) ≈ #5e6ad2
 // Dark background:   oklch(0.14 0.012 275) ≈ #1c1d24
 // Foreground:        oklch(0.96 0.005 275) ≈ #f3f3f5
@@ -118,7 +126,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
     <text x="20" y="3" font-family="ui-monospace, 'Geist Mono', monospace"
           font-size="18" font-weight="500" fill="#5e6ad2">$</text>
     <text x="42" y="3" font-family="ui-monospace, 'Geist Mono', monospace"
-          font-size="18" font-weight="500" fill="#f3f3f5">npx shadcn@latest add nyxisai.vercel.app/r/chat-thread.json</text>
+          font-size="18" font-weight="500" fill="#f3f3f5">${INSTALL_CMD}</text>
   </g>
 
   <!-- Footer right: MIT badge -->

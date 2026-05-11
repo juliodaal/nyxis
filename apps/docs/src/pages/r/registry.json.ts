@@ -1,4 +1,5 @@
 import { REGISTRY_ITEMS } from '../../../registry/items';
+import { SITE_URL } from '../../lib/site';
 
 import type { APIRoute } from 'astro';
 
@@ -13,7 +14,7 @@ export const GET: APIRoute = () => {
   const body = {
     $schema: 'https://ui.shadcn.com/schema/registry.json',
     name: 'nyxis',
-    homepage: 'https://nyxisai.vercel.app',
+    homepage: SITE_URL,
     items: REGISTRY_ITEMS.map((item) => ({
       name: item.name,
       type: item.type,

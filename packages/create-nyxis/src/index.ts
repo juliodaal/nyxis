@@ -128,7 +128,14 @@ const STARTERS: readonly RegistryStarter[] = [
   { slug: 'mcp-server-card', label: 'mcp-server-card', hint: 'MCP server card with capabilities' },
 ];
 
-const REGISTRY_BASE = 'https://nyxisai.vercel.app/r';
+// Canonical registry base. Override via the `NYXIS_REGISTRY_URL` env var
+// when testing against a local docs site (`http://localhost:4321/r`) or
+// after a domain migration (e.g. `https://nyxis.dev/r`).
+const REGISTRY_BASE = (process.env.NYXIS_REGISTRY_URL ?? 'https://nyxisai.vercel.app/r').replace(
+  /\/$/,
+  '',
+);
+const SITE_URL = REGISTRY_BASE.replace(/\/r$/, '');
 
 async function main(): Promise<void> {
   // Clear the terminal as part of the CLI welcome experience.
@@ -226,7 +233,7 @@ async function main(): Promise<void> {
       `  ${pc.dim('pnpm dev')}`,
       '',
       pc.dim('Next: install more components from'),
-      pc.dim('  https://nyxisai.vercel.app/components'),
+      pc.dim(`  ${SITE_URL}/components`),
     ].join('\n'),
   );
 }

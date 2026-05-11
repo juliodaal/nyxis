@@ -1,10 +1,12 @@
 import { ArrowRight, Github } from 'lucide-react';
 
 import nyxisPkg from '../../../../../packages/ui/package.json';
+import { registryItemUrl } from '../../lib/site';
 
 import { DotWave } from './DotWave';
 
 const version = nyxisPkg.version;
+const installCommand = `npx shadcn@latest add ${registryItemUrl('chat-message')}`;
 
 /**
  * Marketing hero. Vercel-serious tone, shadcn/linear-aesthetic.
@@ -82,9 +84,7 @@ export default function Hero() {
           <span className="text-brand select-none" aria-hidden="true">
             $
           </span>
-          <span className="text-foreground">
-            npx shadcn@latest add https://nyxisai.vercel.app/r/chat-message.json
-          </span>
+          <span className="text-foreground">{installCommand}</span>
         </div>
       </div>
     </section>
