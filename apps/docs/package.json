@@ -20,7 +20,7 @@
     "@astrojs/mdx": "^4.0.3",
     "@astrojs/react": "^4.1.1",
     "@astrojs/sitemap": "^3.2.1",
-    "@fontsource-variable/geist": "^5.1.1",
+    "@fontsource-variable/geist": "^5.2.9",
     "@fontsource-variable/geist-mono": "^5.1.1",
     "@hookform/resolvers": "^3.9.1",
     "@nyxis/core": "workspace:*",
