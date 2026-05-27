@@ -76,7 +76,7 @@
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.1",
+    "@arethetypeswrong/cli": "^0.18.2",
     "@tailwindcss/cli": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@testing-library/jest-dom": "catalog:",
