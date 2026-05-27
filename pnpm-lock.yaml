@@ -13,7 +13,7 @@ catalogs:
       specifier: ^4.0.0
       version: 4.2.4
     '@testing-library/jest-dom':
-      specifier: ^6.6.3
+      specifier: ^6.9.1
       version: 6.9.1
     '@testing-library/react':
       specifier: ^16.1.0
