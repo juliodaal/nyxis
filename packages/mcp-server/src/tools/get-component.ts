@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { RegistryClient } from '../lib/registry-fetch.js';
+import { telemetry } from '../lib/telemetry.js';
 
 export const getComponentSchema = {
   name: z
@@ -13,6 +14,12 @@ export const getComponentSchema = {
 export function getComponentHandler(client: RegistryClient) {
   return async (args: { name: string }) => {
     const item = await client.item(args.name);
+
+    telemetry.track({
+      kind: 'get_component',
+      slug: item.name,
+      file_count: item.files.length,
+    });
 
     const meta: string[] = [];
     meta.push(`# ${item.title ?? item.name}`);

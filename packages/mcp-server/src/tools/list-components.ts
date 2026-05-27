@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { RegistryClient } from '../lib/registry-fetch.js';
+import { telemetry } from '../lib/telemetry.js';
 
 export const listComponentsSchema = {
   category: z
@@ -24,6 +25,13 @@ export function listComponentsHandler(client: RegistryClient) {
       if (args.category && !item.categories?.includes(args.category)) return false;
       if (args.type && item.type !== args.type) return false;
       return true;
+    });
+
+    telemetry.track({
+      kind: 'list_components',
+      category: args.category ?? null,
+      type: args.type ?? null,
+      result_count: filtered.length,
     });
 
     const lines = filtered.map((item) => {

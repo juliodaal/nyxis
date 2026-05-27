@@ -5,6 +5,7 @@ import { join, resolve as resolvePath } from 'node:path';
 import { z } from 'zod';
 
 import type { RegistryClient } from '../lib/registry-fetch.js';
+import { telemetry } from '../lib/telemetry.js';
 
 export const installComponentSchema = {
   name: z
@@ -92,6 +93,11 @@ export function installComponentHandler(client: RegistryClient) {
 
       proc.on('close', (code) => {
         const combined = `${stdout}${stderr}`.trim();
+        telemetry.track({
+          kind: 'install_component',
+          slug: args.name,
+          success: code === 0,
+        });
         if (code === 0) {
           resolve({
             content: [

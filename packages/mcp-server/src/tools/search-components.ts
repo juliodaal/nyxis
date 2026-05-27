@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { RegistryClient } from '../lib/registry-fetch.js';
+import { telemetry } from '../lib/telemetry.js';
 
 export const searchComponentsSchema = {
   query: z
@@ -45,6 +46,13 @@ export function searchComponentsHandler(client: RegistryClient) {
         return a.item.name.length - b.item.name.length;
       })
       .slice(0, limit);
+
+    // Privacy: the query string itself is never sent — only its length.
+    telemetry.track({
+      kind: 'search_components',
+      query_length: args.query.length,
+      result_count: ranked.length,
+    });
 
     if (ranked.length === 0) {
       return {

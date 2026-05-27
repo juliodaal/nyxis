@@ -1,6 +1,6 @@
 {
   "name": "@nyxis/mcp-server",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "MCP server that exposes the Nyxis registry to AI coding assistants (Claude Code, Cursor, Windsurf, etc.).",
   "license": "MIT",
   "author": "Julio César Daal <juliocesar.daal@gmail.com>",
@@ -50,6 +50,7 @@
     "build": "tsup",
     "lint": "eslint src --max-warnings=0",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "start": "node dist/index.js"
   },
   "dependencies": {
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@types/node": "^22.10.2",
     "tsup": "^8.3.5",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }
